@@ -1,0 +1,14 @@
+- hosts: localhost
+  roles:
+    - archlinux
+
+  vars_prompt:
+    - name: "archlinux_user_name"
+      prompt: "Enter your username"
+      private: no
+    - name: "archlinux_user_password"
+      prompt: "Enter your password"
+      private: yes
+      encrypt: "sha512_crypt"
+      confirm: yes
+      salt_size: 14

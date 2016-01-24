@@ -1,0 +1,4 @@
+---
+- include: connman.yml
+- include: pacman.yml
+- include: user.yml
