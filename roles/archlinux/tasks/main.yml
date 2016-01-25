@@ -1,4 +1,94 @@
 ---
-- include: connman.yml
-- include: pacman.yml
-- include: user.yml
+- name: install connman
+  pacman: name={{ item }} state=present
+  become: yes
+  with_items:
+    - connman
+      #- wpa_supplicant
+
+- name: enable connman
+  service: name=connman state=started enabled=yes
+  become: yes
+
+- name: create connman configuration dir
+  file: path=/etc/connman state=directory 
+  become: yes
+  
+- name: copy connman configuration
+  copy:
+    src: connman/main.conf
+    dest: /etc/connman/main.conf
+    mode: 0644
+  become: yes
+
+- name: install reflector
+  pacman: name=reflector state=present
+  become: yes
+
+- name: enable pacman multilib repo
+  ini_file: 
+      backup: yes
+      dest: /etc/pacman.conf
+      section: multilib
+      option: Include
+      value: /etc/pacman.d/mirrorlist
+  become: yes
+
+- name: update pacman mirrorlist with reflector
+  command: reflector --country "Portugal" -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist
+  become: yes
+
+- name: update pacman package lists
+  command: pacman -Syy --noconfirm
+  become: yes
+
+- name: perform full upgrade
+  pacman: upgrade=yes
+  become: yes
+
+- name: create user "{{ archlinux_user_name }}"
+  user: 
+    name: "{{ archlinux_user_name }}"
+    password: "{{ archlinux_user_password }}"
+    createhome: yes
+    group: users
+    groups: wheel
+    state: present
+  become: yes
+
+- name: install git
+  pacman: name=git state=present
+  become: yes
+
+- name: configure user name as "{{ archlinux_user_name }}"
+  command: "/usr/bin/git config --global user.name \"{{ archlinux_user_name }}\""
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: configure "{{ archlinux_user_name }}" email as "{{ archlinux_user_email }}"
+  command: "/usr/bin/git config --global user.email \"{{ archlinux_user_email }}\""
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: install devel packages
+  pacman: name={{ item }} state=present
+  with_items:
+    - base-devel
+    - gdb
+    - jdk7-openjdk
+    - jdk8-openjdk
+    - maven
+    - python
+    - python2
+  become: yes
+
+- name: set default jdk
+  command: "/usr/bin/archlinux-java set java-8-openjdk"
+  become: yes
+
+- name: copy /etc/environment
+  copy:
+    src: environment
+    dest: /etc/environment
+    mode: 0644
+  become: yes

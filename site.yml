@@ -6,6 +6,9 @@
     - name: "archlinux_user_name"
       prompt: "Enter your username"
       private: no
+    - name: "archlinux_user_email"
+      prompt: "Enter your email"
+      private: no
     - name: "archlinux_user_password"
       prompt: "Enter your password"
       private: yes
