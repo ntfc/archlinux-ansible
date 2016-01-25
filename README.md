@@ -1,0 +1,13 @@
+# Ansible, ArchLinux and GNU stow
+
+> **Still a WIP**
+
+Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible]. Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
+
+There is also a `Vagrantfile` with ArchLinux, but it's just for tests. Eventually it'll be removed.
+
+[dharmab-ansible]: https://github.com/dharmab/ansible-archlinux
+[ntfc-dotfiles]: https://github.com/ntfc/dotfiles
+[install-steps]: https://gist.github.com/ntfc/5dd78a7dc6746c95f786
+
+
