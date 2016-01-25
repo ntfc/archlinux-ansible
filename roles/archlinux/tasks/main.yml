@@ -111,3 +111,29 @@
 - name: stow symlink environment config file
   command: "/usr/bin/stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
   become: yes
+
+- name: make sure vim hasn't been previously installed
+  pacman: name=vim state=absent recurse=yes
+  become: yes
+
+- name: install gvim
+  pacman: name=gvim state=present force=yes
+  become: yes
+
+- name: stow symlink vim configs
+  command: "/usr/bin/stow -d ~/dotfiles -t ~/ vim"
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: install Vundle
+  git:
+    accept_hostkey: yes
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: "~/.vim/bundle/Vundle.vim"
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: run Vundle plugin update
+  command: "/usr/bin/vim +PluginUpdate +qall!"
+  become: yes
+  become_user: "{{ archlinux_user_name }}"

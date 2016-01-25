@@ -5,3 +5,4 @@
 - include: git.yml
 - include: stow.yml
 - include: devel.yml
+- include: vim.yml
