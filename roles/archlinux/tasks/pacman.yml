@@ -12,9 +12,18 @@
       value: /etc/pacman.d/mirrorlist
   become: yes
 
+- name: check if mirrorlist was recently updated
+  # find is not working for some reason
+  #find: paths="/etc/pacman.d/mirrorlist" age=7d file_type="file"
+  stat: path="/etc/pacman.d/mirrorlist"
+  register: mirrorlist_age
+
 - name: update pacman mirrorlist with reflector
   command: reflector --country "Portugal" -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist
   become: yes
+  # find is not working for some reason
+  #when: "{{ mirrorlist_age.matched }} > 0"
+  when: "{{ mirrorlist_age.stat.mtime }} < {{ ansible_date_time.epoch|int - (60 * 60 * 24 * 7) }}"
 
 - name: update pacman package lists
   command: pacman -Syy --noconfirm
