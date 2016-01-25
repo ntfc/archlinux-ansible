@@ -3,4 +3,5 @@
 - include: pacman.yml
 - include: user.yml
 - include: git.yml
+- include: stow.yml
 - include: devel.yml

@@ -15,9 +15,6 @@
   command: "/usr/bin/archlinux-java set java-8-openjdk"
   become: yes
 
-- name: copy /etc/environment
-  copy:
-    src: environment
-    dest: /etc/environment
-    mode: 0644
+- name: stow symlink environment config file
+  command: "/usr/bin/stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
   become: yes

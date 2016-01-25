@@ -1,4 +1,5 @@
 ---
+# TODO: re-organize this with imports as soon as #13861 and #13962 are resolved
 - name: install connman
   pacman: name={{ item }} state=present
   become: yes
@@ -79,6 +80,10 @@
   become: yes
   become_user: "{{ archlinux_user_name }}"
 
+- name: install stow
+  pacman: name=stow state=present
+  become: yes
+
 - name: get my dotfiles
   git:
     accept_hostkey: yes
@@ -103,9 +108,6 @@
   command: "/usr/bin/archlinux-java set java-8-openjdk"
   become: yes
 
-- name: copy /etc/environment
-  copy:
-    src: environment
-    dest: /etc/environment
-    mode: 0644
+- name: stow symlink environment config file
+  command: "/usr/bin/stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
   become: yes

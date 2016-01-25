@@ -13,10 +13,3 @@
   become: yes
   become_user: "{{ archlinux_user_name }}"
 
-- name: get my dotfiles
-  git:
-    accept_hostkey: yes
-    repo: "{{ dotfiles_git }}"
-    dest: ~/dotfiles
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
