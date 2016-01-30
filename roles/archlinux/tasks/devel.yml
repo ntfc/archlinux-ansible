@@ -4,7 +4,6 @@
   with_items:
     - base-devel
     - gdb
-    - jdk7-openjdk
     - jdk8-openjdk
     - maven
     - python
