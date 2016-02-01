@@ -1,0 +1,41 @@
+---
+- name: install lightdm
+  pacman: name={{ item }} state=present
+  with_items:
+    - lightdm
+    - lightdm-gtk-greeter
+    - lxappearance
+    - arandr
+    - numlockx
+    - lxinput
+  become: yes
+
+- name: configure lightdm
+  lineinfile:
+    dest: /etc/lightdm/lightdm.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^greeter-session=', line: 'greeter-session=lightdm-gtk-greeter' }
+    - { regexp: '^greeter-setup-script=', line: 'greeter-setup-script=/usr/bin/numlockx on' }
+  become: yes
+
+- name: enable lightdm service
+  service: name=lightdm enabled=yes
+  become: yes
+
+- name: install themes
+  command: "yaourt -S {{ item }} --noconfirm"
+  with_items:
+    - xcursor-human
+    - hicolor-icon-theme
+    - gnome-colors-icon-theme
+    - gnome-icon-theme-xfce
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: install gui user settings
+  command: "stow -d ~/dotfiles -t ~/ gtk3"
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+

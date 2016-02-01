@@ -2,6 +2,11 @@
 
 > **Still a WIP**
 
+> **TODO**
+> 
+> * See `lineinfile`'s `insertafter` and `insertbefore` options
+> * Sometimes it's necessary to input the sudo password when running yaourt
+
 Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible]. Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
 
 **WARNING:** do not run this against your actual system! This is supposed to be execute on Arch's first install, in order to accelerate some tedious tasks.

@@ -12,47 +12,28 @@
   command: cp -f /etc/sudoers /etc/sudoers.tmp
   become: yes
 
-- name: create POWER alias
+- name: create visudo alias and set some defaults
   lineinfile:
     dest: /etc/sudoers.tmp
     state: present
-    regexp: '^Cmnd_Alias POWER'
-    line: 'Cmnd_Alias POWER = /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot, /usr/bin/systemctl suspend, /usr/bin/systemctl hibernate'
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^Cmnd_Alias POWER', line: 'Cmnd_Alias POWER = /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot, /usr/bin/systemctl suspend, /usr/bin/systemctl hibernate' }
+    - { regexp: '^Cmnd_Alias SERVICE', line: 'Cmnd_Alias SERVICE = /usr/bin/systemctl status, /usr/bin/systemctl is-enabled' }
+    - { regexp: '^Defaults env_keep', line: 'Defaults env_keep += "ftp_proxy http_proxy https_proxy no_proxy"' }
+    - { regexp: '^Defaults env_editor', line: 'Defaults env_editor,editor=/usr/bin/vim:/usr/bin/vi:/usr/bin/nano' }
   become: yes
 
-- name: create SERVICE alias
+- name: give some permissions to "{{ archlinux_user_name }}"
   lineinfile:
     dest: /etc/sudoers.tmp
     state: present
-    regexp: '^Cmnd_Alias SERVICE'
-    line: 'Cmnd_Alias SERVICE = /usr/bin/systemctl status, /usr/bin/systemctl is-enabled'
-  become: yes
-
-- name: set env variables to keep
-  lineinfile:
-    dest: /etc/sudoers.tmp
-    state: present
-    regexp: '^Defaults env_keep'
-    line: 'Defaults env_keep += "ftp_proxy http_proxy https_proxy no_proxy"'
-  become: yes
-
-- name: set visudo editor
-  lineinfile:
-    dest: /etc/sudoers.tmp
-    state: present
-    regexp: '^Defaults env_editor'
-    line: 'Defaults env_editor,editor=/usr/bin/vim:/usr/bin/vi:/usr/bin/nano'
-  become: yes
-
-- name: give "{{ archlinux_user_name }}" sudo permissions
-  lineinfile:
-    dest: /etc/sudoers.tmp
-    state: present
-    regexp: '^{{ archlinux_user_name }} ALL'
-    line: 'ntfc ALL=(ALL) ALL, NOPASSWD: POWER, NOPASSWD: SERVICE'
+    line: "{{ item }}"
+  with_items:
+    - 'ntfc ALL=(ALL) ALL, NOPASSWD: POWER, NOPASSWD: SERVICE'
   become: yes
 
 - name: check if /etc/sudoers.tmp is ok, and copy it to /etc/sudoers
   shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers
   become: yes
-

@@ -4,3 +4,8 @@ ansible_python_interpreter: /usr/bin/python2
 
 #dotfiles_git: git@github.com:ntfc/dotfiles.git
 dotfiles_git: https://github.com/ntfc/dotfiles
+
+package_query_git: https://aur.archlinux.org/package-query.git
+yaourt_git: https://aur.archlinux.org/yaourt.git
+
+infinality_key_id: 962DDE58
