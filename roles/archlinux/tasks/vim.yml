@@ -1,6 +1,10 @@
 ---
+- name: make sure the vim package is not installed
+  pacman: name=vim state=absent
+  become: yes
+
 - name: install gvim
-  pacman: name=gvim state=present force=yes
+  pacman: name=gvim state=present
   become: yes
 
 - name: stow symlink vim configs

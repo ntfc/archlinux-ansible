@@ -4,7 +4,7 @@
   become: yes
   with_items:
     - connman
-      #- wpa_supplicant
+    - wpa_supplicant
 
 - name: enable connman
   service: name=connman state=started enabled=yes

@@ -8,6 +8,7 @@
     - arandr
     - numlockx
     - lxinput
+    - hicolor-icon-theme
   become: yes
 
 - name: configure lightdm
@@ -28,7 +29,6 @@
   command: "yaourt -S {{ item }} --noconfirm"
   with_items:
     - xcursor-human
-    - hicolor-icon-theme
     - gnome-colors-icon-theme
     - gnome-icon-theme-xfce
   become: yes

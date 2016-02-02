@@ -1,17 +1,17 @@
 ---
-#- include: connman.yml
-#- include: pacman.yml
-#- include: user.yml
-#- include: git.yml
-#- include: stow.yml
-#- include: devel.yml
-#- include: vim.yml
-#- include: sudo.yml
-#- include: aur.yml
-#- include: sysutils.yml
-#- include: xorg.yml
-#- include: tty.ymlA
+- include: pacman.yml
+- include: connman.yml
+- include: user.yml
+- include: git.yml
+- include: stow.yml
+- include: devel.yml
+- include: vim.yml
+- include: sudo.yml
+- include: aur.yml
+- include: sysutils.yml
+- include: xorg.yml
+#- include: tty.yml
 # TODO: merge openbox and gui, or simplify openbox
-#- include: openbox.yml
-#- include: gui.yml
+- include: openbox.yml
+- include: gui.yml
 

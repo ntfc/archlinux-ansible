@@ -14,6 +14,14 @@
   command: "/usr/bin/archlinux-java set java-8-openjdk"
   become: yes
 
+- stat: path=/etc/environment
+  register: environment_exists
+
+- name: backup environment config file
+  command: "mv /etc/environment /etc/environment.bak"
+  when: environment_exists.stat.exists == True
+  become: yes
+
 - name: stow symlink environment config file
   command: "/usr/bin/stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
   become: yes
