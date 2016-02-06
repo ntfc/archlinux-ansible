@@ -9,3 +9,5 @@ package_query_git: https://aur.archlinux.org/package-query.git
 yaourt_git: https://aur.archlinux.org/yaourt.git
 
 infinality_key_id: 962DDE58
+
+cower_key_id: 1EB2638FF56C0C53

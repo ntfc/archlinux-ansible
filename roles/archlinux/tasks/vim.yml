@@ -7,8 +7,8 @@
   pacman: name=gvim state=present
   become: yes
 
-- name: stow symlink vim configs
-  command: "/usr/bin/stow -d ~/dotfiles -t ~/ vim"
+- name: stow vim configs
+  command: "stow -d ~/dotfiles -t ~/ vim"
   become: yes
   become_user: "{{ archlinux_user_name }}"
 

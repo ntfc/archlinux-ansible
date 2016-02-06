@@ -1,4 +1,5 @@
 ---
+- include: locale.yml
 - include: pacman.yml
 - include: connman.yml
 - include: user.yml
@@ -14,4 +15,9 @@
 # TODO: merge openbox and gui, or simplify openbox
 - include: openbox.yml
 - include: gui.yml
+- include: audio.yml
+- include: screensaver.yml
+- include: applications.yml
+  #- include: terminal.yml
+  #- include: acpi.yml
 

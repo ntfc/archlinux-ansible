@@ -23,7 +23,7 @@
     - dmenu-xft-mouse-height-fuzzy-history
     - zukitwo-themes
 
-- name: install openbox config
+- name: stow openbox config
   command: "stow -d ~/dotfiles -t ~/ openbox"
   become: yes
   become_user: "{{ archlinux_user_name }}"

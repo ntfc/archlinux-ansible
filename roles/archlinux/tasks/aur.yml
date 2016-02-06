@@ -41,3 +41,14 @@
   become: yes
   become_user: "{{ archlinux_user_name }}"
 
+# now that I have yaourt, I can also install cower
+- name: add cower key
+  shell: "gpg --keyserver pgp.mit.edu --recv-keys {{ cower_key_id }}"
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: install cower
+  command: "yaourt -S cower --noconfirm"
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+

@@ -22,6 +22,6 @@
   when: environment_exists.stat.exists == True
   become: yes
 
-- name: stow symlink environment config file
-  command: "/usr/bin/stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
+- name: stow environment config file
+  command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
   become: yes

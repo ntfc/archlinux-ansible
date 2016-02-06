@@ -7,8 +7,7 @@
 > * See `lineinfile`'s `insertafter` and `insertbefore` options
 > * Sometimes it's necessary to input the sudo password when running yaourt
 > * lightdm is not started on boot. do I need to make sure it's started?
-> * icon installation if failing
-> * locales
+> * icon installation is failing
 
 Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible]. Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
 

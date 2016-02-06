@@ -1,0 +1,38 @@
+- name: install utilities (browsers, file explorer, image viewer, etc) (from repos)
+  pacman: name={{ item }} state=present
+  with_items:
+    - firefox
+    - chromium
+    - ffmpeg
+    - thunar
+    - thunar-volman
+    - thunar-archive-plugin
+    - gvfs
+    - vlc
+    - mousepad
+    - feh
+    - viewnior
+    - keepass
+    - xdotool
+    - xsel
+    - xbindkeys
+    - volumeicon
+  become: yes
+
+- name: install utilities (browsers, file explorer, image viewer, etc) (from aur)
+  command: "yaourt -S {{ item }} --noconfirm"
+  with_items:
+    - cmst
+    - copyq
+    - chromium-widevine
+    - light
+    - volnoti
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: stow some utilities settings
+  command: "stow -d ~/dotfiles -t {{ item.target }} {{ item.package }}"
+  with_items:
+    - { target: ~/, package: copyq }
+  become: yes
+  become_user: "{{ archlinux_user_name }}"

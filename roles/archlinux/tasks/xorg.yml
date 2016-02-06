@@ -14,7 +14,7 @@
     - xf86-input-libinput
   become: yes
 
-- name: copy X11 configs
+- name: stow X11 configs
   command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t / X11"
   become: yes
 
