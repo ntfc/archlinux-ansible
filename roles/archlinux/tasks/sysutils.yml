@@ -40,6 +40,7 @@
     - noto-fonts
     - noto-fonts-emoji
     - ttf-linux-libertine
+    - terminus-font
   become: yes
 
 - name: install infinality

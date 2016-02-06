@@ -18,6 +18,11 @@
 - include: audio.yml
 - include: screensaver.yml
 - include: applications.yml
-  #- include: terminal.yml
+- include: shell.yml
+- include: terminal.yml
   #- include: acpi.yml
 
+- name: stow misc scripts
+  command: "stow -d ~/dotfiles -t ~/ scripts"
+  become: yes
+  become_user: "{{ archlinux_user_name }}"

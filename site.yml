@@ -7,7 +7,7 @@
       prompt: "Enter your username"
       private: no
     - name: "archlinux_user_email"
-      prompt: "Enter your email"
+      prompt: "Enter your email (for gitconfig)"
       private: no
     - name: "archlinux_user_password"
       prompt: "Enter your password"

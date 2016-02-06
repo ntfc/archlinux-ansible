@@ -1,0 +1,36 @@
+---
+- name: make sure default bash configuration is not present
+  file: path={{ item }} state=absent
+  with_items:
+    - ~/.bash_logout
+    - ~/.bash_profile
+    - ~/.bashrc
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: install zsh
+  pacman: name=zsh state=present
+  become: yes
+
+- name: change default shell to zsh
+  user: name={{ item }} shell=/usr/bin/zsh
+  with_items:
+    - root
+    - "{{ archlinux_user_name }}"
+  become: yes
+
+- name: stow alias, bash and zsh
+  command: "stow -d ~/dotfiles -t {{ item.target }} {{ item.package }}"
+  with_items:
+    - { target: ~/, package: alias }
+    - { target: ~/, package: bash }
+    - { target: ~/, package: zsh }
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+- name: create zsh cache dir
+  file: path=~/.cache/zsh state=directory
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
+
+
