@@ -22,6 +22,8 @@
     - obapps
     - dmenu-xft-mouse-height-fuzzy-history
     - zukitwo-themes
+  become: yes
+  become_user: "{{ archlinux_user_name }}"
 
 - name: stow openbox config
   command: "stow -d ~/dotfiles -t ~/ openbox"
