@@ -21,7 +21,7 @@
   become_user: "{{ archlinux_user_name }}"
 
 - name: install package-query
-  shell: "pacman -U /home/{{ archlinux_user_name }}/package-query/*.tar.xz --noconfirm"
+  shell: "pacman -U /home/{{ archlinux_user_name }}/package-query/*.pkg.tar.xz --noconfirm"
   become: yes
 
 - name: makepkg yaourt
@@ -30,7 +30,7 @@
   become_user: "{{ archlinux_user_name }}"
 
 - name: install yaourt
-  shell: "pacman -U /home/{{ archlinux_user_name }}/yaourt/*.tar.xz --noconfirm"
+  shell: "pacman -U /home/{{ archlinux_user_name }}/yaourt/*.pkg.tar.xz --noconfirm"
   become: yes
 
 - name: cleanup package-query and yaourt
