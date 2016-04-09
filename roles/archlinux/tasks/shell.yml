@@ -9,7 +9,10 @@
   become_user: "{{ archlinux_user_name }}"
 
 - name: install zsh
-  pacman: name=zsh state=present
+  pacman: name={{ item }} state=present
+  with_items:
+    - zsh
+    - zsh-completions
   become: yes
 
 - name: change default shell to zsh
