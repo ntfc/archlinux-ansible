@@ -4,6 +4,7 @@
 
 > **TODO**
 > 
+> * Add seafile installation instead of dropbox
 > * See `lineinfile`'s `insertafter` and `insertbefore` options
 > * Sometimes it's necessary to input the sudo password when running yaourt
 
