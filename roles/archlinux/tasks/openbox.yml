@@ -13,6 +13,7 @@
     - xfce4-session
     - file-roller
     - xorg-xvinfo
+    - xdotool
   become: yes
 
 - name: install related openbox packages (from aur)
