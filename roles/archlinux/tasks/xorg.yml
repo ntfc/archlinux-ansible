@@ -7,11 +7,12 @@
     - nvidia-340xx
   become: yes
 
-- name: install touchpad/keyboard libs
+- name: install touchpad/keyboard libs and apps
   pacman: name={{ item }} state=present
   with_items:
     - xorg-xinput
     - xf86-input-libinput
+    - xorg-setxkbmap
   become: yes
 
 - name: stow X11 configs
