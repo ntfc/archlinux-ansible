@@ -31,7 +31,7 @@
     state: present
     line: "{{ item }}"
   with_items:
-    - 'ntfc ALL=(ALL) ALL, NOPASSWD: POWER, NOPASSWD: SERVICE'
+    - '{{ archlinux_user_name }} ALL=(ALL) ALL, NOPASSWD: POWER, NOPASSWD: SERVICE'
   become: yes
 
 - name: check if /etc/sudoers.tmp is ok, and copy it to /etc/sudoers

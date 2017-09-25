@@ -1,4 +1,9 @@
 ---
+# ensure pacman is installed
+- name: install pacman
+  pacman: name=sudo state=present
+  become: yes
+
 - include: locale.yml
 - include: pacman.yml
 - include: connman.yml
