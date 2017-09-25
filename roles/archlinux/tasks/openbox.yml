@@ -22,7 +22,7 @@
     - obkey
     - obapps
     - dmenu-xft-mouse-height-fuzzy-history
-    - zukitwo-themes
+    - zuki-themes
   become: yes
   become_user: "{{ archlinux_user_name }}"
 
