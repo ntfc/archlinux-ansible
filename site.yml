@@ -5,9 +5,14 @@
   vars_prompt:
     - name: "archlinux_user_name"
       prompt: "Enter desired non-root username"
+      default: "nuno"
       private: no
     - name: "archlinux_user_email"
       prompt: "Enter your email (for gitconfig)"
+      private: no
+    - name: "archlinux_user_full_name"
+      prompt: "Enter your full name (for gitconfig)"
+      default: "Nuno Carvalho"
       private: no
     - name: "archlinux_user_password"
       prompt: "Enter your password"
