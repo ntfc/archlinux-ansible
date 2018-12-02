@@ -1,46 +1,51 @@
 ---
-- name: install common system utils
-  pacman: name={{ item }} state=present
-  with_items:
-    - curl
-    - rsync
-    - ntp
-    - htop
-    - nmap
-    - wget
-    - openssh
-    - net-tools
-  become: yes
+- block:
+  - name: install common system utils
+    pacman:
+      name:
+        - curl
+        - rsync
+        - ntp
+        - htop
+        - nmap
+        - wget
+        - openssh
+        - net-tools
+      state: present
+    become: yes
 
-- name: enable ntp
-  service: name=ntpd state=started enabled=yes
-  become: yes
+  - name: enable ntp
+    service: name=ntpd state=started enabled=yes
+    become: yes
 
-- name: install fonts
-  pacman: name={{ item }} state=present force=yes
-  with_items:
-    - ttf-dejavu
-    - ttf-liberation
-    - ttf-droid
-    - ttf-inconsolata
-    - adobe-source-code-pro-fonts
-    - noto-fonts
-    - noto-fonts-emoji
-    - ttf-linux-libertine
-    - terminus-font
-  become: yes
+  - name: install fonts
+    pacman:
+      name:
+        - ttf-dejavu
+        - ttf-liberation
+        - ttf-droid
+        - ttf-inconsolata
+        - adobe-source-code-pro-fonts
+        - noto-fonts
+        - noto-fonts-emoji
+        - ttf-linux-libertine
+        - terminus-font
+      state: present
+    become: yes
 
-- name: create /etc/sysctl.d configuration folder
-  file: path=/etc/sysctl.d/ state=directory mode=755
-  become: yes
-- name: create /etc/sysctl.d configuration file
-  copy: content="" dest=/etc/sysctl.d/99-sysctl.conf force=no mode=640
-  become: yes
+  - name: create /etc/sysctl.d configuration folder
+    file: path=/etc/sysctl.d/ state=directory mode=755
+    become: yes
+  - name: create /etc/sysctl.d configuration file
+    copy: content="" dest=/etc/sysctl.d/99-sysctl.conf force=no mode=640
+    become: yes
 
-- name: enable magic SysRq key
-  lineinfile:
-    dest: /etc/sysctl.d/99-sysctl.conf
-    regexp: '^kernel\.sysrq'
-    line: 'kernel.sysrq = 1'
-  become: yes
+  - name: enable magic SysRq key
+    lineinfile:
+      dest: /etc/sysctl.d/99-sysctl.conf
+      regexp: '^kernel\.sysrq'
+      line: 'kernel.sysrq = 1'
+    become: yes
 
+  tags:
+    - sysutils
