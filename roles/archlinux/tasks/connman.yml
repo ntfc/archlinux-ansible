@@ -21,5 +21,9 @@
       mode: 0644
     become: yes
 
+  - name: install cmst
+    include: cower.yml aur_package=cmst
+    tags: cmst
+
   tags:
     - connman
