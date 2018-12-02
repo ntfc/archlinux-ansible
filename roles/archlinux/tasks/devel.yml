@@ -1,27 +1,33 @@
 ---
-- name: install devel packages
-  pacman: name={{ item }} state=present
-  with_items:
-    - base-devel
-    - gdb
-    - jdk8-openjdk
-    - maven
-    - python
-    - python2
-  become: yes
+- block:
+  - name: install devel packages
+    pacman:
+      name:
+      - base-devel
+      - gdb
+      - jdk8-openjdk
+      - jdk11-openjdk
+      - maven
+      - python
+      - python2
+      state: present
+    become: yes
 
-- name: set default jdk
-  command: "/usr/bin/archlinux-java set java-8-openjdk"
-  become: yes
+  - name: set default jdk
+    command: "/usr/bin/archlinux-java set java-11-openjdk"
+    become: yes
 
-- stat: path=/etc/environment
-  register: environment_exists
+  - stat: path=/etc/environment
+    register: environment_exists
 
-- name: backup environment config file
-  command: "mv /etc/environment /etc/environment.bak"
-  when: environment_exists.stat.exists == True
-  become: yes
+  - name: backup environment config file
+    command: "mv /etc/environment /etc/environment.bak"
+    when: environment_exists.stat.exists == True
+    become: yes
 
-- name: stow environment config file
-  command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
-  become: yes
+  - name: stow environment config file
+    command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t /etc environment"
+    become: yes
+
+  tags:
+    - devel
