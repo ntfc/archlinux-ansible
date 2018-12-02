@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook --connection=local --ask-sudo-pass site.yml
+ansible-playbook --connection=local --become site.yml
