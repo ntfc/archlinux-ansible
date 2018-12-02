@@ -1,26 +1,28 @@
 ---
-- name: write all availables locales to /etc/locale.gen
-  command: "locale -a"
-  become: yes
+- block:
+  - name: write all availables locales to /etc/locale.gen
+    command: "locale -a"
+    become: yes
 
-- name: enable the en_US.UTF-8 locale
-  lineinfile: 
-    dest: /etc/locale.gen
-    regexp: '^en_US.UTF-8'
-    insertafter: '^#en_US.UTF-8'
-    line: 'en_US.UTF-8 UTF-8'
-    state: present
-  become: yes
+  - name: enable the en_US.UTF-8 locale
+    lineinfile: 
+      dest: /etc/locale.gen
+      regexp: '^en_US.UTF-8'
+      insertafter: '^#en_US.UTF-8'
+      line: 'en_US.UTF-8 UTF-8'
+      state: present
+    become: yes
 
-- name: add locale to /etc/locale.conf
-  lineinfile:
-    dest: /etc/locale.conf
-    create: yes
-    state: present
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-  with_items:
-    - { regexp: '^LANG=', line: 'LANG=en_US.UTF-8' }
-    - { regexp: '^LANGUAGE=', line: 'LANGUAGE=en_US.UTF-8' }
-  become: yes
-
+  - name: add locale to /etc/locale.conf
+    lineinfile:
+      dest: /etc/locale.conf
+      create: yes
+      state: present
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+    with_items:
+      - { regexp: '^LANG=', line: 'LANG=en_US.UTF-8' }
+      - { regexp: '^LANGUAGE=', line: 'LANGUAGE=en_US.UTF-8' }
+    become: yes
+  tags:
+    - locale
