@@ -1,0 +1,20 @@
+---
+# aur_package: aur package name to be downloaded and installed with cower
+- block:
+  - name: use cower to download {{ aur_package }}
+    command: chdir=/tmp cower -d {{ aur_package }}
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: install {{ aur_package }}
+    command: chdir=/tmp/{{ aur_package }} makepkg -si --noconfirm
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: clean up {{ aur_package }}
+    file: path=/tmp/{{ aur_package }} state=absent
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  tags:
+    - cower
