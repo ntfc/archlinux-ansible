@@ -11,11 +11,17 @@
         - wget
         - openssh
         - net-tools
+        - cronie
+        - gnu-netcat
       state: present
     become: yes
 
   - name: enable ntp
     service: name=ntpd state=started enabled=yes
+    become: yes
+
+  - name: enable cronie
+    service: name=cronie state=started enabled=yes
     become: yes
 
   - name: install fonts
