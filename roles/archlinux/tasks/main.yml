@@ -20,14 +20,18 @@
 # TODO: merge openbox and gui, or simplify openbox
 - include: openbox.yml
 - include: gui.yml
+- include: bluetooth.yml
 - include: audio.yml
 - include: screensaver.yml
 - include: applications.yml
 - include: shell.yml
 - include: terminal.yml
-  #- include: acpi.yml
+#- include: acpi.yml
+- include: syncthing.yml
 
 - name: stow misc scripts
   command: "stow -d ~/dotfiles -t ~/ scripts"
   become: yes
   become_user: "{{ archlinux_user_name }}"
+  tags:
+    - misc
