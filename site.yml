@@ -14,8 +14,12 @@
       prompt: "Enter your full name (for gitconfig)"
       default: "Nuno Carvalho"
       private: no
+    - name: "install_nvidia"
+      prompt: "Install nvidia?"
+      default: False
+      private: no
     - name: "archlinux_user_password"
-      prompt: "Enter your password"
+      prompt: "Enter password for non-root username"
       private: yes
       encrypt: "sha512_crypt"
       confirm: yes

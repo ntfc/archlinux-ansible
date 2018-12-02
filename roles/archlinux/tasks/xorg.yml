@@ -1,21 +1,32 @@
 ---
-- name: install xorg (with nvidia)
-  pacman: name={{ item }} state=present
-  with_items:
+- block:
+  - name: install xorg
+    pacman:
+      name:
+        - xorg
+        - xorg-apps
+      state: present
+    become: yes
+
+  - name: install nvidia
+    pacman:
+      name: nvidia
+      state: present
+    become: yes
+    when: install_nvidia|bool
+
+  - name: install touchpad/keyboard libs and apps
+    pacman:
+      name:
+        - xorg-xinput
+        - xf86-input-libinput
+        - xorg-setxkbmap
+      state: present
+    become: yes
+
+  - name: stow X11 configs
+    command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t / X11"
+    become: yes
+
+  tags:
     - xorg
-    - xorg-apps
-    - nvidia-340xx
-  become: yes
-
-- name: install touchpad/keyboard libs and apps
-  pacman: name={{ item }} state=present
-  with_items:
-    - xorg-xinput
-    - xf86-input-libinput
-    - xorg-setxkbmap
-  become: yes
-
-- name: stow X11 configs
-  command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t / X11"
-  become: yes
-
