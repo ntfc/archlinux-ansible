@@ -35,7 +35,9 @@
     become: yes
 
   - name: perform full upgrade
-    pacman: upgrade=yes
+    pacman:
+      update_cache: yes
+      upgrade: yes
     become: yes
 
   tags:
