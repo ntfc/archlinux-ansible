@@ -1,8 +1,17 @@
 ---
 - block:
   - name: install git
-    pacman: name=git state=present
+    pacman:
+      name:
+        - git
+        - diff-so-fancy
+      state: present
     become: yes
+
+  - name: stow git settings
+    command: "stow -d ~/dotfiles -t ~/ git"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
 
   - name: configure user name as "{{ archlinux_user_name }}"
     command: "/usr/bin/git config --global user.name \"{{ archlinux_user_name }}\""
