@@ -1,6 +1,8 @@
 ---
 # vars file for archlinux
-ansible_python_interpreter: /usr/bin/python2
+default_country: Germany
+
+# ansible_python_interpreter: /usr/bin/python3
 
 #dotfiles_git: git@github.com:ntfc/dotfiles.git
 dotfiles_git: https://github.com/ntfc/dotfiles
