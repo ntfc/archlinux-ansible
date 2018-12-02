@@ -22,6 +22,7 @@
         - volumeicon
         - light
         - clementine
+        - rofi
       state: present
     become: yes
 
@@ -35,6 +36,7 @@
     command: "stow -d ~/dotfiles -t {{ item.target }} {{ item.package }}"
     with_items:
       - { target: ~/, package: copyq }
+      - { target: ~/, package: rofi }
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
