@@ -1,47 +1,42 @@
 ---
-- name: install openbox and related packages (from repos)
-  pacman: name={{ item }} state=present
-  with_items: 
+- block:
+  - name: install openbox and related packages
+    pacman:
+      name:
+        - openbox
+        - obconf
+        - wmctrl
+        - xorg-xprop
+        - xterm
+        - xfce4-panel
+        - xfce4-screenshooter
+        - xfce4-notifyd
+        - xfce4-session
+        - file-roller
+        - xorg-xvinfo
+        - xdotool
+      state: present
+    become: yes
+
+  - name: stow openbox config
+    command: "stow -d ~/dotfiles -t ~/ openbox"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: download setlayout.c
+    get_url: url=http://openbox.org/dist/tools/setlayout.c dest=~/setlayout.c
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: compile setlayout.c
+    command: "gcc -o ~/.config/openbox/setlayout ~/setlayout.c -lX11"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: remove setlayout.c
+    file: path=~/setlayout.c state=absent
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  tags:
     - openbox
-    - obconf
-    - wmctrl
-    - xorg-xprop
-    - xterm
-    - xfce4-panel
-    - xfce4-screenshooter
-    - xfce4-notifyd
-    - xfce4-session
-    - file-roller
-    - xorg-xvinfo
-    - xdotool
-  become: yes
-
-- name: install related openbox packages (from aur)
-  command: "yaourt -S {{ item }} --noconfirm"
-  with_items:
-    - obkey
-    - obapps
-    - dmenu-xft-mouse-height-fuzzy-history
-    - zuki-themes
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
-
-- name: stow openbox config
-  command: "stow -d ~/dotfiles -t ~/ openbox"
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
-
-- name: download setlayout.c
-  get_url: url=http://openbox.org/dist/tools/setlayout.c dest=~/setlayout.c
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
-
-- name: compile setlayout.c
-  command: "gcc -o ~/.config/openbox/setlayout ~/setlayout.c -lX11"
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
-
-- name: remove setlayout.c
-  file: path=~/setlayout.c state=absent
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
