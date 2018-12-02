@@ -6,8 +6,8 @@
       state: present
     become: yes
 
-  - name: enable connman
-    service: name=connman state=started enabled=yes
+  - name: enable connman (but not start)
+    service: name=connman enabled=yes
     become: yes
 
   - name: create connman configuration dir
