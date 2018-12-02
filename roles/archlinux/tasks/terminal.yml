@@ -1,35 +1,38 @@
 ---
-- name: install urxvt
-  command: "yaourt -S {{ item }} --noconfirm"
-  with_items:
-    - rxvt-unicode-patched
-    - rxvt-unicode-terminfo
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
+- block:
+  - name: install rxvt-unicode-patched
+    include: cower.yml aur_package=rxvt-unicode-patched
 
-- name: stow urxvt
-  command: "stow -d ~/dotfiles -t ~/ urxvt"
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
+  - name: install rxvt-unicode-terminfo
+    pacman: name=rxvt-unicode-terminfo state=present
+    become: yes
 
-- name: set urxvt icon
-  shell: "echo \"Urxvt*iconFile: /home/{{ archlinux_user_name }}/.local/share/icons/hicolor/128x128/apps/urxvt.png\" > ~/.config/Xresources/urxvt-icon"
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
+  - name: stow urxvt
+    command: "stow -d ~/dotfiles -t ~/ urxvt"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
 
-- name: install tmux
-  pacman: name=tmux state=present
-  become: yes
+  - name: set urxvt icon
+    shell: "echo \"Urxvt*iconFile: /home/{{ archlinux_user_name }}/.local/share/icons/hicolor/128x128/apps/urxvt.png\" > ~/.config/Xresources/urxvt-icon"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
 
-- name: install tmux plugin manager
-  git:
-    accept_hostkey: yes
-    repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
+  - name: install tmux
+    pacman: name=tmux state=present
+    become: yes
 
-- name: stow tmux
-  command: "stow -d ~/dotfiles -t ~/ tmux"
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
+  - name: install tmux plugin manager
+    git:
+      accept_hostkey: yes
+      repo: https://github.com/tmux-plugins/tpm
+      dest: ~/.tmux/plugins/tpm
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: stow tmux
+    command: "stow -d ~/dotfiles -t ~/ tmux"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  tags:
+    - terminal
