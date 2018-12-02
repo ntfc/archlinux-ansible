@@ -16,10 +16,9 @@
 - include: aur.yml
 - include: sysutils.yml
 - include: xorg.yml
-#- include: tty.yml
-# TODO: merge openbox and gui, or simplify openbox
 - include: openbox.yml
 - include: gui.yml
+  #- include: xfce.yml
 - include: bluetooth.yml
 - include: audio.yml
 - include: screensaver.yml
@@ -28,10 +27,7 @@
 - include: terminal.yml
 - include: acpi.yml
 - include: syncthing.yml
+- include: calendar.yml
+- include: stow-configs.yml
 
-- name: stow misc scripts
-  command: "stow -d ~/dotfiles -t ~/ scripts"
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
-  tags:
-    - misc
+

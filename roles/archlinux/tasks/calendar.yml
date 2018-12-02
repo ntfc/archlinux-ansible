@@ -1,0 +1,25 @@
+---
+- block:
+  - name: install khal and vdirsyncer
+    pacman:
+      name:
+        - khal
+        - vdirsyncer
+      state: present
+    become: yes
+
+  - name: stow calendar configurations
+    command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t ~/ vdirsyncer"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: create cronjob for vdirsyncer
+    cron:
+      name: "vdirsyncer cron job every 1h"
+      special_time: hourly
+      job: "/home/{{ archlinux_user_name }}/.scripts/run-vdirsyncer-sync.sh"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  tags:
+    - calendar

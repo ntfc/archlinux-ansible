@@ -1,0 +1,18 @@
+---
+- block:
+  - name: stow root configurations
+    command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t {{ item.target }} {{ item.package }}"
+    with_items:
+      - { target: /, package: udev }
+    become: yes
+
+  - name: stow user {{ archlinux_user_name }} configurations
+    command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t {{ item.target }} {{ item.package }}"
+    with_items:
+      - { target: ~/, package: scripts }
+      - { target: ~/, package: zathura }
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  tags:
+    - stow-configs
