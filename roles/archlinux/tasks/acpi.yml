@@ -1,0 +1,24 @@
+---
+- block:
+  - name: install acpid
+    pacman: name=acpid state=present
+    become: yes
+
+  - name: stow acpi settings
+    command: "stow -d ~/dotfiles -t ~/ acpi"
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: configure acpid
+    lineinfile:
+      dest: /etc/acpi/events/anything
+      regexp: "^action="
+      line: "action=/home/{{ archlinux_user_name }}/.scripts/acpi/handler.sh %e"
+    become: yes
+
+  - name: enable acpid
+    service: name=acpid state=started enabled=yes
+    become: yes
+
+  tags:
+    - acpi

@@ -26,7 +26,7 @@
 - include: applications.yml
 - include: shell.yml
 - include: terminal.yml
-#- include: acpi.yml
+- include: acpi.yml
 - include: syncthing.yml
 
 - name: stow misc scripts
