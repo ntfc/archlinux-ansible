@@ -1,10 +1,14 @@
 ---
-- name: create user "{{ archlinux_user_name }}"
-  user: 
-    name: "{{ archlinux_user_name }}"
-    password: "{{ archlinux_user_password }}"
-    createhome: yes
-    group: users
-    groups: wheel
-    state: present
-  become: yes
+- block:
+  - name: create user "{{ archlinux_user_name }}"
+    user: 
+      name: "{{ archlinux_user_name }}"
+      password: "{{ archlinux_user_password }}"
+      createhome: yes
+      group: users
+      groups: wheel
+      state: present
+    become: yes
+
+  tags:
+  - user
