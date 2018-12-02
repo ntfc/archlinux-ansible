@@ -18,7 +18,6 @@
 - include: xorg.yml
 - include: openbox.yml
 - include: gui.yml
-  #- include: xfce.yml
 - include: bluetooth.yml
 - include: audio.yml
 - include: screensaver.yml
