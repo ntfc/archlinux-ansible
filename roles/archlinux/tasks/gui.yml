@@ -13,6 +13,7 @@
         - gnome-icon-theme
         - hicolor-icon-theme
         - adwaita-icon-theme
+        - redshift
 
   - name: configure lightdm
     lineinfile:
@@ -33,6 +34,7 @@
     with_items:
       - { target: ~/, package: gtk3 }
       - { target: ~/, package: icons }
+      - { target: ~/, package: redshift }
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
