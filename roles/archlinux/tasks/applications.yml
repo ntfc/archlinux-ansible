@@ -23,6 +23,10 @@
         - light
         - clementine
         - rofi
+        - zathura
+        - zathura-ps
+        - zathura-djvu
+        - zathura-pdf-mupdf
       state: present
     become: yes
 
