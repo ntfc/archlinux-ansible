@@ -1,37 +1,42 @@
-- name: install utilities (browsers, file explorer, image viewer, etc) (from repos)
-  pacman: name={{ item }} state=present
-  with_items:
-    - firefox
-    - chromium
-    - ffmpeg
-    - thunar
-    - thunar-volman
-    - thunar-archive-plugin
-    - gvfs
-    - vlc
-    - mousepad
-    - feh
-    - viewnior
-    - keepass
-    - xsel
-    - xbindkeys
-    - volumeicon
-  become: yes
+---
+- block:
+  - name: install utilities (browsers, file explorer, image viewer, etc)
+    pacman:
+      name:
+        - firefox
+        - chromium
+        - ffmpeg
+        - thunar
+        - thunar-volman
+        - thunar-archive-plugin
+        - gvfs
+        - vlc
+        - mousepad
+        - geany
+        - geany-plugins
+        - feh
+        - viewnior
+        - keepassxc
+        - xsel
+        - xbindkeys
+        - volumeicon
+        - light
+        - clementine
+      state: present
+    become: yes
 
-- name: install utilities (browsers, file explorer, image viewer, etc) (from aur)
-  command: "yaourt -S {{ item }} --noconfirm"
-  with_items:
-    - cmst
-    - copyq
-    - chromium-widevine
-    - light
-    - volnoti
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
+  - name: install copy
+    include: cower.yml aur_package=copyq
 
-- name: stow some utilities settings
-  command: "stow -d ~/dotfiles -t {{ item.target }} {{ item.package }}"
-  with_items:
-    - { target: ~/, package: copyq }
-  become: yes
-  become_user: "{{ archlinux_user_name }}"
+  - name: install volnoti
+    include: cower.yml aur_package=volnoti
+
+  - name: stow some utilities settings
+    command: "stow -d ~/dotfiles -t {{ item.target }} {{ item.package }}"
+    with_items:
+      - { target: ~/, package: copyq }
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  tags:
+    - applications
