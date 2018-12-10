@@ -45,4 +45,7 @@
   - name: create /etc/sysctl.d configuration file
     copy: content="" dest=/etc/sysctl.d/99-sysctl.conf force=no mode=640
     become: yes
+    
+  tags:
+    - sysutils
 
