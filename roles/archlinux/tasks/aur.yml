@@ -13,8 +13,8 @@
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
-  - name: makepkg cower
-    shell: 'cd /tmp/cower && makepkg --noconfirm -f -s'
+  - name: install cower
+    shell: 'cd /tmp/cower && makepkg --noconfirm -f -s -i'
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
