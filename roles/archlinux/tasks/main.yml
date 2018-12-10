@@ -7,13 +7,13 @@
 - include: locale.yml
 - include: pacman.yml
 - include: user.yml
+- include: aur.yml
 - include: connman.yml
 - include: git.yml
 - include: stow.yml
 - include: devel.yml
 - include: vim.yml
 - include: sudo.yml
-- include: aur.yml
 - include: sysutils.yml
 - include: xorg.yml
 - include: openbox.yml
