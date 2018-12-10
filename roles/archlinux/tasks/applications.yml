@@ -28,11 +28,9 @@
         - zathura-djvu
         - zathura-pdf-mupdf
         - qbittorrent
+        - copyq
       state: present
     become: yes
-
-  - name: install copy
-    include: cower.yml aur_package=copyq
 
   - name: install volnoti
     include: cower.yml aur_package=volnoti
