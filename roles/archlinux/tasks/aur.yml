@@ -1,7 +1,7 @@
 ---
 - block:
   - name: add cower key
-    shell: "gpg --keyserver pgp.mit.edu --recv-keys {{ cower_key_id }}"
+    shell: "gpg --keyserver keys.gnupg.net --recv-keys {{ cower_key_id }}"
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
