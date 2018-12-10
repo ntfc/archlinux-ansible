@@ -6,8 +6,8 @@
 
 - include: locale.yml
 - include: pacman.yml
-- include: connman.yml
 - include: user.yml
+- include: connman.yml
 - include: git.yml
 - include: stow.yml
 - include: devel.yml
