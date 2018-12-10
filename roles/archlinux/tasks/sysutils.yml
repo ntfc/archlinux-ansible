@@ -46,12 +46,3 @@
     copy: content="" dest=/etc/sysctl.d/99-sysctl.conf force=no mode=640
     become: yes
 
-  - name: enable magic SysRq key
-    lineinfile:
-      dest: /etc/sysctl.d/99-sysctl.conf
-      regexp: '^kernel\.sysrq'
-      line: 'kernel.sysrq = 1'
-    become: yes
-
-  tags:
-    - sysutils

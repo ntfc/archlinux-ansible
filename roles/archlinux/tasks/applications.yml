@@ -27,6 +27,7 @@
         - zathura-ps
         - zathura-djvu
         - zathura-pdf-mupdf
+        - qbittorrent
       state: present
     become: yes
 

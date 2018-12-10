@@ -1,12 +1,21 @@
 ---
 - block:
-  - name: install git
+  - name: install git and stow
     pacman:
       name:
         - git
+        - stow
         - diff-so-fancy
       state: present
     become: yes
+
+  - name: get my dotfiles from {{ dotfiles_git }}
+    git:
+      accept_hostkey: yes
+      repo: "{{ dotfiles_git }}"
+      dest: ~/dotfiles
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
 
   - name: stow git settings
     command: "stow -d ~/dotfiles -t ~/ git"
@@ -30,3 +39,4 @@
 
   tags:
     - git
+    - stow
