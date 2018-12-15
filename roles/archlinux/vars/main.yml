@@ -1,6 +1,7 @@
 ---
 # vars file for archlinux
 default_country: Germany
+default_timezone: Europe/Berlin
 
 #dotfiles_git: git@github.com:ntfc/dotfiles.git
 dotfiles_git: https://github.com/ntfc/dotfiles
