@@ -1,10 +1,17 @@
 ---
 - block:
+  - name: set timezone to {{ default_timezone }}
+    file:
+      src: /usr/share/zoneinfo/{{ default_timezone }}
+      dest: /etc/localtime
+      state: link
+    become: yes
+
   - name: write all availables locales to /etc/locale.gen
     command: "locale-gen"
     become: yes
 
-  - name: enable the {{ item }} locale
+  - name: enable the necessary locales
     lineinfile: 
       dest: /etc/locale.gen
       regexp: "^{{ item }}"
