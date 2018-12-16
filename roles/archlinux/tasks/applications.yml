@@ -29,6 +29,7 @@
         - zathura-pdf-mupdf
         - copyq
         - powertop
+        - cbatticon
       state: present
     become: yes
 
