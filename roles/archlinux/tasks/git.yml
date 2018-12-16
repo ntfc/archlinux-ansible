@@ -22,18 +22,10 @@
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
-  - name: configure user name as "{{ archlinux_user_name }}"
-    command: "/usr/bin/git config --global user.name \"{{ archlinux_user_name }}\""
-    become: yes
-    become_user: "{{ archlinux_user_name }}"
-
   - name: configure "{{ archlinux_user_name }}" email as "{{ archlinux_user_email }}"
-    command: "/usr/bin/git config --global user.email \"{{ archlinux_user_email }}\""
-    become: yes
-    become_user: "{{ archlinux_user_name }}"
-
-  - name: configure "{{ archlinux_user_name }}" full name as "{{ archlinux_user_full_name }}"
-    command: "/usr/bin/git config --global user.name \"{{ archlinux_user_full_name }}\""
+    template:
+      src: gitconfig-private.j2
+      dest: ~/.gitconfig-private
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
