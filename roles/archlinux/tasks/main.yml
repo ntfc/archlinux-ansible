@@ -20,6 +20,7 @@
 - include: bluetooth.yml
 - include: audio.yml
 - include: screensaver.yml
+- include: networking.yml
 - include: applications.yml
 - include: shell.yml
 - include: terminal.yml

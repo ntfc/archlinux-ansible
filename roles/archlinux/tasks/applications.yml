@@ -27,8 +27,8 @@
         - zathura-ps
         - zathura-djvu
         - zathura-pdf-mupdf
-        - qbittorrent
         - copyq
+        - powertop
       state: present
     become: yes
 

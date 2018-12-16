@@ -1,0 +1,17 @@
+---
+- block:
+  - name: install common networking packages
+    pacman:
+      name:
+        - openresolv
+        - qbittorrent
+        - openvpn
+      state: present
+    become: yes
+
+  - name: install volnoti
+    include: cower.yml aur_package=openvpn-update-resolv-conf-git
+
+  tags:
+    - network
+    - networking
