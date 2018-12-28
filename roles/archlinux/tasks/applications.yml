@@ -30,6 +30,9 @@
         - copyq
         - powertop
         - cbatticon
+        - gnucash
+        - gimp
+        - speedcrunch
       state: present
     become: yes
 
