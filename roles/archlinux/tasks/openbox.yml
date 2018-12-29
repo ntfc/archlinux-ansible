@@ -18,6 +18,9 @@
       state: present
     become: yes
 
+  - name: install obkey
+    include: cower.yml aur_package=obkey
+
   - name: stow openbox config
     command: "stow -d ~/dotfiles -t ~/ openbox"
     become: yes
