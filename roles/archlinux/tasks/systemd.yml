@@ -9,10 +9,22 @@
     with_items:
       - { option: 'HandlePowerKey', value: 'lock' }
       - { option: 'HandleSuspendKey', value: 'suspend' }
-      - { option: 'HandleLidSwitch', value: 'suspend-then-hibernate' }
-      - { option: 'HandleLidSwitchDocked', value: 'ignore' }
-      - { option: 'HandleLidSwitchExternalPower', value: 'suspend' }
+      - { option: 'HandleLidSwitch', value: 'suspend-then-hibernate' } # when on battery
+      - { option: 'HandleLidSwitchDocked', value: 'ignore' } # when plugged to power + connected to monitor
+      - { option: 'HandleLidSwitchExternalPower', value: 'suspend' } # when plugged to power
     notify: 
+      - restart logind
+    become: yes
+
+  - name: configure systemd sleep
+    ini_file:
+      dest: /etc/systemd/sleep.conf
+      section: Sleep
+      option: "{{ item.option }}"
+      value: "{{ item.value }}"
+    with_items:
+      - { option: "HibernateDelaySec", value: 750 } # 15 minutes
+    notify:
       - restart logind
     become: yes
 
