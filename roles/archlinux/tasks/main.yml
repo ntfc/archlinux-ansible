@@ -6,6 +6,7 @@
 
 - include: locale.yml
 - include: pacman.yml
+- include: systemd.yml
 - include: user.yml
 - include: sudo.yml
 - include: aur.yml
