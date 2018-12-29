@@ -1,2 +1,5 @@
 ---
-# handlers file for archlinux
+- name: restart logind
+  service:
+    name: systemd-logind
+    state: restarted
