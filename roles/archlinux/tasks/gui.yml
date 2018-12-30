@@ -45,17 +45,6 @@
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
-  - name: stow root startup settings
-    command: "stow -d /home/{{ archlinux_user_name }}/dotfiles -t /opt xdg-autostart"
-    become: yes
-
-  - name: change lightdm session-setup-script
-    lineinfile:
-      dest: /etc/lightdm/lightdm.conf
-      regexp: '^session-setup-script='
-      line: 'session-setup-script=/opt/remove-xdg-autostart'
-    become: yes
-
   - name: install mons
     include: cower.yml aur_package=mons
 
