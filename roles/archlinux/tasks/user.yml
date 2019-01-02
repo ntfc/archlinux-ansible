@@ -6,7 +6,7 @@
       password: "{{ archlinux_user_password }}"
       createhome: yes
       group: users
-      groups: wheel
+      groups: wheel,network
       state: present
     become: yes
 
