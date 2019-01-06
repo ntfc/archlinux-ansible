@@ -34,6 +34,7 @@
       mode: 0644
     with_items:
       - { src: modprobe.d/oss.conf, dst: /etc/modprobe.d/oss.conf }
+      - { src: modprobe.d/nobeep.conf, dst: /etc/modprobe.d/nobeep.conf }
       - { src: libao.conf, dst: /etc/libao.conf }
     become: yes
 
