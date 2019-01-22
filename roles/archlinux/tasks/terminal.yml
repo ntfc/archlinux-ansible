@@ -17,6 +17,18 @@
     become: yes
     become_user: "{{ archlinux_user_name }}"
 
+  - name: create urxvt ext directory
+    file: path=~/.urxvt/ext/ state=directory
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
+  - name: install urxvt-font-size
+    get_url:
+      url: https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size
+      dest: ~/.urxvt/ext/font-size
+    become: yes
+    become_user: "{{ archlinux_user_name }}"
+
   - name: install tmux
     pacman: name=tmux state=present
     become: yes
