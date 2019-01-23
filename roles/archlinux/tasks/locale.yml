@@ -20,11 +20,12 @@
       state: present
     with_items:
       - 'en_US.UTF-8 UTF-8'
+      - 'en_GB.UTF-8 UTF-8'
       - 'pt_PT.UTF-8 UTF-8'
       - 'de_DE.UTF-8 UTF-8'
     become: yes
 
-  - name: add en_US.UTF-8 to /etc/locale.conf
+  - name: add locale configuration to /etc/locale.conf
     lineinfile:
       dest: /etc/locale.conf
       create: yes
@@ -35,7 +36,7 @@
       - { regexp: '^LANG=', line: 'LANG=en_US.UTF-8' }
       - { regexp: '^LANGUAGE=', line: 'LANGUAGE=en_US.UTF-8' }
       - { regexp: '^LC_MONETARY=', line: 'LC_MONETARY=pt_PT.UTF-8' }
-      - { regexp: '^LC_TIME=', line: 'LC_TIME=pt_PT.UTF-8' }
+      - { regexp: '^LC_TIME=', line: 'LC_TIME=en_GB.UTF-8' }
     become: yes
   tags:
     - locale
