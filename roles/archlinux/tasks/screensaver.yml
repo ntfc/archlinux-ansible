@@ -1,5 +1,10 @@
 ---
 - block:
+  # todo: make slock the default, and xscreensaver an option
+  - name: install slock
+    pacman: name=slock state=present
+    become: yes
+
   - name: install xscreensaver-arch-logo
     include: cower.yml aur_package=xscreensaver-arch-logo
 
