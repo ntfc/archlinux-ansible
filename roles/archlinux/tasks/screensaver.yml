@@ -1,25 +1,24 @@
 ---
 - block:
-  # todo: make slock the default, and xscreensaver an option
   - name: install slock
     pacman: name=slock state=present
-    become: yes
-
-  - name: install xscreensaver-arch-logo
-    include: cower.yml aur_package=xscreensaver-arch-logo
-
-  - name: remove gdm installed as a dependency of xscreensaver-arch-logo
-    pacman: name=gdm state=absent
     become: yes
 
   - name: install xss-lock
     pacman: name=xss-lock state=present
     become: yes
 
-  - name: stow xscreensaver settings
-    command: "stow -d ~/dotfiles -t ~/ xscreensaver"
-    become: yes
-    become_user: "{{ archlinux_user_name }}"
+#  - name: install xscreensaver-arch-logo
+#    include: cower.yml aur_package=xscreensaver-arch-logo
+
+#  - name: remove gdm installed as a dependency of xscreensaver-arch-logo
+#    pacman: name=gdm state=absent
+#    become: yes
+
+#  - name: stow xscreensaver settings
+#    command: "stow -d ~/dotfiles -t ~/ xscreensaver"
+#    become: yes
+#    become_user: "{{ archlinux_user_name }}"
 
   tags:
     - screensaver
