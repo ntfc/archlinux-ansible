@@ -1,0 +1,20 @@
+---
+- name: run pacman update
+  pacman: update_cache=yes upgrade=yes
+  become: yes
+
+- name: install reflector
+  pacman: name=reflector state=present
+  become: yes
+  when: pacman.mirror.country is defined
+
+- name: use reflector to obtain fastest mirrors
+  command: reflector --country "{{ pacman.mirror.country }}" -l 200 -p https --sort rate --save /etc/pacman.d/mirrorlist
+  become: yes
+  when: pacman.mirror.country is defined
+
+- name: install base packages
+  pacman:
+  become: yes
+
+  # todo; install aur, and then overdue

@@ -1,0 +1,34 @@
+= Ansible and ArchLinux
+
+Collection of ansible playbooks and roles used to install and maintain my personal archlinux installation.
+
+== Requirements
+
+Before using this you need to ensure you have already have a barebones archlinux up and running with the following:
+* `python`
+* `python-passlib`
+
+Then you must ensure the following are installed if you require a specific function:
+* suspend/hibernate: swap file or swap partition
+* 
+
+== Configuration file
+
+
+
+== Playbooks
+
+* system configuration
+* user configuration
+*
+
+Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible].
+Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
+
+
+
+== References
+
+[dharmab-ansible]: https://github.com/dharmab/ansible-archlinux
+[ntfc-dotfiles]: https://github.com/ntfc/dotfiles
+[install-steps]: https://gist.github.com/ntfc/5dd78a7dc6746c95f786

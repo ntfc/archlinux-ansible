@@ -1,0 +1,6 @@
+# This playbook should only be executed once per installation: right after
+# finishing the initial archlinux installation.
+- hosts: localhost
+  connection: local
+  roles:
+    - localization

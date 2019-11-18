@@ -1,0 +1,61 @@
+---
+- name: generate available locales
+  command: locale-gen
+  become: yes
+
+- name: enable locales
+  lineinfile: 
+    dest: /etc/locale.gen
+    regexp: "^{{ item }}"
+    insertafter: "^#{{ item }}"
+    line: "{{ item }}"
+    state: present
+  with_items: "{{ system.locale.enabled }}"
+  become: yes
+
+- name: set locale\'s language
+  lineinfile:
+    dest: /etc/locale.conf
+    create: yes
+    state: present
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^LANG=', line: 'LANG={{ locale.language }}' }
+    - { regexp: '^LANGUAGE=', line: 'LANGUAGE={{ locale.language }}' }
+  become: yes
+
+- name: set locale\'s monetary
+  lineinfile:
+    dest: /etc/locale.conf
+    create: yes
+    state: present
+    regexp: "^LC_MONETARY="
+    line: "LC_MONETARY={{ locale.monetary }}"
+  when: locale.monetary is defined
+  become: yes
+
+- name: set locale\'s time
+  lineinfile:
+    dest: /etc/locale.conf
+    create: yes
+    state: present
+    regexp: "^LC_TIME="
+    line: "LC_TIME={{ locale.time }}"
+  when: locale.time is defined
+  become: yes
+
+- name: set timezone
+  file:
+    src: /usr/share/zoneinfo/{{ timezone }}
+    dest: /etc/localtime
+    state: link
+  become: yes
+
+- name: install ntp
+  pacman: name=ntp state=present
+  become: yes
+
+- name: start and enable ntp
+  service: name=ntpd state=started enabled=yes
+  become: yes
