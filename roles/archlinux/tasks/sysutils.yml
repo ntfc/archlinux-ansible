@@ -11,6 +11,7 @@
         - wget
         - openssh
         - net-tools
+        - wireless_tools
         - cronie
         - gnu-netcat
       state: present
