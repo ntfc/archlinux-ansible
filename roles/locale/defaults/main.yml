@@ -1,0 +1,15 @@
+---
+# which locales from /etc/locale.gen to generate
+locale_generate:
+  - en_US.UTF-8
+  - en_GB.UTF-8
+  - pt_PT.UTF-8
+  - de_DE.UTF-8
+# the default locale. Maps to LANG and LANGUAGE variables in /etc/locale.conf
+locale_default: en_US.UTF-8
+# OPTIONAL: override the LC_MONETARY
+locale_monetary: pt_PT.UTF-8
+# OPTIONAL: override the LC_TIME
+locale_time: en_GB.UTF-8
+
+locale_timezone: Europe/Berlin

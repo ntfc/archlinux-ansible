@@ -1,16 +1,23 @@
 ---
+- name: check mandatory role variables are defined
+  assert:
+    that:
+      - locale_generate is defined and locale_generate|length > 0
+      - locale_default is defined
+      - locale_timezone is defined
+
 - name: generate available locales
   command: locale-gen
   become: yes
 
-- name: enable locales
+- name: generate locale
   lineinfile: 
     dest: /etc/locale.gen
     regexp: "^{{ item }}"
     insertafter: "^#{{ item }}"
     line: "{{ item }}"
     state: present
-  with_items: "{{ system.locale.enabled }}"
+  with_items: "{{ locale_generate }}"
   become: yes
 
 - name: set locale\'s language
@@ -21,8 +28,8 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
-    - { regexp: '^LANG=', line: 'LANG={{ locale.language }}' }
-    - { regexp: '^LANGUAGE=', line: 'LANGUAGE={{ locale.language }}' }
+    - { regexp: '^LANG=', line: 'LANG={{ locale_default }}' }
+    - { regexp: '^LANGUAGE=', line: 'LANGUAGE={{ locale_default }}' }
   become: yes
 
 - name: set locale\'s monetary
@@ -31,8 +38,8 @@
     create: yes
     state: present
     regexp: "^LC_MONETARY="
-    line: "LC_MONETARY={{ locale.monetary }}"
-  when: locale.monetary is defined
+    line: "LC_MONETARY={{ locale_monetary }}"
+  when: locale_monetary is defined
   become: yes
 
 - name: set locale\'s time
@@ -41,13 +48,13 @@
     create: yes
     state: present
     regexp: "^LC_TIME="
-    line: "LC_TIME={{ locale.time }}"
-  when: locale.time is defined
+    line: "LC_TIME={{ locale_time }}"
+  when: locale_time is defined
   become: yes
 
 - name: set timezone
   file:
-    src: /usr/share/zoneinfo/{{ timezone }}
+    src: /usr/share/zoneinfo/{{ locale_timezone }}
     dest: /etc/localtime
     state: link
   become: yes
@@ -58,4 +65,5 @@
 
 - name: start and enable ntp
   service: name=ntpd state=started enabled=yes
+  when: ansible_virtualization_type != "docker" # because we don't run systemd inside test docker container
   become: yes

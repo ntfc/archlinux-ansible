@@ -3,6 +3,8 @@
 - hosts: localhost
   connection: local
   roles:
-    - pacman
-      #- localization
+    - role: pacman
+      tags: ['pacman', 'aur']
+    - role: locale
+      tags: ['locale', 'timezone', 'ntp']
     #- power
