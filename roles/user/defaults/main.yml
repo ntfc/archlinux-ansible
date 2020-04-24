@@ -1,0 +1,12 @@
+---
+user_name: nuno
+# TODO: use `ansible-vault encrypt_string` instead of storing password here
+user_password: "password"
+user_password_salt: "mysecretsalt"
+# user's primary group
+user_group: users
+# user's secondary groups
+user_groups:
+  - wheel
+  - network
+user_create_home: yes

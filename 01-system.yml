@@ -7,4 +7,8 @@
       tags: ['pacman', 'aur']
     - role: locale
       tags: ['locale', 'timezone', 'ntp']
-    #- power
+    - role: user
+      tags: ['user']
+  # user
+  # power / suspend / laptop power
+  # nvidia

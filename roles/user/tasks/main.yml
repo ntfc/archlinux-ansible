@@ -1,0 +1,11 @@
+---
+- name: create user {{ user_name }}
+  user:
+    name: "{{ user_name }}"
+    password: "{{ user_password | password_hash('sha512', user_password_salt) }}"
+    group: "{{ user_group }}"
+    groups: "{{ user_groups }}"
+    create_home: "{{ user_create_home }}"
+    state: present
+  become: yes
+  
