@@ -3,4 +3,6 @@
 - hosts: localhost
   connection: local
   roles:
-    - localization
+    - pacman
+      #- localization
+    #- power

@@ -10,9 +10,6 @@ locale:
 
 timezone: Europe/Berlin
 
-pacman.mirror.country: Germany
-
-aur.helper: yay
 
 packages:
   base:

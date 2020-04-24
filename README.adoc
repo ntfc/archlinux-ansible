@@ -4,17 +4,35 @@ Collection of ansible playbooks and roles used to install and maintain my person
 
 == Requirements
 
-Before using this you need to ensure you have already have a barebones archlinux up and running with the following:
+Before using this you need to ensure you have already have a barebones archlinux up and running with the following pacman packages:
+* `ansible`
 * `python`
 * `python-passlib`
 
-Then you must ensure the following are installed if you require a specific function:
-* suspend/hibernate: swap file or swap partition
-* 
+We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg`
 
-== Configuration file
+== Initial installation
 
+=== Configuration files
 
+=== Run playbook
+
+[source,shell]
+----
+ansible-playbook 01-system.yml
+----
+
+== Testing
+
+You can use docker to test a local installation.
+
+Pull the latest archlinux image and then execute it as:
+[source,shell]
+----
+$ docker run -d --name archlinux -v $(pwd):/ansible archlinux journalctl -f
+----
+
+You can then `exec` into it follow this document.
 
 == Playbooks
 
@@ -24,6 +42,7 @@ Then you must ensure the following are installed if you require a specific funct
 
 Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible].
 Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
+
 
 
 

@@ -1,0 +1,21 @@
+---
+- name: create AUR user
+  user:
+    name: "{{ aur_user }}"
+    group: wheel
+  become: yes
+
+- name: make AUR user passwordless sudo
+  lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: "{{ aur_user }} ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    create: yes
+    validate: 'visudo -cf %s'
+  become: yes
+
+- name: AUR helper is installed
+  aur:
+    name: yay
+    use: makepkg
+  become: yes
+  become_user: "{{ aur_user }}"
