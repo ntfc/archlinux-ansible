@@ -1,4 +1,10 @@
 ---
+- name: check mandatory variables
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ user_required_vars }}"
+
 - name: create user {{ user_name }}
   user:
     name: "{{ user_name }}"
@@ -8,4 +14,11 @@
     create_home: "{{ user_create_home }}"
     state: present
   become: yes
-  
+
+- name: add user to sudoers
+  template:
+    src: user_name_sudoers.j2
+    dest: "/etc/sudoers.d/{{ user_name }}"
+    validate: 'visudo --check --file=%s'
+  when: user_is_sudoer|default(False)
+

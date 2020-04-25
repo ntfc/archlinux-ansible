@@ -2,6 +2,11 @@
 
 Collection of ansible playbooks and roles used to install and maintain my personal archlinux installation.
 
+The way it works is that for each new machine you want to install and configure, you create a ansible configuration under `host_vars/<hostname>` so you can run a set of playbooks such as:
+
+* install system tools such as hardware drivers, login managers, power config, etc
+* setup and configure a new user such as personal, work, etc
+
 == Requirements
 
 Before using this you need to ensure you have already have a barebones archlinux up and running with the following pacman packages:
@@ -47,6 +52,10 @@ Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
 
 
 == References
+
+Verify role variables are set: https://thoughts.t37.net/documenting-your-ansible-roles-interface-and-making-other-peoples-life-easier-604e5172837b?gi=fc6917f3204b
+
+Check for required variables in role: https://coderleaf.wordpress.com/2017/07/06/ansible-check-for-required-variables-before-role-execution/
 
 [dharmab-ansible]: https://github.com/dharmab/ansible-archlinux
 [ntfc-dotfiles]: https://github.com/ntfc/dotfiles

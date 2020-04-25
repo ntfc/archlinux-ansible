@@ -1,14 +1,12 @@
-# This playbook should only be executed once per installation: right after
-# finishing the initial archlinux installation.
 - hosts: localhost
   connection: local
   roles:
     - role: pacman
       tags: ['pacman', 'aur']
+    - role: sudo
+      tags: ['sudo']
     - role: locale
       tags: ['locale', 'timezone', 'ntp']
-    - role: user
-      tags: ['user']
-  # user
+
   # power / suspend / laptop power
   # nvidia

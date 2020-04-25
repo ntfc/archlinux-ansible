@@ -1,1 +1,9 @@
-# e.g Add a new user to the system
+- hosts: localhost
+  connection: local
+  roles:
+    - role: user
+      tags: ['user']
+
+  # override user locale?
+  # dotfiles
+  # UI config

@@ -6,11 +6,10 @@
   become: yes
 
 - name: make AUR user passwordless sudo
-  lineinfile:
-    path: /etc/sudoers.d/11-install-aur_builder
-    line: "{{ aur_user }} ALL=(ALL) NOPASSWD: /usr/bin/pacman"
-    create: yes
-    validate: 'visudo -cf %s'
+  template:
+    src: aur_user_sudoers.j2
+    dest: "/etc/sudoers.d/{{ aur_user }}"
+    validate: 'visudo --check --file=%s'
   become: yes
 
 - name: AUR helper is installed
