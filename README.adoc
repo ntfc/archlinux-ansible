@@ -15,7 +15,7 @@ Before using this you need to ensure you have already have a barebones archlinux
 * `python`
 * `python-passlib`
 
-We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg`
+We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg` (no need to install anything, just make the git submodule is checked out).
 
 == Initial installation
 
@@ -29,6 +29,39 @@ ansible-playbook 01-system.yml
 ----
 
 == Testing
+
+=== Vagrant + VirtualBox
+
+We can use Vagrant with a Virtualbox provider, where this repository is mounted on the virtualbox VM to better mmimic the localhost scenario.
+
+Start by installing VirtualBox and Vagrant on the host machine.
+
+To correctly start virtualbox `modprobe` the following modules (taken from https://gist.github.com/ntfc/77a5160eb69c3ce4fa88):
+[source,shell]
+----
+$ modprobe vboxdrv vboxnetadp vboxnetflt vboxpci
+----
+
+Then you can start the VM with:
+[source,shell]
+----
+$ vagrant up
+----
+
+The `Vagrantfile` in this repository configures a password based SSH for ease of access.
+
+[source,shell]
+----
+$ vagrant ssh
+----
+
+Now you should be inside the VM.
+
+Run `/ansible/install_requirements.sh` (reboot if required) and then you can start running playbooks.
+
+=== Docker
+
+WARNING: You will quickly run into troubles when using docker since service management is not available.
 
 You can use docker to test a local installation.
 
