@@ -10,6 +10,7 @@ The way it works is that for each new machine you want to install and configure,
 == Requirements
 
 Before using this you need to ensure you have already have a barebones archlinux up and running with the following pacman packages:
+
 * `ansible`
 * `python`
 * `python-passlib`
@@ -43,11 +44,9 @@ You can then `exec` into it follow this document.
 
 * system configuration
 * user configuration
-*
 
 Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible].
 Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
-
 
 
 
