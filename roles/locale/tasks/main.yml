@@ -1,10 +1,9 @@
 ---
-- name: check mandatory role variables are defined
+- name: check required
   assert:
     that:
-      - locale_generate is defined and locale_generate|length > 0
-      - locale_default is defined
-      - locale_timezone is defined
+      - "{{ item }}"
+  with_items: "{{ locale_required }}"
 
 - name: generate available locales
   command: locale-gen
@@ -65,5 +64,4 @@
 
 - name: start and enable ntp
   service: name=ntpd state=started enabled=yes
-  when: ansible_virtualization_type != "docker" # because we don't run systemd inside test docker container
   become: yes

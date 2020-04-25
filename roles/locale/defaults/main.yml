@@ -1,4 +1,12 @@
 ---
+locale_required:
+  - locale_generate is defined and locale_generate|length > 0
+  - locale_default is defined and locale_default in locale_generate
+  # if locale_monetary is defined, it must be in locale_generate
+  - (locale_monetary is not defined) or (locale_monetary is defined and locale_monetary in locale_generate)
+  # if locale_time is defined, it must be in locale_generate
+  - (locale_time is not defined) or (locale_time is defined and locale_time in locale_generate)
+  - locale_timezone is defined
 # which locales from /etc/locale.gen to generate
 locale_generate:
   - en_US.UTF-8

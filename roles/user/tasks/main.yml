@@ -1,9 +1,9 @@
 ---
-- name: check mandatory variables
+- name: check required
   assert:
     that:
       - "{{ item }}"
-  with_items: "{{ user_required_vars }}"
+  with_items: "{{ user_required }}"
 
 - name: create user {{ user_name }}
   user:

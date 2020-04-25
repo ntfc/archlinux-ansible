@@ -1,5 +1,5 @@
 ---
-user_required_vars:
+user_required:
   - user_name is defined
   - user_password is defined
   - user_password_salt is defined
