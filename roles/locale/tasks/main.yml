@@ -5,15 +5,18 @@
       - "{{ item }}"
   with_items: "{{ locale_required }}"
 
-- name: enable and generate available locales
+- name: enable locales
   lineinfile: 
-    dest: /etc/locale.gen
+    path: /etc/locale.gen
     regexp: "^#({{ item }})+(.*)$"
+    backrefs: yes
     line: '\1\2'
     state: present
-    backrefs: yes
-    validate: locale-gen # this will generate the locales that were uncommented
   with_items: "{{ locale_generate }}"
+  become: yes
+
+- name: generate locales
+  command: locale-gen
   become: yes
 
 - name: set locale\'s language
