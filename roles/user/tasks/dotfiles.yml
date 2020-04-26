@@ -5,6 +5,7 @@
     name: "{{ user_dotfiles_packages }}"
     state: present
   become: yes
+  become_user: root # in the user `main.yml`, we set the become_user to `user_name` and we need root here to install packages
 
 - name: create file
   file:
