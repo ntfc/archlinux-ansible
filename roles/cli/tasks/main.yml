@@ -11,21 +11,17 @@
     state: present
   become: yes
 
+- name: change user shell
+  user:
+    name: "{{ user_name }}"
+    shell: "/usr/bin/{{ cli_default_shell }}"
+  become: yes
+
 - name: install terminal
   pacman:
     name: "{{ cli_terminal_packages }}"
     state: present
   become: yes
-
-- name: stow rxvt-unicode
-  command: "stow -d {{ user_dotfiles_path }} -t ~ urxvt"
-  become: yes
-  become_user: "{{ user_name }}"
-
-- name: load URxvt Xresources config
-  command: "xrdb -merge ~/.config/Xresources/*"
-  become: yes
-  become_user: "{{ user_name }}"
 
 - name: install terminal AUR packages
   aur:
@@ -33,4 +29,17 @@
     name: "{{ cli_aur_packages }}"
   become: yes
   become_user: "{{ aur_user }}"
+
+- name: stow rxvt-unicode
+  command: "stow -d {{ user_dotfiles_path }} -t ~ urxvt"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: 'rxvt-unicode' in cli_terminal_packages
+
+- name: load URxvt Xresources config
+  command: "xrdb -merge ~/.config/Xresources/*"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: 'rxvt-unicode' in cli_terminal_packages
+
 
