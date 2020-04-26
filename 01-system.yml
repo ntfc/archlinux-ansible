@@ -11,6 +11,8 @@
       tags: ['locale', 'timezone', 'ntp']
     - role: network
       tags: ['network']
+    - role: audio
+      tags: ['audio']
     - role: bluetooth
       tags: ['bluetooth']
       when: bluetooth_install|default(False) == True

@@ -6,6 +6,7 @@
       - bluez-libs
       - bluez-utils
       - blueman
+      - pulseaudio-bluetooth
     state: present
   become: yes
 

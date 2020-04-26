@@ -1,0 +1,21 @@
+---
+- name: install pulseaudio
+  pacman:
+    name:
+      - paprefs
+      - pamixer # more friendly cli tool
+      - pavucontrol
+      - pulseaudio
+      - pulseaudio-alsa
+      - pulseeffects
+    state: present
+  become: yes
+
+- name: install 32bit libs
+  pacman:
+    name:
+      - lib32-alsa-plugins
+      - lib32-libpulse
+    state: present
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'

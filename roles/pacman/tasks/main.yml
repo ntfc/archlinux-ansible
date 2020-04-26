@@ -3,6 +3,16 @@
   pacman: update_cache=yes upgrade=yes
   become: yes
 
+- name: enable multilib repo
+  ini_file:
+    path: /etc/pacman.conf
+    section: "multilib"
+    option: "Include"
+    value: "/etc/pacman.d/mirrorlist"
+    state: present
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'
+
 - name: install reflector
   pacman: name=reflector state=present
   become: yes
