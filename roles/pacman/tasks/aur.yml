@@ -3,7 +3,6 @@
   user:
     name: "{{ aur_user }}"
     group: wheel
-    create_home: no
   become: yes
 
 - name: make AUR user passwordless sudo
