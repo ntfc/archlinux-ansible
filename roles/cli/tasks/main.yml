@@ -1,0 +1,31 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ cli_required }}"
+
+- name: install shell
+  pacman:
+    name: "{{ cli_shell_packages }}"
+    state: present
+  become: yes
+
+- name: install terminal
+  pacman:
+    name: "{{ cli_terminal_packages }}"
+    state: present
+  become: yes
+
+- name: stow rxvt-unicode
+  command: "stow -d {{ user_dotfiles_path }} -t ~ urxvt"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: install terminal AUR packages
+  aur:
+    helper: "{{ aur_helper }}"
+    name: "{{ cli_aur_packages }}"
+  become: yes
+  become_user: "{{ aur_user }}"
+
