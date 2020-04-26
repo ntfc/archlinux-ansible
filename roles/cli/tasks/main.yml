@@ -17,6 +17,18 @@
     shell: "/usr/bin/{{ cli_default_shell }}"
   become: yes
 
+- name: stow bash
+  command: "stow -d {{ user_dotfiles_path }} -t ~ bash"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: '"bash" in cli_shell_packages'
+
+- name: stow zsh
+  command: "stow -d {{ user_dotfiles_path }} -t ~ zsh"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: '"zsh" in cli_shell_packages'
+
 - name: install terminal
   pacman:
     name: "{{ cli_terminal_packages }}"
@@ -54,12 +66,6 @@
 
 - name: stow tmux
   command: "stow -d {{ user_dotfiles_path }} -t ~ tmux"
-  become: yes
-  become_user: "{{ user_name }}"
-  when: cli_install_tmux|default(False) == True
-
-- name: reload tmux config
-  command: "tmux source-file ~/.tmux.conf"
   become: yes
   become_user: "{{ user_name }}"
   when: cli_install_tmux|default(False) == True
