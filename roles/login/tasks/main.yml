@@ -1,0 +1,14 @@
+---
+- name: install login manager
+  pacman:
+    name:
+      - lightdm
+      - lightdm-gtk-greeter
+  become: yes
+
+  # with this, lightdm will start at boot
+- name: enable lightdm service
+  service:
+    name: lightdm
+    enabled: yes
+  become: yes

@@ -11,9 +11,8 @@
       tags: ['locale', 'timezone', 'ntp']
     - role: network
       tags: ['network']
-
-    - role: xorg
-      tags: ['xorg']
+    - role: login
+      tags: ['login', 'lightdm']
 
   # power / suspend / laptop power
   # nvidia
