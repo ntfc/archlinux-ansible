@@ -22,6 +22,11 @@
   become: yes
   become_user: "{{ user_name }}"
 
+- name: load URxvt Xresources config
+  command: "xrdb -merge ~/.config/Xresources/*"
+  become: yes
+  become_user: "{{ user_name }}"
+
 - name: install terminal AUR packages
   aur:
     use: "{{ aur_helper }}"
