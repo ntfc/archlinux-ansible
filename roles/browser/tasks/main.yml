@@ -1,0 +1,9 @@
+---
+- name: install common web browsers
+  pacman:
+    name:
+      - chromium
+      - firefox
+      - lynx
+    state: present
+  become: yes

@@ -17,7 +17,8 @@
       tags: ['vim']
     - role: git
       tags: ['git']
+    - role: browser
+      tags: ['web', 'browser']
     - role: syncthing
       tags: ['syncthing']
 
-  # UI config
