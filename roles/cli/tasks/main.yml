@@ -24,7 +24,7 @@
 
 - name: install terminal AUR packages
   aur:
-    helper: "{{ aur_helper }}"
+    use: "{{ aur_helper }}"
     name: "{{ cli_aur_packages }}"
   become: yes
   become_user: "{{ aur_user }}"
