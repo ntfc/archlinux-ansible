@@ -1,9 +1,17 @@
 ---
-- name: install openbox package
+- name: install openbox packages
   pacman:
     name: "{{ gui_openbox_packages }}"
     state: present
   become: yes
+
+- name: install openbox AURs
+  aur:
+    use: "{{ aur_helper }}"
+    name: "{{ gui_openbox_aur }}"
+  become: yes
+  become_user: "{{ aur_user }}"
+
 
 - name: stow openbox config
   command: "stow -d {{ user_dotfiles_path }} -t ~ openbox"

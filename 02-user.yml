@@ -2,6 +2,12 @@
   connection: local
   vars_files:
     - defaults.yml
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
   roles:
     - role: user
       tags: ['user']

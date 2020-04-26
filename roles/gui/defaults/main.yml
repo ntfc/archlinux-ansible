@@ -7,6 +7,7 @@ gui_required:
   - gui_wm_default is defined and gui_wm_default in ['openbox']
 
 xorg_packages:
+  - xdotool # X11 automation tool
   - xorg # package group
 
 gui_wm_default: openbox
@@ -17,4 +18,6 @@ gui_openbox_packages:
   - openbox
   - xfce4-panel
   - xfce4-screenshooter
+gui_openbox_aur:
+  - obkey
 
