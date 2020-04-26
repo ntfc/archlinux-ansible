@@ -23,7 +23,7 @@
 - name: blacklist oss
   copy:
     src: blacklist_oss.conf
-    dst: /etc/modprobe.d/blacklist_oss.conf
+    dest: /etc/modprobe.d/blacklist_oss.conf
     mode: 0644
   become: yes
 
@@ -31,6 +31,6 @@
 - name: configure libao
   copy:
     src: libao.conf
-    dst: /etc/libao.conf
+    dest: /etc/libao.conf
     mode: 0644
   become: yes
