@@ -54,6 +54,9 @@ $ ansible-playbook 01-system.yml --tags pacman
 $ ansible-playbook 01-system.yml
 ----
 
+Gotchas:
+* For tmux, we need to run `tmux source-file ~/.tmux.conf` manually
+
 == Testing
 
 === Vagrant + VirtualBox
