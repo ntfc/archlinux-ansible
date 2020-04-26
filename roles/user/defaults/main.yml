@@ -15,3 +15,7 @@ user_groups:
   - network
 user_create_home: yes
 user_is_sudoer: yes
+
+user_dotfiles_packages:
+  - git
+  - stow

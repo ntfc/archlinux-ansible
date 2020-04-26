@@ -23,7 +23,7 @@
   when: user_is_sudoer|default(False)
 
 - import_tasks: dotfiles.yml
-  vars:
-    become_user: "{{ user_name }}"
-    become: yes
+  become_user: "{{ user_name }}"
+  become: yes
   when: user_dotfiles_url is defined
+  tags: ['dotfiles']
