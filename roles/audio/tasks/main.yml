@@ -2,6 +2,7 @@
 - name: install pulseaudio
   pacman:
     name:
+      - ffmpeg
       - paprefs
       - pamixer # more friendly cli tool
       - pavucontrol
