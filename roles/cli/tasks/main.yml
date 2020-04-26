@@ -43,8 +43,23 @@
   become: yes
   when: cli_install_tmux|default(False) == True
 
+- name: install tmux plugin manager
+  git:
+    accept_hostkey: yes
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+  become: yes
+  become_user: "{{ user_name }}"
+  when: cli_install_tmux|default(False) == True
+
 - name: stow tmux
   command: "stow -d {{ user_dotfiles_path }} -t ~ tmux"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: cli_install_tmux|default(False) == True
+
+- name: reload tmux config
+  command: "tmux source-file ~/.tmux.conf"
   become: yes
   become_user: "{{ user_name }}"
   when: cli_install_tmux|default(False) == True
