@@ -16,7 +16,18 @@
   tags: ['wm', 'openbox']
 # TODO: install touchpad drivers only if relevant
 # TODO: stow xorg stuff only relevant for current machine
-#
+
+- name: install rofi
+  pacman:
+    name: rofi
+    state: present
+  become: yes
+
+- name: stow rofi
+  command: "stow -d {{ user_dotfiles_path }} -t ~ rofi"
+  become: yes
+  become_user: "{{ user_name }}"
+
 - name: stow startup settings with Xorg and WM
   command: "stow -d {{ user_dotfiles_path }} -t ~ startup"
   become: yes
