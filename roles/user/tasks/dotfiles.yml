@@ -1,0 +1,5 @@
+---
+# user_dotfiles_url: "git@gitlab.com:ntfc/dotfiles.git"
+- name: debug stuff
+  debug:
+    var: become_user

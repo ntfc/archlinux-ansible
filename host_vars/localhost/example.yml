@@ -15,3 +15,5 @@
 # # 3. Copy the cryptic output and use it for `user_password`
 # # Here is an example for `abc123`:
 # user_password: "$6$mdaHLnk9ZWPtQE5X$70ufXk/uloRmHflAARsq.vBK2IdA9VbjZtpqR/uLYm0qkkgyNGj64tyIL3qF8aoZbowcFmohjcTGyH4bePQMt0"
+# # Git repo where stow dotfiles are stored
+# user_dotfiles_url: "git@gitlab.com:ntfc/dotfiles.git"

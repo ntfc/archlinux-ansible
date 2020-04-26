@@ -22,3 +22,8 @@
     validate: 'visudo --check --file=%s'
   when: user_is_sudoer|default(False)
 
+- include: dotfiles.yml
+  vars:
+    become_user: "{{ user_name }}"
+    become: yes
+  when: user_dotfiles_url defined
