@@ -2,7 +2,7 @@
 # user_dotfiles_url: "git@gitlab.com:ntfc/dotfiles.git"
 - name: install dotfiles packages
   pacman:
-    name: "{{ dotfiles_packages }}"
+    name: "{{ user_dotfiles_packages }}"
     state: present
   become: yes
 
