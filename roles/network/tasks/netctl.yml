@@ -3,8 +3,7 @@
   pacman:
     name:
       - dialog # for wifi-menu
+      - ifplugd # to automatically connect to ethernet
       - netctl
     state: present
   become: yes
-
-  # TODO: add rest

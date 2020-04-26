@@ -14,21 +14,44 @@ Before using this you need to ensure you have already have a barebones archlinux
 * `ansible`
 * `python`
 * `python-passlib`
+* `git` (only used to clone this repo and the submodule)
 
 We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg` (no need to install anything, just make the git submodule is checked out).
 
 == Initial installation
 
-=== Configuration files
-
-Before running anything, we need to define what we need to configure.
-This is done by creating a new file in `host_vars/<hostname>/main.yml`.
-
-=== Run playbook
+We first need to update the submodule containing the AUR plugin.
 
 [source,shell]
 ----
-ansible-playbook 01-system.yml
+$ git submodule update --recursive --init
+$ git submodule update --recursive --remote
+----
+
+=== Configuration files
+
+TODO: create an interactive ansible playbook that creates a basic configuration file
+
+Before running anything, we need to define what we need to configure.
+This is done by creating a new file in `host_vars/localhost/main.yml`.
+
+=== Run playbook
+
+With the configuration out of the way we can start running playbooks.
+
+The `01-system.yml` will install components not specific to any user but rather used by the overall system.
+You can run it with any of the following variants:
+
+[source,shell]
+----
+# list available tasks. note the tag are shown in square brackets
+$ ansible-playbook 01-system.yml --list-tasks
+# list tags
+$ ansible-playbook 01-system.yml --list-tags
+# run a particular tag
+$ ansible-playbook 01-system.yml --tags pacman
+# run all the tasks
+$ ansible-playbook 01-system.yml
 ----
 
 == Testing

@@ -17,3 +17,4 @@
 
 - include: networkmanager.yml
   when: network_networkmanager_install
+
