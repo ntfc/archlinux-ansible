@@ -22,7 +22,7 @@
     validate: 'visudo --check --file=%s'
   when: user_is_sudoer|default(False)
 
-- include: dotfiles.yml
+- import_tasks: dotfiles.yml
   vars:
     become_user: "{{ user_name }}"
     become: yes
