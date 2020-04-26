@@ -1,0 +1,6 @@
+- hosts: localhost
+  connection: locale
+  tasks:
+    - name: install keepassxc
+      pacman: name=keepassxc state=present
+      become: yes
