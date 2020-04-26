@@ -4,11 +4,9 @@
 # OPTIONAL: Prefered country to which use Archlinux mirrors. Will install `reflector` if defined
 pacman_mirror_country: Germany
 
-# list of pacman packages used for common operations (and that don't require any extra configuration)
+# list of pacman packages nice to have installed and don't require installation
 pacman_base_packages:
   - base-devel # compile stuff
-  - curl # download stuff
-  - sudo
 
 # the AUR helper
 aur_helper: yay

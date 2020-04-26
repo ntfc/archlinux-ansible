@@ -9,9 +9,13 @@ network_required:
   - (network_default_manager != 'networkmanager') or (network_default_manager == 'networkmanager' and network_networkmanager_install)
 
 network_base_packages:
+  - curl
   - dhcpcd
+  - gnu-netcat
   - iproute2 # https://wiki.archlinux.org/index.php/Network_configuration#net-tools
+  - nmap
   - openresolv # https://wiki.archlinux.org/index.php/Openresolv
+  - wget
   - wpa_supplicant
 
 # valid options are:

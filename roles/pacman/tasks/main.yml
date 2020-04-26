@@ -3,15 +3,6 @@
   pacman: update_cache=yes upgrade=yes
   become: yes
 
-- debug:
-    msg: base packages = {{ pacman_base_packages }}
-
-- name: install pacman base packages
-  pacman:
-    name: "{{ pacman_base_packages }}"
-    state: present
-  become: yes
-
 - name: install reflector
   pacman: name=reflector state=present
   become: yes
@@ -24,6 +15,19 @@
 - name: use reflector to obtain fastest mirrors
   command: reflector --country "{{ pacman_mirror_country }}" -l 200 -p https --sort rate --save /etc/pacman.d/mirrorlist
   when: pacman_mirror_country is defined and pacman_mirrorlist.stat.mtime < ansible_date_time.epoch|int - (60 * 60 * 24 * 7)
+  become: yes
+
+- name: install pacman base packages
+  pacman:
+    name: "{{ pacman_base_packages }}"
+    state: present
+  become: yes
+
+- name: install common utilities
+  pacman:
+    name: "{{ common_util_packages }}"
+    state: present
+  when: common_util_packages|default([])|length > 0
   become: yes
 
 - include: aur.yml

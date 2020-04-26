@@ -1,0 +1,6 @@
+---
+# packages that don't usually require configuration and are part of usual day-to-day
+# good things to put here are CLI utilities
+base_packages:
+  - htop
+  - rsync
