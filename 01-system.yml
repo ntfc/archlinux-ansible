@@ -26,6 +26,7 @@
         name:
           - dosfstools
           - btrfs-progs
+          - gvfs
           - ntfs-3g
           - mtools
         state: present
