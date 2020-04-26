@@ -1,0 +1,16 @@
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
+  tasks:
+    - name: install android tools
+      pacman:
+        name:
+          - android-tools
+          - android-udev
+        state: present
+      become: yes
