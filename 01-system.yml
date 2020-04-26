@@ -11,6 +11,9 @@
       tags: ['locale', 'timezone', 'ntp']
     - role: network
       tags: ['network']
+    - role: bluetooth
+      tags: ['bluetooth']
+      when: bluetooth_install|default(False) == True
     - role: login
       tags: ['login', 'lightdm']
 
