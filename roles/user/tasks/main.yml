@@ -35,7 +35,7 @@
 - name: generate SSH keypair
   openssh_keypair:
     path: "/home/{{ user_name }}/.ssh/{{ user_name }}.{{ user_ssh_key_type }}"
-    comment: "{{ user_name }} at {{ lookup('env', 'HOSTNAME') }}"
+    comment: "{{ user_name }} at {{ ansible_facts['hostname'] }}"
   become: yes
   become_user: "{{ user_name }}"
   when: user_create_home == True and user_ssh_key_generate|default(False) == True
