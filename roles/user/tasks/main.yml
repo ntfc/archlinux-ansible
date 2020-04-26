@@ -26,4 +26,4 @@
   vars:
     become_user: "{{ user_name }}"
     become: yes
-  when: user_dotfiles_url defined
+  when: user_dotfiles_url is defined
