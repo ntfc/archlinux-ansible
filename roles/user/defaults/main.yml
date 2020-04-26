@@ -7,6 +7,9 @@ user_required:
   - user_create_home is defined
   - user_is_sudoer is defined
 
+user_dotfiles_required:
+  - user_create_home|default(False) == True
+
 # user's primary group
 user_group: users
 # user's secondary groups
@@ -16,6 +19,10 @@ user_groups:
 user_create_home: yes
 user_is_sudoer: yes
 
+user_ssh_key_type: ed25519
+user_ssh_key_generate: True
+
 user_dotfiles_packages:
   - git
   - stow
+

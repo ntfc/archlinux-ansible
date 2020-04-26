@@ -22,6 +22,14 @@
     validate: 'visudo --check --file=%s'
   when: user_is_sudoer|default(False)
 
+- name: generate SSH keypair
+  openssh_keypair:
+    path: "/home/{{ user_name }}/.ssh/{{ user_name }}.{{ user_ssh_key_type }}"
+    comment: "{{ user_name }} at {{ lookup('env', 'HOSTNAME') }}"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: user_ssh_key_generate|default(False) == True
+
 - import_tasks: dotfiles.yml
   become_user: "{{ user_name }}"
   become: yes
