@@ -13,17 +13,21 @@ xorg_packages:
 
 gui_wm_default: openbox
 
-gui_openbox_packages:
+gui_common_packages:
+  - gtk2
+  - gtk3
   - file-roller
+  - lxappearance-gtk3
   - mousepad
-  - obconf
-  - openbox
-    # Find which xfce4 packages needed by installing necessary packages from `pacman -Sg xfce4`
   - thunar
   - thunar-archive-plugin
   - thunar-media-tags-plugin
   - thunar-volman
   - tumbler
+gui_openbox_packages:
+  - obconf
+  - openbox
+    # Find which xfce4 packages needed by installing necessary packages from `pacman -Sg xfce4`
   - xfce4-panel
   - xfce4-pulseaudio-plugin
   - xfce4-session

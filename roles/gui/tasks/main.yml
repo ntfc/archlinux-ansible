@@ -5,6 +5,13 @@
       - "{{ item }}"
   with_items: "{{ gui_required }}"
 
+- name: install common gui tools and themes
+  pacman:
+    name: "{{ gui_common_packages }}"
+    state: present
+  become: present
+  tags: ['gui-common']
+
 - include: xorg.yml
   tags: ['xorg']
 
@@ -14,8 +21,6 @@
 - include: openbox.yml
   when: gui_wm_default == 'openbox'
   tags: ['wm', 'openbox']
-# TODO: install touchpad drivers only if relevant
-# TODO: stow xorg stuff only relevant for current machine
 
 - name: install rofi
   pacman:
