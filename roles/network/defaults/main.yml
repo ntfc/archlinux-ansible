@@ -11,6 +11,7 @@ network_required:
 network_base_packages:
   - dhcpcd
   - iproute2 # https://wiki.archlinux.org/index.php/Network_configuration#net-tools
+  - openresolv # https://wiki.archlinux.org/index.php/Openresolv
   - wpa_supplicant
 
 # valid options are:
