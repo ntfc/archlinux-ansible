@@ -7,6 +7,8 @@
       tags: ['sudo']
     - role: locale
       tags: ['locale', 'timezone', 'ntp']
+    - role: network
+      tags: ['network']
 
   # power / suspend / laptop power
   # nvidia

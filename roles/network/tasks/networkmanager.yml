@@ -1,0 +1,9 @@
+---
+- name: install networkmanager
+  pacman:
+    name:
+      - networkmanager
+      - network-manager-applet
+      - nm-connection-editor
+    state: present
+  become: yes

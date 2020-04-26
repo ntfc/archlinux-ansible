@@ -1,0 +1,10 @@
+---
+- name: install netctl
+  pacman:
+    name:
+      - dialog # for wifi-menu
+      - netctl
+    state: present
+  become: yes
+
+  # TODO: add rest

@@ -21,6 +21,9 @@ We also require a specific ansible module to install packages from the AUR which
 
 === Configuration files
 
+Before running anything, we need to define what we need to configure.
+This is done by creating a new file in `host_vars/<hostname>/main.yml`.
+
 === Run playbook
 
 [source,shell]

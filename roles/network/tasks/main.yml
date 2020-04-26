@@ -1,0 +1,19 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ network_required }}"
+
+- name: install base network tools
+  pacman:
+    name: "{{ network_base_packages }}"
+    state: present
+  become: yes
+  when: network_base_packages is defined
+
+- include: netctl.yml
+  when: network_netctl_install
+
+- include: networkmanager.yml
+  when: network_networkmanager_install
