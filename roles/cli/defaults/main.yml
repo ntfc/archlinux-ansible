@@ -14,3 +14,5 @@ cli_terminal_packages:
 
 cli_aur_packages:
   - urxvt-font-size-git # on-the-fly URxvt font size adjustments
+
+cli_install_tmux: yes
