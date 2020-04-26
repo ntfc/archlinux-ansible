@@ -16,4 +16,4 @@
 - name: clone the dotfiles repo
   git:
     repo: "{{ user_dotfiles_url }}"
-    dest: "/home/{{ user_name }}/dotfiles"
+    dest: "{{ user_dotfiles_path }}"

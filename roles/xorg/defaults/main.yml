@@ -1,6 +1,10 @@
 ---
 xorg_required:
+  - user_name is defined
+  - user_dotfiles_url is defined
+  - user_dotfiles_path is defined
   - xorg_packages is defined and xorg_packages|length > 0
 
 xorg_packages:
   - xorg # package group
+

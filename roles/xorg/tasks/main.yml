@@ -11,3 +11,10 @@
     state: present
   become: yes
 
+# TODO: install touchpad drivers only if relevant
+# TODO: stow xorg stuff only relevant for current machine
+#
+- name: stow startup settings, including xorg
+  command: "stow -d {{ user_dotfiles_path }} -t ~ startup"
+  become: yes
+  become_user: "{{ user_name }}"
