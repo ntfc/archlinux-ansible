@@ -2,7 +2,6 @@
 user_required:
   - user_name is defined
   - user_password is defined
-  - user_password_salt is defined
   - user_group is defined
   - user_groups is defined and user_groups|length > 0
   - user_create_home is defined

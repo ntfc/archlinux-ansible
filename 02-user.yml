@@ -1,9 +1,10 @@
 - hosts: localhost
   connection: local
+  vars_files:
+    - defaults.yml
   roles:
     - role: user
       tags: ['user']
 
-  # override user locale?
   # dotfiles
   # UI config
