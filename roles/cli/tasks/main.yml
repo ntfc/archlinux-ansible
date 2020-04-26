@@ -48,6 +48,11 @@
   become_user: "{{ user_name }}"
   when: '"rxvt-unicode" in cli_terminal_packages'
 
+- name: stow aliases
+  command: "stow -d {{ user_dotfiles_path }} -t ~ alias"
+  become: yes
+  become_user: "{{ user_name }}"
+
 - name: install tmux
   pacman:
     name:
