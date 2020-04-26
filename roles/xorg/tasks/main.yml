@@ -1,0 +1,13 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ xorg_required }}"
+
+- name: install xorg packages
+  pacman:
+    name: "{{ xorg_packages }}"
+    state: present
+  become: yes
+

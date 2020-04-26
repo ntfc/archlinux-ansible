@@ -12,5 +12,8 @@
     - role: network
       tags: ['network']
 
+    - role: xorg
+      tags: ['xorg']
+
   # power / suspend / laptop power
   # nvidia

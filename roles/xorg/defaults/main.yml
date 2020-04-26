@@ -1,0 +1,6 @@
+---
+xorg_required:
+  - xorg_packages
+
+xorg_packages:
+  - xorg # package group
