@@ -14,10 +14,20 @@ gui_wm_default: openbox
 
 gui_openbox_packages:
   - file-roller
+  - mousepad
   - obconf
   - openbox
+    # Find which xfce4 packages needed by installing necessary packages from `pacman -Sg xfce4`
+  - thunar
+  - thunar-archive-plugin
+  - thunar-media-tags-plugin
+  - thunar-volman
+  - tumbler
   - xfce4-panel
+  - xfce4-session
+  - xfce4-settings
   - xfce4-screenshooter
+  - xfce4-terminal
 gui_font_packages:
   - adobe-source-code-pro-fonts
   - noto-fonts
