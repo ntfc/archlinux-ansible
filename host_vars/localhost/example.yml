@@ -25,3 +25,9 @@
 # bluetooth_install: True
 # # whether the bluetooth service should be started and enabled
 # bluetooth_enabled: False
+#
+# ###############################################################################
+# # GIT
+# ###############################################################################
+# # The git email used in commits
+# git_email: example@example.com

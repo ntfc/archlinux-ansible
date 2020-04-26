@@ -1,0 +1,25 @@
+---
+- name: check required
+  assert:
+    that:
+      - git_email is defined
+
+- name: install git
+  pacman:
+    name:
+      - diff-so-fancy
+      - git
+    state: present
+  become: yes
+
+- name: stow git
+  command: "stow -d {{ user_dotfiles_path }} -t ~ git"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: configure user global git email
+  template:
+    src: gitconfig-private.j2
+    dest: "/home/{{ user_name }}/.gitconfig-private"
+  become: yes
+  become_user: "{{ user_name }}"
