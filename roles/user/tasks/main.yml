@@ -22,13 +22,23 @@
     validate: 'visudo --check --file=%s'
   when: user_is_sudoer|default(False)
 
+- name: create ssh keys directory
+  file:
+    state: directory
+    path: "/home/{{ user_name }}/.ssh/"
+    mode: 0700
+    owner: "{{ user_name }}"
+    group: "{{ user_group }}"
+  become: yes
+  when: user_create_home == True and user_ssh_key_generate|default(False) == True
+
 - name: generate SSH keypair
   openssh_keypair:
     path: "/home/{{ user_name }}/.ssh/{{ user_name }}.{{ user_ssh_key_type }}"
     comment: "{{ user_name }} at {{ lookup('env', 'HOSTNAME') }}"
   become: yes
   become_user: "{{ user_name }}"
-  when: user_ssh_key_generate|default(False) == True
+  when: user_create_home == True and user_ssh_key_generate|default(False) == True
 
 - import_tasks: dotfiles.yml
   become_user: "{{ user_name }}"
