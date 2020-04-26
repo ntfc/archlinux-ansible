@@ -1,0 +1,6 @@
+---
+- name: install xorg packages
+  pacman:
+    name: "{{ xorg_packages }}"
+    state: present
+  become: yes

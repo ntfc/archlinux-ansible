@@ -1,0 +1,19 @@
+---
+- name: install openbox package
+  pacman:
+    name: "{{ gui_openbox_packages }}"
+    state: present
+  become: yes
+
+- name: stow openbox config
+  command: "stow -d {{ user_dotfiles_path }} -t ~ openbox"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: copy setlayout.c
+  copy:
+    src: setlayout.c
+    dest: /tmp/setlayout.c
+
+- name: compile setlayout.c
+  command: "gcc -o /opt/setlayout /tmp/setlayout.c -lX11"

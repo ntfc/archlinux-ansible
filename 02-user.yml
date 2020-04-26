@@ -5,8 +5,8 @@
   roles:
     - role: user
       tags: ['user']
-    - role: xorg
-      tags: ['xorg']
+    - role: gui
+      tags: ['gui']
 
   # dotfiles
   # UI config

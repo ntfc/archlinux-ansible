@@ -3,18 +3,18 @@
   assert:
     that:
       - "{{ item }}"
-  with_items: "{{ xorg_required }}"
+  with_items: "{{ gui_required }}"
 
-- name: install xorg packages
-  pacman:
-    name: "{{ xorg_packages }}"
-    state: present
-  become: yes
+- include: xorg.yml
+  tags: ['xorg']
 
+- include: openbox.yml
+  when: gui_wm_default == 'openbox'
+  tags: ['wm', 'openbox']
 # TODO: install touchpad drivers only if relevant
 # TODO: stow xorg stuff only relevant for current machine
 #
-- name: stow startup settings, including xorg
+- name: stow startup settings with Xorg and WM
   command: "stow -d {{ user_dotfiles_path }} -t ~ startup"
   become: yes
   become_user: "{{ user_name }}"

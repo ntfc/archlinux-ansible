@@ -1,0 +1,20 @@
+---
+gui_required:
+  - user_name is defined
+  - user_dotfiles_url is defined
+  - user_dotfiles_path is defined
+  - xorg_packages is defined and xorg_packages|length > 0
+  - gui_wm_default is defined and gui_wm_default in ['openbox']
+
+xorg_packages:
+  - xorg # package group
+
+gui_wm_default: openbox
+
+gui_openbox_packages:
+  - file-roller
+  - obconf
+  - openbox
+  - xfce4-panel
+  - xfce4-screenshooter
+
