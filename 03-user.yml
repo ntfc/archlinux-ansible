@@ -1,7 +1,5 @@
 - hosts: localhost
   connection: local
-  vars_files:
-    - defaults.yml
   pre_tasks:
     - name: check required
       assert:

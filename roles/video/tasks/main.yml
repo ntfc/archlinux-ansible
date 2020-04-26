@@ -1,0 +1,7 @@
+---
+- name: install common video/graphic utils
+  pacman:
+    name:
+      - arandr
+    state: present
+  become: yes
