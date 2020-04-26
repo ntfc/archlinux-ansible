@@ -8,6 +8,9 @@
 - include: xorg.yml
   tags: ['xorg']
 
+- include: fonts.yml
+  tags: ['fonts']
+
 - include: openbox.yml
   when: gui_wm_default == 'openbox'
   tags: ['wm', 'openbox']

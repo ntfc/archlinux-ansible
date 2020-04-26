@@ -18,6 +18,16 @@ gui_openbox_packages:
   - openbox
   - xfce4-panel
   - xfce4-screenshooter
+gui_font_packages:
+  - adobe-source-code-pro-fonts
+  - noto-fonts
+  - noto-fonts-emoji
+  - terminus-font
+  - ttf-dejavu
+  - ttf-droid
+  - ttf-inconsolata
+  - ttf-liberation
+  - ttf-linux-libertine
 gui_openbox_aur:
   - obkey
 

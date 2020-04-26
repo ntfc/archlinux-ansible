@@ -1,0 +1,5 @@
+- name: install fonts
+  pacman:
+    name: "{{ gui_font_packages }}"
+    state: present
+  become: yes
