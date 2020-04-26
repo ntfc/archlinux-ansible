@@ -9,6 +9,7 @@ gui_required:
 xorg_packages:
   - xdotool # X11 automation tool
   - xorg # package group
+  - wmctrl # control WM
 
 gui_wm_default: openbox
 
