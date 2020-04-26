@@ -15,8 +15,11 @@
       tags: ['gui']
     - role: cli
       tags: ['cli']
+    - role: vim
+      tags: ['vim']
     - role: git
       tags: ['git']
+    - role: syncthing
+      tags: ['syncthing']
 
-  # dotfiles
   # UI config

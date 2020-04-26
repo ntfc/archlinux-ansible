@@ -1,0 +1,26 @@
+---
+- name: install vim
+  pacman:
+    name:
+      - vim
+    state: present
+  become: yes
+
+- name: stow vim
+  command: "stow -d ~/dotfiles -t ~/ vim"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: install Vundle
+  git:
+    accept_hostkey: yes
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: "~/.vim/bundle/Vundle.vim"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: run Vundle plugin update
+  command: "/usr/bin/vim +PluginUpdate +qall!"
+  become: yes
+  become_user: "{{ user_name }}"
+
