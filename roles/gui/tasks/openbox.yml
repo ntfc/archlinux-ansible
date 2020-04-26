@@ -33,7 +33,7 @@
   register: nm_applet_desktop
 
 - name: copy nm-applet xdg autostart to user config
-  command: "mkdir -p /home/{{ user_name }}/.config/autostart && cp /etc/xdg/autostart/nm-applet.desktop /home/{{ user_name }}/.config/autostart/"
+  shell: "mkdir -p /home/{{ user_name }}/.config/autostart && cp /etc/xdg/autostart/nm-applet.desktop /home/{{ user_name }}/.config/autostart/"
   become: yes
   become_user: "{{ user_name }}"
   when: nm_applet_desktop.stat.exists == True
