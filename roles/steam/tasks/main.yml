@@ -1,0 +1,16 @@
+---
+- name: install steam
+  pacman:
+    name:
+      - steam
+    state: present
+  become: yes
+
+- name: install steamcmd and steam-fonts
+  aur:
+    name:
+      - steamcmd
+      - steam-fonts
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"

@@ -1,0 +1,11 @@
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
+  roles:
+    - role: steam
+      tags: ['games', 'steam']
