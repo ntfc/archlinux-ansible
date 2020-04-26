@@ -17,3 +17,4 @@
 
 - name: compile setlayout.c
   command: "gcc -o /opt/setlayout /tmp/setlayout.c -lX11"
+  become: yes
