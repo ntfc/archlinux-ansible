@@ -17,5 +17,16 @@
     - role: login
       tags: ['login', 'lightdm']
 
-  # power / suspend / laptop power
-  # nvidia
+  # TODO power / suspend / laptop power
+  tasks:
+    - name: install common system tools
+      pacman:
+        name:
+          - dosfstools
+          - btrfs-progs
+          - ntfs-3g
+          - mtools
+        state: present
+      become: yes
+      tags: ['common']
+

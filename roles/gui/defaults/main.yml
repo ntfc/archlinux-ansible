@@ -21,6 +21,7 @@ gui_common_packages:
   - file-roller
   - lxappearance-gtk3
   - gnome-themes-extra
+  - gparted
   - mousepad
   - qt5-base
   - qt5ct # configration tool
