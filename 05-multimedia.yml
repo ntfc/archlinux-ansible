@@ -1,0 +1,31 @@
+- hosts: localhost
+  connection: local
+  tags: ['multimedia', 'audio', 'video']
+  tasks:
+    - name: install common codecs
+      pacman:
+        name:
+          - flac
+          - lame
+          - libogg
+          - libmatroska
+          - x264
+          - x265
+
+    - name: install gstreamer audio plugins
+      pacman:
+        name:
+          - gst-plugins-bad
+          - gst-plugins-base
+          - gst-plugins-good
+          - gst-plugins-ugly
+        state: present
+      become: yes
+
+    - name: install basic audio/video players
+      pacman:
+        name:
+          - clementine
+          - vlc
+        state: present
+      become: yes
