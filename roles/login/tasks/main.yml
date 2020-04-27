@@ -20,3 +20,6 @@
     name: lightdm
     enabled: yes
   become: yes
+
+- include: keyring.yml
+  tags: ['gnome-keyring', 'keyring']

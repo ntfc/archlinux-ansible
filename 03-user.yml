@@ -8,7 +8,7 @@
           - aur_user is defined
   roles:
     - role: user
-      tags: ['user']
+      tags: ['user', 'usermod']
     - role: gui
       tags: ['gui']
     - role: cli
