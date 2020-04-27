@@ -1,18 +1,26 @@
 - hosts: localhost
   connection: local
   tags: ['multimedia', 'audio', 'video']
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
   tasks:
-    - name: install common codecs
+    - name: install common audio/video/image codecs/libs
       pacman:
         name:
           - flac
+          - imagemagick
           - lame
           - libogg
           - libmatroska
           - x264
           - x265
+          - wavpack
 
-    - name: install gstreamer audio plugins
+    - name: install gstreamer
       pacman:
         name:
           - gst-plugins-bad
@@ -22,10 +30,44 @@
         state: present
       become: yes
 
-    - name: install basic audio/video players
+    - name: install audio/video players
       pacman:
         name:
           - clementine
+          - ffmpeg
+          - obs-studio
           - vlc
         state: present
       become: yes
+
+    - name: install puddletag
+      aur:
+        name: puddletag
+        use: "{{ aur_helper }}"
+      become: yes
+      become_user: "{{ aur_user }}"
+
+    - name: install image viewers
+      pacman:
+        name:
+          - feh
+          - viewnior
+        state: present
+      become: yes
+
+    - name: install image editors
+      pacman:
+        name:
+          - gimp
+          - inkscape
+        state: present
+      become: yes
+
+    - name: install v4l2loopback
+      aur:
+        use: "{{ aur_helper }}"
+        name:
+          - obs-v4l2sink
+          - v4l2loopback-dkms
+      become: yes
+      become_user: "{{ aur_user }}"

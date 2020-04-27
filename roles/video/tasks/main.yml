@@ -5,21 +5,3 @@
       - arandr
     state: present
   become: yes
-
-- name: install video codecs, players
-  pacman:
-    name:
-      - ffmpeg
-      - obs-studio
-      - vlc
-    state: present
-  become: yes
-
-- name: install v4l2loopback
-  aur:
-    use: "{{ aur_helper }}"
-    name:
-      - obs-v4l2sink
-      - v4l2loopback-dkms
-  become: yes
-  become_user: "{{ aur_user }}"
