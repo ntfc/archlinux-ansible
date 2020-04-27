@@ -40,12 +40,13 @@
         state: present
       become: yes
 
-    - name: install puddletag
-      aur:
-        name: puddletag
-        use: "{{ aur_helper }}"
-      become: yes
-      become_user: "{{ aur_user }}"
+    ## current qt5 is not very stable, wait a bit..
+    #- name: install puddletag
+    #  aur:
+    #    name: puddletag-qt5-git
+    #    use: "{{ aur_helper }}"
+    #  become: yes
+    #  become_user: "{{ aur_user }}"
 
     - name: install image viewers
       pacman:
