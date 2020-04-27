@@ -16,8 +16,6 @@
       when: bluetooth_install|default(False) == True
     - role: login
       tags: ['login', 'lightdm']
-    - role: video
-      tags: ['video']
 
   # TODO power / suspend / laptop power
   tasks:

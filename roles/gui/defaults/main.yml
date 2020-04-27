@@ -7,6 +7,7 @@ gui_required:
   - gui_wm_default is defined and gui_wm_default in ['openbox']
 
 xorg_packages:
+  - arandr # manage screens
   - xdotool # X11 automation tool
   - xclip
   - xorg # package group
