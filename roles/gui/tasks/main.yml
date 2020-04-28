@@ -46,7 +46,21 @@
   become_user: "{{ user_name }}"
   tags: ['clipboard']
 
-- name: stow startup settings with Xorg and WM
+- name: stow GUI startup settings
   command: "stow -d {{ user_dotfiles_path }} -t ~ startup"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: install redshift
+  aur:
+    name:
+      - redshift-minimal
+      - redshift-qt
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"
+
+- name: stow redshift
+  command: "stow -d {{ user_dotfiles_path }} -t ~ redshift"
   become: yes
   become_user: "{{ user_name }}"
