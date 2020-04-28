@@ -1,12 +1,6 @@
-- hosts: localhost
-  connection: local
+- hosts: all
   tags: ['graphics', 'nvidia']
   pre_tasks:
-    - name: check required
-      assert:
-        that:
-          - aur_helper is defined
-          - aur_user is defined
     - name: found out Nvidia model
       shell:
         cmd: lshw -class display -xml | xq -r .list.node.product
@@ -18,6 +12,11 @@
     - name: set nvidia model as fact
       set_fact:
         nvidia_model: "{{ lshw_nvidia.stdout_lines[0] }}"
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
 
   roles:
     - role: video

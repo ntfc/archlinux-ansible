@@ -1,5 +1,4 @@
-- hosts: localhost
-  connection: local
+- hosts: all
   roles:
     - role: pacman
       tags: ['pacman', 'aur']
@@ -16,6 +15,8 @@
       when: bluetooth_install|default(False) == True
     - role: login
       tags: ['login', 'lightdm']
+    - role: power
+      tags: ['power']
 
   # TODO power / suspend / laptop power
   tasks:

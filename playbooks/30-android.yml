@@ -1,5 +1,4 @@
-- hosts: localhost
-  connection: local
+- hosts: all
   pre_tasks:
     - name: check required
       assert:
