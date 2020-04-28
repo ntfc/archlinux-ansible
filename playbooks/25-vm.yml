@@ -1,0 +1,14 @@
+- hosts: all
+  tasks:
+    - name: install virtualbox
+      pacman:
+        name:
+          - virtualbox
+          - virtualbox-host-modules-arch
+          - virtualbox-guest-iso
+        state: present
+      become: yes
+
+    - name: install vagrant
+      pacman: name=vagrant state=present
+      become: yes
