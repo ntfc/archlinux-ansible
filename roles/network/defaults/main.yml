@@ -15,6 +15,7 @@ network_base_packages:
   - iproute2 # https://wiki.archlinux.org/index.php/Network_configuration#net-tools
   - nmap
   - openresolv # https://wiki.archlinux.org/index.php/Openresolv
+  - speedtest-cli
   - wget
   - wpa_supplicant
 
