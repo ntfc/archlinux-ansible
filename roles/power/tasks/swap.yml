@@ -1,0 +1,41 @@
+---
+- name: check if swap file exists
+  stat:
+    path: "{{ power_swap_file_path }}"
+  become: yes
+  register: swap_file
+
+- name: create swap file
+  command: fallocate --length {{ power_swap_file_length }} {{ power_swap_file_path }}
+  become: yes
+  when: swap_file.stat.exists == False
+
+- name: set swap file permissions
+  file:
+    path: "{{ power_swap_file_path }}"
+    mode: 0600
+  become: yes
+
+- name: make swap file
+  command: "mkswap {{ power_swap_file_path }}"
+  become: yes
+  when: swap_file.stat.exists == False
+
+- name: mount swap file
+  command: "swapon {{ power_swap_file_path }}"
+  become: yes
+  when: ansible_swaptotal_mb == 0
+
+- name: add swap file to /etc/fstab
+  mount:
+    src: "{{ power_swap_file_path }}"
+    path: none
+    fstype: swap
+    opts: defaults
+    dump: 0
+    passno: 0
+    backup: yes
+    state: present
+  become: yes
+
+

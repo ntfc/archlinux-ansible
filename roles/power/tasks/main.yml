@@ -1,0 +1,30 @@
+---
+- name: check required
+  assert:
+    that: "{{ power_required }}"
+
+- name: install power related packages
+  pacman:
+    name: "{{ power_common_packages }}"
+    state: present
+  become: yes
+
+- name: setup logind.conf.d directory
+  file:
+    path: /etc/systemd/logind.conf.d/
+    state: directory
+  become: yes
+
+- name: configure logind eventhandlers
+  template:
+    src: logind-event-handlers.conf.j2
+    dest: /etc/systemd/logind.conf.d/00-event-handlers.conf
+  become: yes
+  notify:
+    - restart systemd-logind
+
+- include: suspend.yml
+  when: power_suspend_enabled
+
+  #- include: fans.yml
+  #  when: power_fans_enabled

@@ -1,0 +1,26 @@
+---
+power_required:
+  - power_suspend_enabled is defined
+  - power_fans_enabled is defined
+  - power_swap_file_path is defined
+  - power_swap_file_length is defined
+
+power_common_packages:
+  # deprecated; xbindkeys are created instead.
+  # - acpid
+  - powertop
+  - systemd # should be already installed by default, but used for power events
+
+# default values for event handlers taken from: https://wiki.archlinux.org/index.php/Power_management#ACPI_events
+power_handler_power_key: poweroff
+power_handler_suspend_key: suspend
+power_handler_hibernate_key: hibernate
+power_handler_lid_switch: suspend
+power_handler_lid_switch_docked: ignore
+power_handler_lid_switch_external_power: suspend # same as power_handler_lid_switch
+
+power_suspend_enabled: True
+power_swap_file_path: /swap
+power_swap_file_length: 8G
+
+power_fans_enabled: False
