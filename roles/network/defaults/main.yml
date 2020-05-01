@@ -15,9 +15,13 @@ network_base_packages:
   - iproute2 # https://wiki.archlinux.org/index.php/Network_configuration#net-tools
   - nmap
   - openresolv # https://wiki.archlinux.org/index.php/Openresolv
+  - openvpn
   - speedtest-cli
   - wget
   - wpa_supplicant
+
+network_aur_packages:
+  - openvpn-update-resolv-conf-git # for some openvpn connections
 
 # valid options are:
 # - netctl
