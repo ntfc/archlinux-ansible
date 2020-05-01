@@ -1,0 +1,9 @@
+- hosts: all
+  tags: ['openssh', 'ssh']
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - user_name is defined
+  roles:
+    - role: openssh
