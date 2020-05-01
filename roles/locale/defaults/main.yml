@@ -22,7 +22,13 @@ locale_time: en_GB.UTF-8
 
 locale_timezone: Europe/Berlin
 
-locale_aspell_dictionaries:
+locale_spell_checker_packages:
+  - aspell
   - aspell-de
   - aspell-en
   - aspell-pt
+  - hunspell
+  - hunspell-de
+  - hunspell-en_GB
+locale_spell_checker_aur:
+  - hunspell-pt_pt

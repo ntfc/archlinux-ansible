@@ -1,0 +1,6 @@
+- hosts: all
+  tags: ['office']
+  tasks:
+    - name: install libreoffice
+      pacman:
+        name: libreoffice-still

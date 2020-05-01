@@ -24,6 +24,7 @@
           - dosfstools
           - btrfs-progs
           - gvfs
+          - linux-headers
           - ntfs-3g
           - mtools
         state: present

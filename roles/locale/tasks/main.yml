@@ -66,15 +66,18 @@
   service: name=ntpd state=started enabled=yes
   become: yes
 
-- name: install aspell
-  pacman: name=aspell state=present
+- name: install spell checker
+  pacman:
+    name: "{{ locale_spell_checker_packages }}"
+    state: present
   become: yes
   tags: ['spell']
 
-- name: install aspell dictionaries
-  pacman:
-    name: "{{ locale_aspell_dictionaries }}"
-    state: present
+- name: install spell checker (aur)
+  aur:
+    name: "{{ locale_spell_checker_aur }}"
+    use: "{{ aur_helper }}"
   become: yes
-  when: locale_aspell_dictionaries|default([])|length > 0
+  become_user: "{{ aur_user }}"
   tags: ['spell']
+
