@@ -54,3 +54,4 @@
           - v4l2loopback-dkms
       become: yes
       become_user: "{{ aur_user }}"
+      tags: ['v4l2']

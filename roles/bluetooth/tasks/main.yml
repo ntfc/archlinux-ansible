@@ -6,7 +6,7 @@
       - bluez-libs
       - bluez-utils
       - blueman
-      - pulseaudio-bluetooth
+      - pulseaudio-bluetooth # move to the bluetooth module
     state: present
   become: yes
 
