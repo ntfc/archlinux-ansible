@@ -1,0 +1,33 @@
+---
+- name: ensure ssh user directories are created
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0700
+  with_items: ["/home/{{ user_name }}/.ssh", "/home/{{ user_name }}/.ssh/config.d"]
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: template ssh config
+  template:
+    src: ssh_user_config.j2
+    dest: ~/.ssh/config
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: template host configuration
+  template:
+    src: ssh_host.conf.j2
+    dest: ~/.ssh/config.d/{{ item.name }}
+  vars:
+    - name: "{{ item.name }}"
+    - hostname: "{{ item.hostname }}"
+    - user: "{{ item.user }}"
+    - port: "{{ item.port|default(22) }}"
+    - identity_file: "{{ item.identity_file }}"
+  with_items: "{{ openssh_hosts }}"
+  loop_control:
+    label: "{{ item.name }}"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: openssh_hosts|default([])|length > 0

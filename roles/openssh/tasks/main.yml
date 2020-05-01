@@ -1,0 +1,14 @@
+---
+- name: install openssh
+  pacman:
+    name: "{{ openssh_packages }}"
+    state: present
+  become: yes
+    
+  #- include: server.yml
+  #  when: openssh_server
+  #  tags: ['server']
+
+- include: client.yml
+  when: openssh_client
+  tags: ['client', 'user']
