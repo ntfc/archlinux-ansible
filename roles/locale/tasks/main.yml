@@ -65,3 +65,16 @@
 - name: start and enable ntp
   service: name=ntpd state=started enabled=yes
   become: yes
+
+- name: install aspell
+  pacman: name=aspell state=present
+  become: yes
+  tags: ['spell']
+
+- name: install aspell dictionaries
+  pacman:
+    name: "{{ locale_aspell_dictionaries }}"
+    state: present
+  become: yes
+  when: locale_aspell_dictionaries|default([])|length > 0
+  tags: ['spell']
