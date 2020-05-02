@@ -4,3 +4,27 @@
     - name: install libreoffice
       pacman:
         name: libreoffice-still
+        state: present
+      become: yes
+
+    - name: install evince
+      aur:
+        name: evince-light
+        use: "{{ aur_helper }}"
+      become: yes
+      become_user: "{{ aur_user }}"
+
+    - name: install zathura
+      pacman:
+        name:
+          - zathura
+          - zathura-ps
+          - zathura-djvu
+          - zathura-pdf-mupdf
+        state: present
+      become: yes
+
+    - name: stow zathura
+      command: "stow -d {{ user_dotfiles_path }} -t ~ zathura"
+      become: yes
+      become_user: "{{ user_name }}"
