@@ -9,4 +9,5 @@ common_util_packages:
   - lshw
   - htop
   - rsync
+  - tree
   - yq
