@@ -1,0 +1,51 @@
+---
+- name: check required
+  assert:
+    that: "{{ mpd_required }}"
+
+- name: install mpd server
+  pacman:
+    name: mpd
+    state: present
+  become: yes
+
+- name: create configuration directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items: [~/.config/mpd/, ~/.config/mpd/playlists/]
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: template configuration file
+  template:
+    src: mpd.conf.j2
+    dest: ~/.config/mpd/mpd.conf
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: start and enable the mpd systemd user service
+  systemd:
+    name: mpd
+    scope: user
+    state: started
+    enabled: yes
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: install mpd clients
+  pacman:
+    name:
+      - mpc # cli
+      - xfmpc # gui
+    state: present
+  become: yes
+
+- name: install aur mpd clients
+  aur:
+    name:
+      - gmpc
+      - ncmpcpp
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"
