@@ -12,7 +12,6 @@
   become: yes
   become_user: "{{ aur_user }}"
 
-
 - name: stow openbox config
   command: "stow -d {{ user_dotfiles_path }} -t ~ openbox"
   become: yes

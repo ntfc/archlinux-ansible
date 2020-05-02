@@ -12,6 +12,16 @@
   become: present
   tags: ['gui-common']
 
+- name: set QT5 environemnt variable in /etc/profile
+  ini_file:
+    path: /etc/environment
+    section: null
+    option: "QT_QPA_PLATFORMTHEME"
+    value: "qt5ct"
+    no_extra_spaces: true
+    state: present
+  become: yes
+
 - include: xorg.yml
   tags: ['xorg']
 

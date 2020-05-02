@@ -6,7 +6,7 @@ power_required:
   - power_swap_file_length is defined
 
 power_common_packages:
-  # deprecated; xbindkeys are created instead.
+  # deprecated; logind + openbox are used instead.
   # - acpid
   - powertop
   - systemd # should be already installed by default, but used for power events

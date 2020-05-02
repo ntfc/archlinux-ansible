@@ -23,8 +23,10 @@ gui_common_packages:
   - lxappearance-gtk3
   - gnome-themes-extra
   - gparted
+  - hicolor-icon-theme # recommended to install the hicolor-icon-theme package as many programs will deposit their icons in /usr/share/icons/hicolor
   - mousepad
   - qt5-base
+  - qt5-styleplugins # QGtkStyle has been removed from qt5-base 5.7.0 and added to qt5-styleplugins
   - qt5ct # configration tool
   - thunar
   - thunar-archive-plugin
@@ -53,3 +55,4 @@ gui_font_packages:
   - ttf-linux-libertine
 gui_openbox_aur:
   - obkey
+  # - xbindkeys # deprecated; used obkeys instead
