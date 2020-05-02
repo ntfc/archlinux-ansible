@@ -9,12 +9,15 @@
         state: present
       become: yes
 
-    - name: install intellij
-      aur:
-        name: intellij-idea-ultimate-edition
-        use: "{{ aur_helper }}"
+    - name: add java environment to /etc/profile
+      ini_file:
+        path: /etc/environment
+        section: null
+        option: "_JAVA_OPTIONS"
+        value: "'-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'"
+        no_extra_spaces: true
+        state: present
       become: yes
-      become_user: "{{ aur_user }}"
-      tags: ['intellij', 'ij']
+
 
     # TODO: stow intellij settings
