@@ -2,5 +2,11 @@
   tags: ['finances']
   tasks:
     - name: install gnucash
-      pacman: name=gnucash state=present
+      pacman:
+        name:
+          - gnucash
+          - perl-date-manip # needed for Finance::Quote
+          - perl-finance-quote
+          - perl-mozilla-ca # needed for Finance::Quote
+        state: present
       become: yes
