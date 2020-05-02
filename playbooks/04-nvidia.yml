@@ -19,8 +19,6 @@
           - aur_user is defined
 
   roles:
-    - role: video
-      tags: ['video']
     - role: nvidia
       tags: ['nvidia', 'latest']
       when: "'GeForce GTX 1660' in nvidia_model"
