@@ -1,0 +1,3 @@
+[submodule "plugins/ansible-aur"]
+	path = plugins/ansible-aur
+	url = https://gitlab.com/ntfc/ansible-aur.git

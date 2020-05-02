@@ -1,0 +1,53 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ user_required }}"
+
+- name: create user {{ user_name }}
+  user:
+    name: "{{ user_name }}"
+    password: "{{ user_password }}"
+    group: "{{ user_group }}"
+    groups: "{{ user_groups }}"
+    create_home: "{{ user_create_home }}"
+    state: present
+  become: yes
+
+- name: add user to sudoers
+  template:
+    src: user_name_sudoers.j2
+    dest: "/etc/sudoers.d/{{ user_name }}"
+    validate: 'visudo --check --file=%s'
+  when: user_is_sudoer|default(False)
+
+- name: create ssh keys directory
+  file:
+    state: directory
+    path: "/home/{{ user_name }}/.ssh/"
+    mode: 0700
+    owner: "{{ user_name }}"
+    group: "{{ user_group }}"
+  become: yes
+  when: user_create_home == True and user_ssh_key_generate|default(False) == True
+  tags: ssh
+
+- name: check if SSH keypair exists
+  stat:
+    path: "/home/{{ user_name }}/.ssh/{{ user_name }}.{{ user_ssh_key_type }}"
+  register: user_ssh_file
+  tags: ssh
+
+- name: generate SSH keypair
+  command: ssh-keygen -o -a 100 -t {{ user_ssh_key_type }} -f /home/{{ user_name }}/.ssh/{{ user_name }}.{{ user_ssh_key_type }} -N "{{ user_ssh_key_passphrase }}" -C "{{ user_name }} at {{ ansible_facts['hostname'] }}"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: user_create_home == True and user_ssh_key_generate|default(False) == True and user_ssh_file.stat.exists == False
+  tags: ssh
+
+- import_tasks: dotfiles.yml
+  become_user: "{{ user_name }}"
+  become: yes
+  when: user_dotfiles_url is defined
+  tags: ['dotfiles']

@@ -1,0 +1,17 @@
+---
+- name: install networkmanager
+  pacman:
+    name:
+      - networkmanager
+      - network-manager-applet
+      - nm-connection-editor
+    state: present
+  become: yes
+
+# don't start the service to not break currently open connection
+- name: enable NetworkManager service
+  service:
+    name: NetworkManager
+    enabled: yes
+  when: network_default_manager == 'networkmanager'
+  become: yes

@@ -40,6 +40,7 @@
       upgrade: yes
     become: yes
 
+  # TODO: install pacman hooks informant and needrestart from aur
   tags:
   - pacman
 

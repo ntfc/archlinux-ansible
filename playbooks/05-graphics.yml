@@ -1,0 +1,18 @@
+- hosts: all
+  tags: ['multimedia', 'audio', 'video']
+  tasks:
+    - name: install image viewers
+      pacman:
+        name:
+          - feh
+          - viewnior
+        state: present
+      become: yes
+
+    - name: install image editors
+      pacman:
+        name:
+          - gimp
+          - inkscape
+        state: present
+      become: yes

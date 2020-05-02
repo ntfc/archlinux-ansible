@@ -1,0 +1,7 @@
+---
+openssh_packages:
+  - openssh
+  - sshpass
+
+openssh_client: True
+openssh_server: False

@@ -1,0 +1,83 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ locale_required }}"
+
+- name: enable locales
+  lineinfile: 
+    path: /etc/locale.gen
+    regexp: "^#({{ item }})+(.*)$"
+    backrefs: yes
+    line: '\1\2'
+    state: present
+  with_items: "{{ locale_generate }}"
+  become: yes
+
+- name: generate locales
+  command: locale-gen
+  become: yes
+
+- name: set locale\'s language
+  lineinfile:
+    dest: /etc/locale.conf
+    create: yes
+    state: present
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^LANG=', line: 'LANG={{ locale_default }}' }
+    - { regexp: '^LANGUAGE=', line: 'LANGUAGE={{ locale_default }}' }
+  become: yes
+
+- name: set locale\'s monetary
+  lineinfile:
+    dest: /etc/locale.conf
+    create: yes
+    state: present
+    regexp: "^LC_MONETARY="
+    line: "LC_MONETARY={{ locale_monetary }}"
+  when: locale_monetary is defined
+  become: yes
+
+- name: set locale\'s time
+  lineinfile:
+    dest: /etc/locale.conf
+    create: yes
+    state: present
+    regexp: "^LC_TIME="
+    line: "LC_TIME={{ locale_time }}"
+  when: locale_time is defined
+  become: yes
+
+- name: set timezone
+  file:
+    src: /usr/share/zoneinfo/{{ locale_timezone }}
+    dest: /etc/localtime
+    state: link
+  become: yes
+
+- name: install ntp
+  pacman: name=ntp state=present
+  become: yes
+
+- name: start and enable ntp
+  service: name=ntpd state=started enabled=yes
+  become: yes
+
+- name: install spell checker
+  pacman:
+    name: "{{ locale_spell_checker_packages }}"
+    state: present
+  become: yes
+  tags: ['spell']
+
+- name: install spell checker (aur)
+  aur:
+    name: "{{ locale_spell_checker_aur }}"
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"
+  tags: ['spell']
+

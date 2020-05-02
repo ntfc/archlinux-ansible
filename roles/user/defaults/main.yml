@@ -1,0 +1,29 @@
+---
+user_required:
+  - user_name is defined
+  - user_password is defined
+  - user_group is defined
+  - user_groups is defined and user_groups|length > 0
+  - user_create_home is defined
+  - user_is_sudoer is defined
+
+user_dotfiles_required:
+  - user_create_home|default(False) == True
+
+# user's primary group
+user_group: users
+# user's secondary groups
+user_groups:
+  - wheel
+  - network
+user_create_home: yes
+user_is_sudoer: yes
+
+user_ssh_key_type: ed25519
+user_ssh_key_generate: True
+
+user_dotfiles_path: "/home/{{ user_name }}/dotfiles"
+user_dotfiles_packages:
+  - git
+  - stow
+

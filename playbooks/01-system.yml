@@ -1,0 +1,33 @@
+- hosts: all
+  roles:
+    - role: pacman
+      tags: ['pacman', 'aur']
+    - role: sudo
+      tags: ['sudo']
+    - role: locale
+      tags: ['locale', 'timezone', 'ntp']
+    - role: network
+      tags: ['network']
+    - role: audio
+      tags: ['audio']
+    - role: bluetooth
+      tags: ['bluetooth']
+      when: bluetooth_install|default(False) == True
+    - role: login
+      tags: ['login', 'lightdm']
+
+  # TODO power / suspend / laptop power
+  tasks:
+    - name: install common system tools
+      pacman:
+        name:
+          - dosfstools
+          - btrfs-progs
+          - gvfs
+          - linux-headers
+          - ntfs-3g
+          - mtools
+        state: present
+      become: yes
+      tags: ['common']
+

@@ -1,0 +1,20 @@
+---
+- name: create AUR user
+  user:
+    name: "{{ aur_user }}"
+    group: wheel
+  become: yes
+
+- name: make AUR user passwordless sudo
+  template:
+    src: aur_user_sudoers.j2
+    dest: "/etc/sudoers.d/{{ aur_user }}"
+    validate: 'visudo --check --file=%s'
+  become: yes
+
+- name: AUR helper is installed
+  aur:
+    name: yay
+    use: makepkg
+  become: yes
+  become_user: "{{ aur_user }}"

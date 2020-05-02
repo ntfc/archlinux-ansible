@@ -1,0 +1,76 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ cli_required }}"
+
+- name: install shell
+  pacman:
+    name: "{{ cli_shell_packages }}"
+    state: present
+  become: yes
+
+- name: change user shell
+  user:
+    name: "{{ user_name }}"
+    shell: "/usr/bin/{{ cli_default_shell }}"
+  become: yes
+
+- name: stow bash
+  command: "stow -d {{ user_dotfiles_path }} -t ~ bash"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: '"bash" in cli_shell_packages'
+
+- name: stow zsh
+  command: "stow -d {{ user_dotfiles_path }} -t ~ zsh"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: '"zsh" in cli_shell_packages'
+
+- name: install terminal
+  pacman:
+    name: "{{ cli_terminal_packages }}"
+    state: present
+  become: yes
+
+- name: install terminal AUR packages
+  aur:
+    use: "{{ aur_helper }}"
+    name: "{{ cli_aur_packages }}"
+  become: yes
+  become_user: "{{ aur_user }}"
+
+- name: stow rxvt-unicode
+  command: "stow -d {{ user_dotfiles_path }} -t ~ urxvt"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: '"rxvt-unicode" in cli_terminal_packages'
+
+- name: stow aliases
+  command: "stow -d {{ user_dotfiles_path }} -t ~ alias"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: install tmux
+  pacman:
+    name:
+      - tmux
+  become: yes
+  when: cli_install_tmux|default(False) == True
+
+- name: install tmux plugin manager
+  git:
+    accept_hostkey: yes
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+  become: yes
+  become_user: "{{ user_name }}"
+  when: cli_install_tmux|default(False) == True
+
+- name: stow tmux
+  command: "stow -d {{ user_dotfiles_path }} -t ~ tmux"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: cli_install_tmux|default(False) == True

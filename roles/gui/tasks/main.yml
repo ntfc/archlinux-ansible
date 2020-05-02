@@ -1,0 +1,66 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ gui_required }}"
+
+- name: install common gui tools and themes
+  pacman:
+    name: "{{ gui_common_packages }}"
+    state: present
+  become: present
+  tags: ['gui-common']
+
+- include: xorg.yml
+  tags: ['xorg']
+
+- include: fonts.yml
+  tags: ['fonts']
+
+- include: openbox.yml
+  when: gui_wm_default == 'openbox'
+  tags: ['wm', 'openbox']
+
+- name: install rofi
+  pacman:
+    name: rofi
+    state: present
+  become: yes
+
+- name: stow rofi
+  command: "stow -d {{ user_dotfiles_path }} -t ~ rofi"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: install copyq
+  pacman:
+    name: copyq
+    state: present
+  become: yes
+  tags: ['clipboard']
+
+- name: stow copyq
+  command: "stow -d {{ user_dotfiles_path }} -t ~ copyq"
+  become: yes
+  become_user: "{{ user_name }}"
+  tags: ['clipboard']
+
+- name: stow GUI startup settings
+  command: "stow -d {{ user_dotfiles_path }} -t ~ startup"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: install redshift
+  aur:
+    name:
+      - redshift-minimal
+      - redshift-qt
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"
+
+- name: stow redshift
+  command: "stow -d {{ user_dotfiles_path }} -t ~ redshift"
+  become: yes
+  become_user: "{{ user_name }}"

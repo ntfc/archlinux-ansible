@@ -1,0 +1,19 @@
+---
+- name: install bluetooth
+  pacman:
+    name:
+      - bluez
+      - bluez-libs
+      - bluez-utils
+      - blueman
+      - pulseaudio-bluetooth # move to the bluetooth module
+    state: present
+  become: yes
+
+- name: start and enable bluetooth service
+  service:
+    name: bluetooth
+    enabled: yes
+    state: started
+  become: yes
+  when: bluetooth_enabled|default(False) == True

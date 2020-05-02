@@ -1,0 +1,18 @@
+---
+- include: swap.yml
+  tags: ['swap']
+
+# https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#Hibernation_into_swap_file
+
+- name: find the swap file physical_offset
+  shell: filefrag -v {{ power_swap_file_path }} | awk '{ if($1=="0:"){print $4} }' | sed 's/\.//g'
+  become: yes
+  register: swap_file_offset
+
+- name: find device to resume to
+  command: findmnt -no SOURCE -T {{ power_swap_file_path }}
+  register: resume_device
+
+  # todo: update kernel params using efibootmgr or some other method
+  # # Command used to create the EFI entry for EFISTUB:
+  # efibootmgr  --disk /dev/nvme0n1 --part 1 --create --label "Arch Linux (without resume)" --loader /vmlinuz-linux --unicode 'cryptdevice=UUID=16fba18d-f3ae-4df7-aee9-a946b339512c:cryptlvm root=/dev/Archlinux/root rw initrd=\amd-ucode.img initrd=\initramfs-linux.img' --verbose

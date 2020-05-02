@@ -1,0 +1,12 @@
+- hosts: all
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
+          - user_name is defined
+  roles:
+    - role: mpd
+      tags: ['mpd']
+

@@ -1,0 +1,34 @@
+---
+network_required:
+  - network_base_packages|length > 0
+  # valid choices for network_default_manager
+  - network_default_manager is defined and network_default_manager in ['netctl', 'networkmanager']
+  # if default manager is 'netctl', then it must be set to be installed
+  - (network_default_manager != 'netctl') or (network_default_manager == 'netctl' and network_netctl_install)
+  # if default manager is 'connman', then it must be set to be installed
+  - (network_default_manager != 'networkmanager') or (network_default_manager == 'networkmanager' and network_networkmanager_install)
+
+network_base_packages:
+  - curl
+  - dhcpcd
+  - gnu-netcat
+  - iproute2 # https://wiki.archlinux.org/index.php/Network_configuration#net-tools
+  - nmap
+  - openresolv # https://wiki.archlinux.org/index.php/Openresolv
+  - openvpn
+  - qbittorrent
+  - speedtest-cli
+  - wget
+  - wpa_supplicant
+
+network_aur_packages:
+  - openvpn-update-resolv-conf-git # for some openvpn connections
+
+# valid options are:
+# - netctl
+# - networkmanager
+network_default_manager: netctl 
+
+network_netctl_install: true
+
+network_networkmanager_install: true

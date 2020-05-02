@@ -1,0 +1,16 @@
+---
+- name: install nvidia
+  pacman:
+    name:
+      - nvidia
+      - nvidia-settings
+    state: present
+  become: yes
+
+- name: install 32-bit nvidia
+  pacman:
+    name:
+      - lib32-nvidia-utils
+    state: present
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'

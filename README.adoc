@@ -1,0 +1,123 @@
+= Ansible and ArchLinux
+
+Collection of ansible playbooks and roles used to install and maintain my personal archlinux installation.
+
+The way it works is that for each new machine you want to install and configure, you create a ansible configuration under `host_vars/<hostname>` so you can run a set of playbooks such as:
+
+* install system tools such as hardware drivers, login managers, power config, etc
+* setup and configure a new user such as personal, work, etc
+
+== Requirements
+
+Before using this you need to ensure you have already have a barebones archlinux up and running with the following pacman packages:
+
+* `ansible`
+* `python`
+* `python-passlib`
+* `git` (only used to clone this repo and the submodule)
+
+We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg` (no need to install anything, just make the git submodule is checked out).
+
+== Initial installation
+
+We first need to update the submodule containing the AUR plugin.
+
+[source,shell]
+----
+$ git submodule update --recursive --init
+$ git submodule update --recursive --remote
+----
+
+=== Configuration files
+
+TODO: create an interactive ansible playbook that creates a basic configuration file
+
+Before running anything, we need to define what we need to configure.
+This is done by creating a new file in `host_vars/localhost/main.yml`.
+
+=== Run playbook
+
+With the configuration out of the way we can start running playbooks.
+
+The `01-system.yml` will install components not specific to any user but rather used by the overall system.
+You can run it with any of the following variants:
+
+[source,shell]
+----
+# list available tasks. note the tag are shown in square brackets
+$ ansible-playbook 01-system.yml --list-tasks
+# list tags
+$ ansible-playbook 01-system.yml --list-tags
+# run a particular tag
+$ ansible-playbook 01-system.yml --tags pacman
+# run all the tasks
+$ ansible-playbook 01-system.yml
+----
+
+Gotchas:
+* For tmux, we need to run `tmux source-file ~/.tmux.conf` manually
+
+== Testing
+
+=== Vagrant + VirtualBox
+
+We can use Vagrant with a Virtualbox provider, where this repository is mounted on the virtualbox VM to better mmimic the localhost scenario.
+
+Start by installing VirtualBox and Vagrant on the host machine.
+
+To correctly start virtualbox `modprobe` the following modules (taken from https://gist.github.com/ntfc/77a5160eb69c3ce4fa88):
+[source,shell]
+----
+$ modprobe vboxdrv vboxnetadp vboxnetflt vboxpci
+----
+
+Then you can start the VM with:
+[source,shell]
+----
+$ vagrant up
+----
+
+The `Vagrantfile` in this repository configures a password based SSH for ease of access.
+
+[source,shell]
+----
+$ vagrant ssh
+----
+
+Now you should be inside the VM.
+
+Run `/ansible/install_requirements.sh` (reboot if required) and then you can start running playbooks.
+
+=== Docker
+
+WARNING: You will quickly run into troubles when using docker since service management is not available.
+
+You can use docker to test a local installation.
+
+Pull the latest archlinux image and then execute it as:
+[source,shell]
+----
+$ docker run -d --name archlinux -v $(pwd):/ansible archlinux journalctl -f
+----
+
+You can then `exec` into it follow this document.
+
+== Playbooks
+
+* system configuration
+* user configuration
+
+Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible].
+Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
+
+
+
+== References
+
+Verify role variables are set: https://thoughts.t37.net/documenting-your-ansible-roles-interface-and-making-other-peoples-life-easier-604e5172837b?gi=fc6917f3204b
+
+Check for required variables in role: https://coderleaf.wordpress.com/2017/07/06/ansible-check-for-required-variables-before-role-execution/
+
+[dharmab-ansible]: https://github.com/dharmab/ansible-archlinux
+[ntfc-dotfiles]: https://github.com/ntfc/dotfiles
+[install-steps]: https://gist.github.com/ntfc/5dd78a7dc6746c95f786

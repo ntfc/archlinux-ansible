@@ -1,0 +1,6 @@
+- hosts: all
+  tags: ['finances']
+  tasks:
+    - name: install gnucash
+      pacman: name=gnucash state=present
+      become: yes

@@ -1,0 +1,39 @@
+- hosts: all
+  tags: ['minecraft']
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
+          - user_name is defined
+  tasks:
+    - name: install minecraft client
+      aur:
+        name:
+          - minecraft-launcher
+        use: "{{ aur_helper }}"
+      become: yes
+      become_user: "{{ aur_user }}"
+      tags: ['client']
+
+    - name: install minecraft server
+      aur:
+        name:
+          - minecraft-server
+        use: "{{ aur_helper }}"
+      become: yes
+      become_user: "{{ aur_user }}"
+      when: minecraft_server|default(False) == True
+      tags: ['server']
+
+    # https://wiki.archlinux.org/index.php/Minecraft#Can't_change_pulseaudio_sink
+    - name: allow pulseaudio sink change
+      ini_file:
+        path: "~/.alsoftrc"
+        section: pulse
+        option: allow-moves
+        value: "yes"
+        state: present
+      become: yes
+      become_user: "{{ user_name }}"

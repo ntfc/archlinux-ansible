@@ -1,0 +1,25 @@
+---
+- name: install login manager
+  pacman:
+    name:
+      - lightdm
+      - lightdm-gtk-greeter
+  become: yes
+
+- name: set lightdm default greeter
+  ini_file:
+    path: /etc/lightdm/lightdm.conf
+    section: "Seat:*"
+    option: "greeter-session"
+    value: "lightdm-gtk-greeter"
+    state: present
+  become: yes
+  # with this, lightdm will start at boot
+- name: enable lightdm service
+  service:
+    name: lightdm
+    enabled: yes
+  become: yes
+
+- include: keyring.yml
+  tags: ['gnome-keyring', 'keyring']

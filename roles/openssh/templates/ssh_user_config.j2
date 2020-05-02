@@ -1,0 +1,11 @@
+{# to be copied to ~/.ssh/config/ #}
+# Files to be included need to have a .conf extension
+# Must be first instruction
+include config.d/*
+
+# prevent ssh-agent to attempt to use all SSH keys, but rather force it to use
+# the one specified in config (defaulting to none)
+Host *
+  IdentitiesOnly yes
+
+# vim: set ft=sshconfig:

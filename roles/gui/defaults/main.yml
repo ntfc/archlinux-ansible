@@ -1,0 +1,55 @@
+---
+gui_required:
+  - user_name is defined
+  - user_dotfiles_url is defined
+  - user_dotfiles_path is defined
+  - xorg_packages is defined and xorg_packages|length > 0
+  - gui_wm_default is defined and gui_wm_default in ['openbox']
+
+xorg_packages:
+  - arandr # manage screens
+  - xdotool # X11 automation tool
+  - xclip
+  - xorg # package group
+  - xorg-setxkbmap
+  - wmctrl # control WM
+
+gui_wm_default: openbox
+
+gui_common_packages:
+  - gtk2
+  - gtk3
+  - file-roller
+  - lxappearance-gtk3
+  - gnome-themes-extra
+  - gparted
+  - mousepad
+  - qt5-base
+  - qt5ct # configration tool
+  - thunar
+  - thunar-archive-plugin
+  - thunar-media-tags-plugin
+  - thunar-volman
+  - tumbler
+gui_openbox_packages:
+  - obconf
+  - openbox
+    # Find which xfce4 packages needed by installing necessary packages from `pacman -Sg xfce4`
+  - xfce4-panel
+  - xfce4-pulseaudio-plugin
+  - xfce4-session
+  - xfce4-settings
+  - xfce4-screenshooter
+  - xfce4-terminal
+gui_font_packages:
+  - adobe-source-code-pro-fonts
+  - noto-fonts
+  - noto-fonts-emoji
+  - terminus-font
+  - ttf-dejavu
+  - ttf-droid
+  - ttf-inconsolata
+  - ttf-liberation
+  - ttf-linux-libertine
+gui_openbox_aur:
+  - obkey

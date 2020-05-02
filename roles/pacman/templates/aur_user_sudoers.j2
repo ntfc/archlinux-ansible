@@ -1,0 +1,5 @@
+{# to be copied to /etc/sudoers.d/ #}
+# sudo configuration for user '{{ user_name }}'
+
+# do not require root password when running pacman
+{{ aur_user }} ALL=(ALL) NOPASSWD: /usr/bin/pacman

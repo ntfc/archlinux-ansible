@@ -1,0 +1,49 @@
+---
+- name: enable multilib repo
+  ini_file:
+    path: /etc/pacman.conf
+    section: "multilib"
+    option: "Include"
+    value: "/etc/pacman.d/mirrorlist"
+    state: present
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'
+
+- name: run pacman update and upgrade
+  pacman: update_cache=yes upgrade=yes
+  become: yes
+
+- name: install reflector
+  pacman: name=reflector state=present
+  become: yes
+  when: pacman_mirror_country is defined
+  tags: ['reflector']
+
+- stat: 
+    path: /etc/pacman.d/mirrorlist
+  register: pacman_mirrorlist
+  tags: ['reflector']
+
+- name: use reflector to obtain fastest mirrors
+  command: reflector --country "{{ pacman_mirror_country }}" -l 200 -p https --sort rate --save /etc/pacman.d/mirrorlist
+  # last day
+  when: pacman_mirror_country is defined and pacman_mirrorlist.stat.mtime < ansible_date_time.epoch|int - (60 * 60 * 24)
+  become: yes
+  tags: ['reflector']
+
+- name: install pacman base packages
+  pacman:
+    name: "{{ pacman_base_packages }}"
+    state: present
+  become: yes
+
+- name: install common utilities
+  pacman:
+    name: "{{ common_util_packages }}"
+    state: present
+  when: common_util_packages|default([])|length > 0
+  become: yes
+
+- include: aur.yml
+
+#- name: install needrestart and informat

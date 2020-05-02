@@ -1,0 +1,20 @@
+- hosts: all
+  tags: ['java']
+  tasks:
+    - name: install java development tools
+      pacman:
+        name:
+          - jdk-openjdk
+          - maven
+        state: present
+      become: yes
+
+    - name: install intellij
+      aur:
+        name: intellij-idea-ultimate-edition
+        use: "{{ aur_helper }}"
+      become: yes
+      become_user: "{{ aur_user }}"
+      tags: ['intellij', 'ij']
+
+    # TODO: stow intellij settings

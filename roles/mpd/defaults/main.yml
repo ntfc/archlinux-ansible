@@ -1,0 +1,5 @@
+---
+mpd_required:
+  - mpd_music_directory is defined
+
+mpd_music_directory: /music

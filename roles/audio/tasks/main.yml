@@ -1,0 +1,36 @@
+---
+- name: install pulseaudio
+  pacman:
+    name:
+      - paprefs
+      - pamixer # more friendly cli tool
+      - pavucontrol
+      - pulseaudio
+      - pulseaudio-alsa
+      - pulseeffects
+    state: present
+  become: yes
+
+- name: install 32bit libs
+  pacman:
+    name:
+      - lib32-alsa-plugins
+      - lib32-libpulse
+    state: present
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'
+
+- name: blacklist oss
+  copy:
+    src: blacklist_oss.conf
+    dest: /etc/modprobe.d/blacklist_oss.conf
+    mode: 0644
+  become: yes
+
+  # I am not sure this is needed
+- name: configure libao
+  copy:
+    src: libao.conf
+    dest: /etc/libao.conf
+    mode: 0644
+  become: yes

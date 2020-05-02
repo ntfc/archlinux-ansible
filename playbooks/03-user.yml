@@ -1,0 +1,23 @@
+- hosts: all
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
+  roles:
+    - role: user
+      tags: ['user', 'usermod']
+    - role: gui
+      tags: ['gui']
+    - role: cli
+      tags: ['cli']
+    - role: vim
+      tags: ['vim']
+    - role: git
+      tags: ['git']
+    - role: browser
+      tags: ['web', 'browser']
+    - role: syncthing
+      tags: ['syncthing']
+

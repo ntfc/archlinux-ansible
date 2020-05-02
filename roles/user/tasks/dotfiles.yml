@@ -1,0 +1,19 @@
+---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ user_dotfiles_required }}"
+
+# user_dotfiles_url: "git@gitlab.com:ntfc/dotfiles.git"
+- name: install dotfiles packages
+  pacman:
+    name: "{{ user_dotfiles_packages }}"
+    state: present
+  become: yes
+  become_user: root # in the user `main.yml`, we set the become_user to `user_name` and we need root here to install packages
+
+- name: clone the dotfiles repo
+  git:
+    repo: "{{ user_dotfiles_url }}"
+    dest: "{{ user_dotfiles_path }}"

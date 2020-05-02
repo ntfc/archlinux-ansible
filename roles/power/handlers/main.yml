@@ -1,0 +1,4 @@
+---
+- name: restart systemd-logind
+  shell: "kill -s HUP $(systemctl show --property MainPID systemd-logind | cut -d= -f2)"
+  become: yes

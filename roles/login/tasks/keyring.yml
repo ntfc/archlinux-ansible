@@ -1,0 +1,15 @@
+---
+- block:
+  - name: install gnome-keyring
+    pacman:
+      name:
+        - gnome-keyring
+        - libsecret # Access the GNOME keyring
+        # - libgnome-keyring # deprecated, but required by some applications
+        - seahorse # UI for Gnome Keyring
+      state: present
+    become: yes
+
+  tags:
+    - gnome-keyring
+    - keyring
