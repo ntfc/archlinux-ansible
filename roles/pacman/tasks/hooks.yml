@@ -1,0 +1,30 @@
+---
+- name: install needrestart
+  aur:
+    name:
+      - iucode-tool # detect outdate microcode
+      - needrestart
+    use: makepkg # because there is a -git package in AUR
+  become: yes
+  become_user: "{{ aur_user }}"
+
+- name: install informant
+  aur:
+    name: informant
+    use: auto
+  become: yes
+  become_user: "{{ aur_user }}"
+  register: aur_informant
+
+- name: check if there are unread announcements
+  command: informant check
+  register: informant_output
+  ignore_errors: yes
+
+- name: read all informant announcements
+  command: "informant read {{ item }}"
+  with_sequence: start=0 end={{ abs(informant_output.rc|int - 1) }} # abs is used to prevent backwards sequence which only happen when there are 0 announcements to mark (thus task is skipped)
+  become: yes
+  when:
+    - informant_output.rc|int > 0
+    - aur_informant.changed == True

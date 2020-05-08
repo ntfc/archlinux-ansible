@@ -46,4 +46,5 @@
 
 - include: aur.yml
 
-#- name: install needrestart and informat
+- include: hooks.yml
+  tags: ['hooks']
