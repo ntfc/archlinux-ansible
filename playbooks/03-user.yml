@@ -10,6 +10,8 @@
       tags: ['user', 'usermod']
     - role: gui
       tags: ['gui']
+    - role: screenlock
+      tags: ['lock', 'screenlock']
     - role: cli
       tags: ['cli']
     - role: vim

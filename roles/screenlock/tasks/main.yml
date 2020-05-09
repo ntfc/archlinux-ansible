@@ -1,0 +1,8 @@
+---
+- name: install screen locker packages
+  pacman:
+    name:
+      - slock
+      - xss-lock
+    state: present
+  become: yes
