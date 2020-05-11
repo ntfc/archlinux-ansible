@@ -9,6 +9,16 @@
   become: yes
   when: ansible_facts['architecture'] == 'x86_64'
 
+- name: enable color
+  ini_file:
+    path: /etc/pacman.conf
+    section: "options"
+    option: "Color"
+    allow_no_value: yes
+    state: present
+  become: yes
+  tags: ['temp']
+
 - name: run pacman update and upgrade
   pacman: update_cache=yes upgrade=yes
   become: yes
