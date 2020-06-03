@@ -27,4 +27,4 @@
   become: yes
   when:
     - informant_output.rc|int > 0
-    - aur_informant.changed == True
+    - aur_informant.changed

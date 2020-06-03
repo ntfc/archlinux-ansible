@@ -24,7 +24,7 @@
         use: "{{ aur_helper }}"
       become: yes
       become_user: "{{ aur_user }}"
-      when: minecraft_server|default(False) == True
+      when: minecraft_server|default(False)
       tags: ['server']
 
     # https://wiki.archlinux.org/index.php/Minecraft#Can't_change_pulseaudio_sink

@@ -16,4 +16,4 @@
     enabled: yes
     state: started
   become: yes
-  when: bluetooth_enabled|default(False) == True
+  when: bluetooth_enabled|default(False)

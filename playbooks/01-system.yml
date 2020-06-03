@@ -12,7 +12,7 @@
       tags: ['audio']
     - role: bluetooth
       tags: ['bluetooth']
-      when: bluetooth_install|default(False) == True
+      when: bluetooth_install|default(False)
     - role: login
       tags: ['login', 'lightdm']
 
@@ -21,6 +21,7 @@
     - name: install common system tools
       pacman:
         name:
+          - ansible-lint
           - dosfstools
           - btrfs-progs
           - gvfs

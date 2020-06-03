@@ -58,7 +58,7 @@
     name:
       - tmux
   become: yes
-  when: cli_install_tmux|default(False) == True
+  when: cli_install_tmux|default(False)
 
 - name: install tmux plugin manager
   git:
@@ -67,10 +67,10 @@
     dest: ~/.tmux/plugins/tpm
   become: yes
   become_user: "{{ user_name }}"
-  when: cli_install_tmux|default(False) == True
+  when: cli_install_tmux|default(False)
 
 - name: stow tmux
   command: "stow -d {{ user_dotfiles_path }} -t ~ tmux"
   become: yes
   become_user: "{{ user_name }}"
-  when: cli_install_tmux|default(False) == True
+  when: cli_install_tmux|default(False)

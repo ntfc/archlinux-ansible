@@ -8,7 +8,7 @@
 - name: create swap file
   command: fallocate --length {{ power_swap_file_length }} {{ power_swap_file_path }}
   become: yes
-  when: swap_file.stat.exists == False
+  when: not swap_file.stat.exists
 
 - name: set swap file permissions
   file:
@@ -19,7 +19,7 @@
 - name: make swap file
   command: "mkswap {{ power_swap_file_path }}"
   become: yes
-  when: swap_file.stat.exists == False
+  when: not swap_file.stat.exists
 
 - name: mount swap file
   command: "swapon {{ power_swap_file_path }}"
