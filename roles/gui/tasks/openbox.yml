@@ -17,14 +17,21 @@
   become: yes
   become_user: "{{ user_name }}"
 
+- name: stat /opt/setlayout
+  stat:
+    path: /opt/setlayout
+  register: setlayout
+
 - name: copy setlayout.c
   copy:
     src: setlayout.c
     dest: /tmp/setlayout.c
+  when: not setlayout.stat.exists
 
 - name: compile setlayout.c
   command: "gcc -o /opt/setlayout /tmp/setlayout.c -lX11"
   become: yes
+  when: not setlayout.stat.exists
 
 - name: check if nm-applet xdg autostart exists
   stat:
