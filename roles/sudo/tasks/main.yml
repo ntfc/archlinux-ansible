@@ -27,9 +27,18 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
-    - { regexp: '^Cmnd_Alias POWER', line: 'Cmnd_Alias POWER = /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot, /usr/bin/systemctl suspend, /usr/bin/systemctl hibernate' }
-    - { regexp: '^Cmnd_Alias SERVICE', line: 'Cmnd_Alias SERVICE = /usr/bin/systemctl status, /usr/bin/systemctl is-enabled' }
-    - { regexp: '^Defaults env_editor', line: 'Defaults env_editor,editor=/usr/bin/vim:/usr/bin/vi:/usr/bin/nano' }
+    - {
+        regexp: '^Cmnd_Alias POWER',
+        line: 'Cmnd_Alias POWER = /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot, /usr/bin/systemctl suspend, /usr/bin/systemctl hibernate'
+    }
+    - {
+        regexp: '^Cmnd_Alias SERVICE',
+        line: 'Cmnd_Alias SERVICE = /usr/bin/systemctl status, /usr/bin/systemctl is-enabled'
+    }
+    - {
+        regexp: '^Defaults env_editor',
+        line: 'Defaults env_editor,editor=/usr/bin/vim:/usr/bin/vi:/usr/bin/nano'
+    }
   become: yes
 
 - name: check if /etc/sudoers.tmp is ok, and copy it to /etc/sudoers
