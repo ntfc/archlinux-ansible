@@ -16,6 +16,7 @@
     accept_hostkey: yes
     repo: https://github.com/VundleVim/Vundle.vim.git
     dest: "~/.vim/bundle/Vundle.vim"
+    version: "master"
   become: yes
   become_user: "{{ user_name }}"
 

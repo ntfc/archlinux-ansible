@@ -64,6 +64,7 @@
   git:
     accept_hostkey: yes
     repo: https://github.com/tmux-plugins/tpm
+    version: "master"
     dest: ~/.tmux/plugins/tpm
   become: yes
   become_user: "{{ user_name }}"

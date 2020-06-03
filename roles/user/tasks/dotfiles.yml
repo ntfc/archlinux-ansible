@@ -17,3 +17,4 @@
   git:
     repo: "{{ user_dotfiles_url }}"
     dest: "{{ user_dotfiles_path }}"
+    version: "master"
