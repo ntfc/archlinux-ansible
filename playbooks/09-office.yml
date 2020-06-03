@@ -28,3 +28,8 @@
       command: "stow -d {{ user_dotfiles_path }} -t ~ zathura"
       become: yes
       become_user: "{{ user_name }}"
+
+    - name: install calibre
+      pacman: name=calibre state=present
+      become: yes
+
