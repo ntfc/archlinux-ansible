@@ -29,7 +29,7 @@
   when: pacman_mirror_country is defined
   tags: ['reflector']
 
-- stat: 
+- stat:
     path: /etc/pacman.d/mirrorlist
   register: pacman_mirrorlist
   tags: ['reflector']

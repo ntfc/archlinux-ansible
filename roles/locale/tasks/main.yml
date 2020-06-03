@@ -6,7 +6,7 @@
   with_items: "{{ locale_required }}"
 
 - name: enable locales
-  lineinfile: 
+  lineinfile:
     path: /etc/locale.gen
     regexp: "^#({{ item }})+(.*)$"
     backrefs: yes
