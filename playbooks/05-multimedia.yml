@@ -38,13 +38,12 @@
         state: present
       become: yes
 
-    ## current qt5 is not very stable, wait a bit..
-    #- name: install puddletag
-    #  aur:
-    #    name: puddletag-qt5-git
-    #    use: "{{ aur_helper }}"
-    #  become: yes
-    #  become_user: "{{ aur_user }}"
+    - name: install puddletag qt5
+      aur:
+        name: puddletag-qt5-git
+        use: "{{ aur_helper }}"
+      become: yes
+      become_user: "{{ aur_user }}"
 
     - name: install v4l2loopback
       aur:
