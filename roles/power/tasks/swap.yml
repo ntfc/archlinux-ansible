@@ -6,7 +6,8 @@
   register: swap_file
 
 - name: create swap file
-  command: fallocate --length {{ power_swap_file_length }} {{ power_swap_file_path }}
+  #command: fallocate --length {{ power_swap_file_length }} {{ power_swap_file_path }}
+  command: dd if=/dev/zero of={{ power_swap_file_path }} bs=1G count={{ power_swap_file_length }} status=progress
   become: yes
   when: not swap_file.stat.exists
 

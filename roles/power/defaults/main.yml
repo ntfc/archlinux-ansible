@@ -21,6 +21,7 @@ power_handler_lid_switch_external_power: suspend # same as power_handler_lid_swi
 
 power_suspend_enabled: True
 power_swap_file_path: /swap
-power_swap_file_length: 8G
+# size in GB
+power_swap_file_length: 8
 
 power_fans_enabled: False
