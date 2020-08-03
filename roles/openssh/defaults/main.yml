@@ -1,6 +1,7 @@
 ---
 openssh_packages:
   - openssh
+  - sshfs
   - sshpass
 
 openssh_client: True
