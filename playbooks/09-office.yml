@@ -33,3 +33,14 @@
       pacman: name=calibre state=present
       become: yes
 
+    - name: install calculator
+      pacman: name=speedcrunch state=present
+      become: yes
+
+    - name: install geany
+      pacman:
+        name:
+          - geany
+          - geany-plugins
+        state: present
+      become: yes
