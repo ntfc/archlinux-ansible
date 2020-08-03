@@ -1,0 +1,31 @@
+---
+- hosts: all
+  tags: ['rust']
+  pre_tasks:
+    - name: check required
+      assert:
+        that:
+          - user_name is defined
+  tasks:
+    - name: install rustup
+      pacman:
+        name: rustup
+        state: present
+      become: yes
+    - name: install stable rust
+      command: rustup toolchain install stable
+      become: yes
+      become_user: "{{ user_name }}"
+    - name: set default toolchain
+      command: rustup default stable
+      become: yes
+      become_user: "{{ user_name }}"
+    - name: add rust-src component
+      command: rustup component add rust-src
+      become: yes
+      become_user: "{{ user_name }}"
+    - name: rustup update
+      command: rustup update
+      become: yes
+      become_user: "{{ user_name }}"
+      when: rust_update|default(False)
