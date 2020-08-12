@@ -12,6 +12,12 @@
   aur:
     use: "{{ aur_helper }}"
     name: ttf-dejavu-sans-mono-powerline-git
+    # the AUR package is out-of-date and requires a package that does not exist
+    # anymore
+    # however, the required dependencies (fontconfig and git) are already
+    # installed at this point so we can skip the dependency checking using `yay
+    # -S` option -dd
+    extra_args: "-dd"
   become: yes
   become_user: "{{ aur_user }}"
 
