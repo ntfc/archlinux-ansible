@@ -2,9 +2,18 @@
 - name: install vim
   pacman:
     name:
-      - vim
+      - gvim
+      #- vim
     state: present
   become: yes
+  
+  # this font is defined in URxvt XResources configuration
+- name: install powerline font
+  aur:
+    use: "{{ aur_helper }}"
+    name: ttf-dejavu-sans-mono-powerline-git
+  become: yes
+  become_user: "{{ aur_user }}"
 
 - name: stow vim
   command: "stow -d ~/dotfiles -t ~/ vim"
@@ -19,6 +28,10 @@
     version: "master"
   become: yes
   become_user: "{{ user_name }}"
+
+- name: install node and yarn (required for coc.nvim)
+  pacman: name=nodejs,yarn state=present
+  become: yes
 
 - name: run Vundle plugin update
   command: "/usr/bin/vim +PluginUpdate +qall!"
