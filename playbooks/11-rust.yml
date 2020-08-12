@@ -29,3 +29,7 @@
       become: yes
       become_user: "{{ user_name }}"
       when: rust_update|default(False)
+    - name: install rust-analyzer (through coc.nvim)
+      command: "/usr/bin/vim -c 'CocInstall -sync coc-rust-analyzer|qall!'"
+      become: yes
+      become_user: "{{ user_name }}"
