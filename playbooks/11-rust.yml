@@ -33,3 +33,6 @@
       command: "/usr/bin/vim -c 'CocInstall -sync coc-rust-analyzer|qall!'"
       become: yes
       become_user: "{{ user_name }}"
+    - name: install cargo-edit
+      pacman: name=cargo-edit state=present
+      become: yes
