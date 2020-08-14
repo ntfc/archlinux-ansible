@@ -1,0 +1,20 @@
+- name: check machine's chassis type
+  slurp:
+    src: /sys/class/dmi/id/chassis_type
+  register: chassis_type
+
+- name: determine chassis type
+  set_fact:
+    chassis_type: "{{ chassis_type['content'] | b64decode | int }}"
+
+# https://superuser.com/questions/877677/programatically-determine-if-an-script-is-being-executed-on-laptop-or-desktop/877796
+- name: determine if this is a laptop
+  set_fact:
+    is_laptop: "{{ chassis_type|int == 8 or chassis_type|int == 9 or chassis_type|int == 10 }}"
+
+- name: install laptop power packages
+  pacman:
+    name: "{{ power_laptop_packages }}"
+    state: present
+  become: yes
+  when: is_laptop|default(False)

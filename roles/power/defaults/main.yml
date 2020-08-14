@@ -25,3 +25,10 @@ power_swap_file_path: /swap
 power_swap_file_length: 8
 
 power_fans_enabled: False
+
+# following should only be installed if `is_laptop` fact is set to True by
+# this role
+power_laptop_packages:
+  - acpi # this will be used by tmux-battery-plugin, for example
+  - cbatticon
+

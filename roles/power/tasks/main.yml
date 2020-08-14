@@ -28,3 +28,6 @@
 
   #- include: fans.yml
   #  when: power_fans_enabled
+
+- include: laptop.yml
+  tags: ['laptop', 'battery']
