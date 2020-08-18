@@ -34,6 +34,7 @@
     name: "{{ cli_terminal_packages }}"
     state: present
   become: yes
+  tags: ['terminal']
 
 - name: install terminal AUR packages
   aur:
@@ -41,17 +42,38 @@
     name: "{{ cli_aur_packages }}"
   become: yes
   become_user: "{{ aur_user }}"
+  tags: ['terminal']
 
 - name: stow rxvt-unicode
   command: "stow -d {{ user_dotfiles_path }} -t ~ urxvt"
   become: yes
   become_user: "{{ user_name }}"
   when: '"rxvt-unicode" in cli_terminal_packages'
+  tags: ['terminal']
+
+- name: stow termite
+  command: "stow -d {{ user_dotfiles_path }} -t ~ termite"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: '"termite" in cli_terminal_packages'
+  tags: ['terminal']
 
 - name: stow aliases
   command: "stow -d {{ user_dotfiles_path }} -t ~ alias"
   become: yes
   become_user: "{{ user_name }}"
+
+- name: template the terminal open/close scripts
+  template:
+    src: "{{ item.src }}"
+    dest: "/home/{{ user_name }}/.scripts/{{ item.name }}"
+    mode: u=rx,g=xr,o=xr
+  with_items:
+    - { src: open-terminal.sh.j2, name: "open-terminal" }
+    - { src: close-window.sh.j2, name: "close-window" }
+  become: yes
+  become_user: "{{ user_name }}"
+  tags: ['terminal']
 
 - name: install tmux
   pacman:
