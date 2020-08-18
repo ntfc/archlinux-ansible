@@ -4,8 +4,13 @@
     - name: install java development tools
       pacman:
         name:
+          - groovy
           - jdk-openjdk
-          - maven
+          - maven # zsh completion provided by zsh-completions
+          - jdk8-openjdk # mostly for compability reasons
+          - openjdk-doc
+          - openjdk-src
+          - visualvm
         state: present
       become: yes
 
