@@ -7,6 +7,8 @@ cli_default_shell: zsh
 cli_shell_packages:
   - bash
   - zsh
+  - zsh-autosuggestions
+  - zsh-completions
 
 cli_terminal_packages:
   - rxvt-unicode
