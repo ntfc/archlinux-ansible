@@ -8,6 +8,7 @@ power_required:
 power_common_packages:
   # deprecated; logind + openbox are used instead.
   # - acpid
+  - dmidecode # get machine information
   - powertop
   - systemd # should be already installed by default, but used for power events
 
