@@ -8,6 +8,7 @@ common_util_packages:
   - jq
   - lshw
   - htop
+  - meld
   - rsync
   - tree
   - yq
