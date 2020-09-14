@@ -16,6 +16,13 @@
   become_user: "{{ aur_user }}"
   register: aur_informant
 
+- name: add user to 'informant' group
+  user:
+    name: "{{ user_name }}"
+    groups: informant
+    append: yes
+  become: yes
+
 - name: check if there are unread announcements
   command: informant check
   register: informant_output
