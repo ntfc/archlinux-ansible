@@ -1,0 +1,7 @@
+---
+user_name: "{{ vault_user_name }}"
+
+git_email: "{{ vault_git_email }}"
+
+vdirsyncer_calendars: "{{ vault_vdirsyncer_calendars }}"
+vdirsyncer_contact_books: "{{ vault_vdirsyncer_contact_books }}"
