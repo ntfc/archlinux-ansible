@@ -1,0 +1,15 @@
+# common configuration for all local machines
+# can be overriden via host_vars for example
+aur_helper: yay
+aur_user: aur
+
+# pacmand packages that don't usually require configuration and are part of
+# usual day-to-day good things to put here are CLI utilities
+common_util_packages:
+  - jq
+  - lshw
+  - htop
+  - meld
+  - rsync
+  - tree
+  - yq

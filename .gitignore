@@ -1,2 +1,4 @@
 # Vagrant
 .vagrant/
+# the vault key file
+vault-pwd

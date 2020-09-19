@@ -28,6 +28,9 @@ $ git submodule update --recursive --init
 $ git submodule update --recursive --remote
 ----
 
+=== Create host_vars vault
+
+TODO: write about `ansible-vault create` and the `vault-pwd` file to be manually created
 === Configuration files
 
 TODO: create an interactive ansible playbook that creates a basic configuration file

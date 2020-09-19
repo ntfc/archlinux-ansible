@@ -1,0 +1,23 @@
+---
+power_handler_power_key: "{{ vault_power_handler_power_key }}"
+# size in GB
+power_swap_file_length: "{{ vault_power_swap_file_length }}"
+
+user_name: "{{ vault_user_name }}"
+user_password: "{{ vault_user_password }}"
+user_dotfiles_url: "https://gitlab.com/ntfc/dotfiles.git"
+user_dotfiles_path: "/home/{{ user_name }}/dotfiles"
+user_ssh_key_passphrase: "{{ vault_user_ssh_key_passphrase }}"
+
+bluetooth_install: "{{ vault_bluetooth_install }}"
+# whether the bluetooth service should be started and enabled
+bluetooth_enabled: "{{ vault_bluetooth_enabled }}"
+
+git_email: "{{ vault_git_email }}"
+
+openssh_client: "{{ vault_openssh_client }}"
+openssh_hosts: "{{ vault_openssh_hosts }}"
+openssh_server: "{{ vault_openssh_server }}"
+
+vdirsyncer_calendars: "{{ vdirsyncer_calendars }}"
+vdirsyncer_contact_books: "{{ vdirsyncer_contact_books }}"
