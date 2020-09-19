@@ -1,4 +1,10 @@
 ---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ vdirsyncer_required }}"
+
 - name: install vdirsyncer
   pacman:
     name: vdirsyncer
