@@ -20,6 +20,8 @@
       tags: ['git']
     - role: browser
       tags: ['web', 'browser']
+    - role: agenda
+      tags: ['agenda']
     - role: syncthing
       tags: ['syncthing']
 

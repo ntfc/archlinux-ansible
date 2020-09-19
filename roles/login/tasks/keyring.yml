@@ -4,8 +4,9 @@
     pacman:
       name:
         - gnome-keyring
-        - libsecret # Access the GNOME keyring
+        - libsecret # Access the GNOME keyring through `secret-tool`
         # - libgnome-keyring # deprecated, but required by some applications
+        - python-keyring # can access the system keyring via `keyring`
         - seahorse # UI for Gnome Keyring
       state: present
     become: yes

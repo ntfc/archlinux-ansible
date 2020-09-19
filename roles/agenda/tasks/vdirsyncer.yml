@@ -1,0 +1,75 @@
+---
+- name: install vdirsyncer
+  pacman:
+    name: vdirsyncer
+    state: present
+  become: yes
+
+- name: create vdirsyncer directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ vdirsyncer_config_path }}"
+    - "{{ vdirsyncer_status_path }}"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: register user id
+  shell: "id -u"
+  register: user_name_id
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: add vdirsyncer contact book credentials to keyring
+  shell: |
+    echo {{ item.url }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} url
+    echo {{ item.username }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} username
+    echo {{ item.password }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} password
+
+  loop: "{{ vdirsyncer_contact_books }}"
+  loop_control: 
+    label: "{{ item.name }}"
+  environment:
+    - DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ user_name_id.stdout }}/bus"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: add vdirsyncer calendar credentials to keyring
+  shell: |
+    echo {{ item.url }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} url
+    echo {{ item.username }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} username
+    echo {{ item.password }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} password
+
+  loop: "{{ vdirsyncer_calendars }}"
+  loop_control: 
+    label: "{{ item.name }}"
+  environment:
+    - DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ user_name_id.stdout }}/bus"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: template vdirsyncer config
+  template:
+    src: vdirsyncer-config.j2
+    dest: "{{ vdirsyncer_config_path }}/config"
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: discover vdirsyncer
+  shell: "yes | vdirsyncer discover"
+  environment:
+    - DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ user_name_id.stdout }}/bus"
+  become: yes
+  become_user: "{{ user_name }}"
+
+# http://vdirsyncer.pimutils.org/en/stable/tutorials/systemd-timer.html
+- name: start and enable the vdirsyncer systemd timer
+  systemd:
+    name: vdirsyncer.timer
+    scope: user
+    state: started
+    enabled: yes
+  become: yes
+  become_user: "{{ user_name }}"
+

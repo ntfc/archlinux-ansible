@@ -1,0 +1,6 @@
+---
+khal_config_path: ~/.config/khal
+vdirsyncer_config_path: ~/.config/vdirsyncer
+vdirsyncer_path: ~/.local/share/vdirsyncer
+vdirsyncer_status_path: "{{ vdirsyncer_path }}/status"
+

@@ -1,0 +1,7 @@
+---
+- include: vdirsyncer.yml
+  tags: ['vdirsyncer']
+
+- include: calendar.yml
+  tags: ['calendar']
+

@@ -1,0 +1,75 @@
+# Run `vdirsyncer --help` for CLI usage.
+#
+# Optional parameters are commented out.
+# This file doesn't document all available parameters, see
+# http://vdirsyncer.pimutils.org/ for the rest of them.
+
+[general]
+# A folder where vdirsyncer can store some metadata about each pair.
+status_path = "{{ vdirsyncer_status_path }}"
+
+# https://vdirsyncer.pimutils.org/en/stable/config.html#storage-carddav
+{% for book in vdirsyncer_contact_books %}
+# CALDAV
+[pair {{ book.name }}]
+a = "{{ book.name }}_local"
+b = "{{ book.name }}_remote"
+collections = ["{{ book.collections | join('", "') }}"]
+
+metadata = ["displayname"]
+
+# To resolve a conflict the following values are possible:
+#   `null` - abort when collisions occur (default)
+#   `"a wins"` - assume a's items to be more up-to-date
+#   `"b wins"` - assume b's items to be more up-to-date
+{% if conflict_resolution is defined %}
+conflict_resolution = "{{ book.conflict_resolution }}"
+{% else %}
+conflict_resolution = null
+{% endif %}
+
+[storage {{ book.name }}_local]
+# A storage references actual data on a remote server or on the local disk.
+# Similar to repositories in OfflineIMAP.
+type = "filesystem"
+path = "{{ vdirsyncer_path }}/{{ book.name }}"
+fileext = ".vcf"
+
+[storage {{ book.name }}_remote]
+type = "carddav"
+# note that in order to run `keyring` from elsewhere (crons, ansible, etc) the
+# environment variable DBUS_SESSION_BUS_ADDRESS needs to be defined as it is
+# defined for the logged user.
+url.fetch = ["command", "keyring", "get", "{{ book.name }}", "url"]
+username.fetch = ["command", "keyring", "get", "{{ book.name }}", "username"]
+password.fetch = ["command", "keyring", "get", "{{ book.name }}", "password"]
+auth = "{{ book.auth }}"
+{% endfor %}
+
+# https://vdirsyncer.pimutils.org/en/stable/config.html#storage-caldav
+{% for calendar in vdirsyncer_calendars %}
+# CALDAV
+[pair {{ calendar.name }}]
+a = "{{ calendar.name }}_local"
+b = "{{ calendar.name }}_remote"
+collections = ["{{ calendar.collections | join('", "') }}"]
+
+metadata = ["{{ calendar.metadata | join('", "') }}"]
+
+[storage {{ calendar.name }}_local]
+type = "filesystem"
+path = "{{ vdirsyncer_path }}/{{ calendar.name }}"
+fileext = ".ics"
+
+[storage {{ calendar.name }}_remote]
+type = "caldav"
+# note that in order to run `keyring` from elsewhere (crons, ansible, etc) the
+# environment variable DBUS_SESSION_BUS_ADDRESS needs to be defined as it is
+# defined for the logged user.
+url.fetch = ["command", "keyring", "get", "{{ calendar.name }}", "url"]
+username.fetch = ["command", "keyring", "get", "{{ calendar.name }}", "username"]
+password.fetch = ["command", "keyring", "get", "{{ calendar.name }}", "password"]
+auth = "{{ calendar.auth }}"
+{% endfor %}
+
+# vim: set ft=config:
