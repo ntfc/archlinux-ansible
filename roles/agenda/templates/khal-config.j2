@@ -1,5 +1,8 @@
 {{ ansible_managed | comment }}
 
+[default]
+highlight_event_days = True
+
 [locale]
 timeformat = %H:%M
 dateformat = %d/%m/%Y
@@ -7,31 +10,12 @@ longdateformat = %d/%m/%Y
 datetimeformat = %d/%m/%Y %H:%M
 longdatetimeformat = %d/%m/%Y %H:%M
 
-{#
-Example of how `calendar_collections.msg` variable looks like:
-[
-    {
-        "calendars": [
-            "meetings",
-            "private"
-        ],
-        "path": "~/.local/share/vdirsyncer/calendar1"
-    },
-    {
-        "calendars": [
-            "fun",
-            "sports"
-        ],
-        "path": "~/.local/share/vdirsyncer/calendar2"
-    }
-]
-#}
 [calendars]
-{% for calendar_collection in calendar_collections.msg %}
-{% for calendar in calendar_collection.calendars %}
-[[{{ calendar }}]]
-path = {{ calendar_collection.path }}/{{ calendar }}
+# https://lostpackets.de/khal/configure.html#exemplary-discover-usage
+[[calendars]]
+{% for vdirsyncer_calendar in vdirsyncer_calendars %}
+path = {{ vdirsyncer_path }}/{{ vdirsyncer_calendar.name }}/*
+type = discover
 color = auto
+{% endfor %}
 
-{% endfor %}
-{% endfor %}

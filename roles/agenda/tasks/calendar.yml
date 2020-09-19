@@ -12,22 +12,6 @@
   become: yes
   become_user: "{{ user_name }}"
 
-- name: discover configured calendars
-  command: ls "{{ vdirsyncer_path }}/{{ item.name }}"
-  loop: "{{ vdirsyncer_calendars }}"
-  loop_control:
-    label: "{{ item.name }}"
-  register: all_calendar_files
-  become: yes
-  become_user: "{{ user_name }}"
-
-  # an example of what `calendar_collections.msg` will have can be seen in `../templates/khal-config.j2`
-- name:
-  debug:
-    # cmd[1] below is the directory passed to `ls`
-    msg: "{{ all_calendar_files | json_query('results[].{path: cmd[1], calendars: stdout_lines}') }}"
-  register: calendar_collections
-
 - name: template khal config
   template:
     src: khal-config.j2
