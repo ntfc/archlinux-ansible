@@ -1,4 +1,10 @@
 ---
+- name: check required
+  assert:
+    that:
+      - "{{ item }}"
+  with_items: "{{ agenda_required }}"
+
 - include: vdirsyncer.yml
   tags: ['vdirsyncer']
 
