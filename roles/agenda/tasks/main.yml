@@ -4,6 +4,7 @@
     that:
       - "{{ item }}"
   with_items: "{{ agenda_required }}"
+  tags: ['vdirsyncer', 'calendar']
 
 - include: vdirsyncer.yml
   tags: ['vdirsyncer']

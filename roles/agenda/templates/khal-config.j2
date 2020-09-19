@@ -1,4 +1,4 @@
-[calendars]
+{{ ansible_managed | comment }}
 
 [locale]
 timeformat = %H:%M
@@ -6,3 +6,32 @@ dateformat = %d/%m/%Y
 longdateformat = %d/%m/%Y
 datetimeformat = %d/%m/%Y %H:%M
 longdatetimeformat = %d/%m/%Y %H:%M
+
+{#
+Example of how `calendar_collections.msg` variable looks like:
+[
+    {
+        "calendars": [
+            "meetings",
+            "private"
+        ],
+        "path": "~/.local/share/vdirsyncer/calendar1"
+    },
+    {
+        "calendars": [
+            "fun",
+            "sports"
+        ],
+        "path": "~/.local/share/vdirsyncer/calendar2"
+    }
+]
+#}
+[calendars]
+{% for calendar_collection in calendar_collections.msg %}
+{% for calendar in calendar_collection.calendars %}
+[[{{ calendar }}]]
+path = {{ calendar_collection.path }}/{{ calendar }}
+color = auto
+
+{% endfor %}
+{% endfor %}
