@@ -4,11 +4,14 @@
     that:
       - "{{ item }}"
   with_items: "{{ agenda_required }}"
-  tags: ['vdirsyncer', 'calendar']
+  tags: ['vdirsyncer', 'calendar', 'contacts']
 
 - include: vdirsyncer.yml
   tags: ['vdirsyncer']
 
 - include: calendar.yml
   tags: ['calendar']
+
+- include: contacts.yml
+  tags: ['contacts']
 

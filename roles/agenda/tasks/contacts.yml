@@ -1,0 +1,36 @@
+---
+- name: install khard
+  pacman:
+    name: khard
+    state: present
+  become: yes
+
+- name: create khard config directory
+  file:
+    path: "{{ khard_config_path }}"
+    state: directory
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: discover configured address books
+  command: ls "{{ vdirsyncer_path }}/{{ item.name }}"
+  loop: "{{ vdirsyncer_contact_books }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: all_address_book_files
+  become: yes
+  become_user: "{{ user_name }}"
+
+  # an example of what `address_book_collections.msg` will have can be seen in `../templates/khard-config.j2`
+- name:
+  debug:
+    # cmd[1] below is the directory passed to `ls`
+    msg: "{{ all_address_book_files | json_query('results[].{path: cmd[1], address_books: stdout_lines}') }}"
+  register: address_book_collections
+
+- name: template khard config
+  template:
+    src: khard-config.j2
+    dest: "{{ khard_config_path }}/khard.conf"
+  become: yes
+  become_user: "{{ user_name }}"

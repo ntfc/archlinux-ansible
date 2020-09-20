@@ -4,3 +4,5 @@ vdirsyncer_path: ~/.local/share/vdirsyncer
 vdirsyncer_status_path: "{{ vdirsyncer_path }}/status"
 
 khal_config_path: ~/.config/khal
+
+khard_config_path: ~/.config/khard
