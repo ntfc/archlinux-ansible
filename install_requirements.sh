@@ -9,4 +9,4 @@ fi
 
 pacman -Syu --noconfirm
 
-pacman -S sudo python python-passlib ansible --noconfirm
+pacman -S sudo python python-passlib python-jmespath ansible --noconfirm
