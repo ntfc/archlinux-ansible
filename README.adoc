@@ -1,14 +1,28 @@
 = Ansible and ArchLinux
+Nuno Carvalho <me@ntfc.me>
+:toc:
+:dotfiles: https://gitlab.com/ntfc/dotfiles.git[dotfiles]
 :json_querying: https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter[JSON Querying]
+:variables_and_vaults: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#variables-and-vaults[Variables and Vaults]
 
-Collection of ansible playbooks and roles used to install and maintain my personal archlinux installation.
+// disable preamble
+[.normal]
+Collection of Ansible playbooks to install and maintain personal ArchLinux
+installations.
 
-The way it works is that for each new machine you want to install and configure, you create a ansible configuration under `host_vars/<hostname>` so you can run a set of playbooks such as:
+The way it works is that for each new machine you want to install and
+configure, you create an ansible configuration under `host_vars/<hostname>/` so
+you can run a set of playbooks such as:
 
-* install system tools such as hardware drivers, login managers, power config, etc
+* install system tools such as hardware drivers, login managers, power config,
+  etc
 * setup and configure a new user such as personal, work, etc
 
-== Requirements
+== Getting started
+
+=== Requirements
+
+IMPORTANT: Most of playbooks require a stow managed {dotfiles} directory to be used!
 
 Before using this you need to ensure you have already have a barebones archlinux up and running with the following pacman packages:
 
@@ -18,21 +32,36 @@ Before using this you need to ensure you have already have a barebones archlinux
 * `python-jmespath` (for {json_querying} e.g. in the `agenda` role)
 * `git` (only used to clone this repo and the submodule)
 
-We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg` (no need to install anything, just make the git submodule is checked out).
-
-== Initial installation
-
-We first need to update the submodule containing the AUR plugin.
+All of the above can be installed with an helper script:
 
 [source,shell]
 ----
-$ git submodule update --recursive --init
-$ git submodule update --recursive --remote
+./install_requirements.sh
 ----
 
-=== Create host_vars vault
+We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg`. For this there is no need to install anything but rather just making the git submodule is checked out as follows:
 
-TODO: write about `ansible-vault create` and the `vault-pwd` file to be manually created
+[source,shell]
+----
+# needed in the first run only
+git submodule update --recursive --init
+# used to update the submodule
+git submodule update --recursive --remote
+----
+
+=== Create host specific variables
+
+When adding a new machine it is necessary to define some common variables in YAML files under `host_vars/<hostname>/` (replace `<hostname>` with the local machine hostname).
+There will be two files in this directory (as described in {variables_and_vaults}):
+
+* `vars.yml`: a plain text YAML
+  - the sensitive variables will reference a `vault_` prefixed variable stored in `vault.yml`
+* `vault.yml`: a vault encrypted YAML file with sensitive variables
+  - all variables should be prefixed with `vault_` that will be read by `vars.yml`
+
+The `vault.yml` file will be encrypted with a password that can be *locally* stored in `vault-pwd`.
+This file is set to be ignored in `.gitignore` and it should make interacting with playbooks easier (no need to type password in every run).
+
 === Configuration files
 
 TODO: create an interactive ansible playbook that creates a basic configuration file
@@ -40,26 +69,30 @@ TODO: create an interactive ansible playbook that creates a basic configuration 
 Before running anything, we need to define what we need to configure.
 This is done by creating a new file in `host_vars/localhost/main.yml`.
 
-=== Run playbook
+== Run playbooks
 
 With the configuration out of the way we can start running playbooks.
 
-The `01-system.yml` will install components not specific to any user but rather used by the overall system.
-You can run it with any of the following variants:
+All playbooks are added in `playbooks/`, and in each of them you should find a small description of what they do.
+
+Here are some useful `ansible-playbook` commands:
 
 [source,shell]
 ----
-# list available tasks. note the tag are shown in square brackets
-$ ansible-playbook 01-system.yml --list-tasks
+# list available tasks. note the tags are shown in square brackets
+ansible-playbook 01-system.yml --list-tasks
 # list tags
-$ ansible-playbook 01-system.yml --list-tags
+ansible-playbook 01-system.yml --list-tags
 # run a particular tag
-$ ansible-playbook 01-system.yml --tags pacman
+ansible-playbook 01-system.yml --tags pacman
 # run all the tasks
-$ ansible-playbook 01-system.yml
+ansible-playbook 01-system.yml
+# run one specific task, and confirm each task before running
+ansible-playbook 01-system.yml --step --start-at-task="insert task name here"
 ----
 
 Gotchas:
+
 * For tmux, we need to run `tmux source-file ~/.tmux.conf` manually
 
 == Testing
@@ -107,22 +140,12 @@ $ docker run -d --name archlinux -v $(pwd):/ansible archlinux journalctl -f
 
 You can then `exec` into it follow this document.
 
-== Playbooks
-
-* system configuration
-* user configuration
-
-Convert my ArchLinux [installation steps][install-steps] to an ansible role, much like [dharmab/ansible-archlinux][dharmab-ansible].
-Use GNU stow to manage my [dotfiles][ntfc-dotfiles].
-
 
 
 == References
 
-Verify role variables are set: https://thoughts.t37.net/documenting-your-ansible-roles-interface-and-making-other-peoples-life-easier-604e5172837b?gi=fc6917f3204b
+* https://github.com/dharmab/ansible-archlinux[dharmab/ansible-archlinux]
+* https://gist.github.com/ntfc/5dd78a7dc6746c95f786[My (old) ArchLinux installation steps]
+* https://thoughts.t37.net/documenting-your-ansible-roles-interface-and-making-other-peoples-life-easier-604e5172837b[Documenting your Ansible roles interface (and making other people’s life easier)]
+* https://coderleaf.wordpress.com/2017/07/06/ansible-check-for-required-variables-before-role-execution/[Check for required variables before role]
 
-Check for required variables in role: https://coderleaf.wordpress.com/2017/07/06/ansible-check-for-required-variables-before-role-execution/
-
-[dharmab-ansible]: https://github.com/dharmab/ansible-archlinux
-[ntfc-dotfiles]: https://github.com/ntfc/dotfiles
-[install-steps]: https://gist.github.com/ntfc/5dd78a7dc6746c95f786
