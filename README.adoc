@@ -1,5 +1,4 @@
 = Ansible and ArchLinux
-:json_querying: https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#json-query-filter[JSON Querying]
 
 Collection of ansible playbooks and roles used to install and maintain my personal archlinux installation.
 
@@ -15,7 +14,6 @@ Before using this you need to ensure you have already have a barebones archlinux
 * `ansible`
 * `python`
 * `python-passlib`
-* `python-jmespath` (for {json_querying} e.g. in the `agenda` role)
 * `git` (only used to clone this repo and the submodule)
 
 We also require a specific ansible module to install packages from the AUR which is configured to be added to ansible's `$ANSIBLE_LIBRARY` in `ansible.cfg` (no need to install anything, just make the git submodule is checked out).
