@@ -1,6 +1,10 @@
 {# this will be included under ~/.ssh/config.d/ #}
+{{ ansible_managed | comment }}
 Host {{ name }} {{ hostname }}
   Hostname {{ hostname }}
   User {{ user }}
   Port {{ port|default(22) }}
   IdentityFile {{ identity_file }}
+
+# vim: set ft=sshconfig:
+
