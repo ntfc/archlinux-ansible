@@ -38,9 +38,9 @@
         state: present
       become: yes
 
-    - name: install puddletag qt5
+    - name: install puddletag
       aur:
-        name: puddletag-qt5-git
+        name: puddletag
         use: "{{ aur_helper }}"
       become: yes
       become_user: "{{ aur_user }}"
