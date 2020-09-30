@@ -18,10 +18,19 @@
       tags: ['vim']
     - role: git
       tags: ['git']
-    - role: browser
-      tags: ['web', 'browser']
     - role: agenda
       tags: ['agenda']
     - role: syncthing
       tags: ['syncthing']
+
+  tasks:
+    - name: install common web browsers
+      pacman:
+        name:
+          - chromium
+          - firefox
+          - lynx
+        state: present
+      become: yes
+      tags: ['web', 'browser']
 
