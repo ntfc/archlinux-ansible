@@ -9,7 +9,7 @@
   pacman:
     name: "{{ gui_common_packages }}"
     state: present
-  become: present
+  become: yes
   tags: ['gui-common']
 
 - name: set QT5 environemnt variable in /etc/profile

@@ -2,7 +2,7 @@
 cli_required:
   - cli_default_shell is defined and cli_default_shell in ['bash', 'zsh', 'sh']
   - cli_terminal_packages is defined and cli_terminal_packages|length > 0
-  - cli_terminal_emulator is defined and cli_terminal_emulator in ['rxvt-unicode', 'termite']
+  - cli_terminal_emulator is defined and cli_terminal_emulator.name in ['rxvt-unicode', 'termite']
 
 cli_default_shell: zsh
 cli_shell_packages:
