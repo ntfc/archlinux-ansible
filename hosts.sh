@@ -12,7 +12,7 @@ if [ "$1" == "--list" ]; then
   cat<<EOF
 {
   "local": {
-    "hosts": ["$(hostname)"],
+    "hosts": ["$HOSTNAME"],
     "vars": {
       "ansible_connection": "local"
     }
