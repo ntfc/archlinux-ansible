@@ -1,5 +1,5 @@
 ---
 agenda_required:
-  - agenda_vdirsyncer_calendars is defined
-  - agenda_vdirsyncer_contact_books is defined
+  - (agenda_vdirsyncer_enabled and agenda_khal_enabled and agenda_vdirsyncer_calendars is defined) or agenda_khal_enabled == False
+  - (agenda_vdirsyncer_enabled and agenda_khard_enabled and agenda_vdirsyncer_contact_books is defined) or agenda_khard_enabled == False
 

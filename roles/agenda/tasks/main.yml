@@ -7,12 +7,15 @@
   tags: ['vdirsyncer', 'calendar', 'contacts', 'thunderbird']
 
 - include: vdirsyncer.yml
+  when: agenda_vdirsyncer_enabled
   tags: ['vdirsyncer']
 
 - include: calendar.yml
+  when: agenda_khal_enabled
   tags: ['calendar']
 
 - include: contacts.yml
+  when: agenda_khard_enabled
   tags: ['contacts']
 
 - name: install thunderbird
@@ -21,5 +24,5 @@
     state: present
   become: yes
   tags: ['thunderbird']
-  when: agenda_install_thunderbird
+  when: agenda_thunderbird_enabled
 

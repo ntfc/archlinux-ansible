@@ -1,10 +1,13 @@
 ---
+agenda_vdirsyncer_enabled: False
 agenda_vdirsyncer_config_path: ~/.config/vdirsyncer
 agenda_vdirsyncer_path: ~/.local/share/vdirsyncer
 agenda_vdirsyncer_status_path: "{{ agenda_vdirsyncer_path }}/status"
 
+agenda_khal_enabled: False
 agenda_khal_config_path: ~/.config/khal
 
+agenda_khard_enabled: False
 agenda_khard_config_path: ~/.config/khard
 
-agenda_install_thunderbird: False
+agenda_thunderbird_enabled: False
