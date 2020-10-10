@@ -17,7 +17,7 @@
   become: yes
   become_user: "{{ user_name }}"
 
-- name: configure user global git email
+- name: configure private git user configuration
   template:
     src: gitconfig-private.j2
     dest: "/home/{{ user_name }}/.gitconfig-private"

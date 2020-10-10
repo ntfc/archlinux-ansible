@@ -1,2 +1,10 @@
+{{ ansible_managed | comment }}
 [user]
   email = {{ git_email }}
+  {% if git_gpg_sign_key is defined %}
+  signingkey = {{ git_gpg_sign_key }}
+  {% endif %}
+
+[commit]
+  gpgsign = {{ git_gpg_sign_key is defined }}
+

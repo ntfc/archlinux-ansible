@@ -14,6 +14,7 @@ bluetooth_install: "{{ vault_bluetooth_install }}"
 bluetooth_enabled: "{{ vault_bluetooth_enabled }}"
 
 git_email: "{{ vault_git_email }}"
+git_gpg_sign_key: "{{ vault_git_gpg_sign_key }}"
 
 openssh_client: "{{ vault_openssh_client }}"
 openssh_hosts: "{{ vault_openssh_hosts }}"
