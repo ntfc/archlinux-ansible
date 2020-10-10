@@ -4,7 +4,7 @@
     that:
       - "{{ item }}"
   with_items: "{{ agenda_required }}"
-  tags: ['vdirsyncer', 'calendar', 'contacts']
+  tags: ['vdirsyncer', 'calendar', 'contacts', 'thunderbird']
 
 - include: vdirsyncer.yml
   tags: ['vdirsyncer']
@@ -14,4 +14,12 @@
 
 - include: contacts.yml
   tags: ['contacts']
+
+- name: install thunderbird
+  pacman:
+    name: thunderbird
+    state: present
+  become: yes
+  tags: ['thunderbird']
+  when: agenda_install_thunderbird
 

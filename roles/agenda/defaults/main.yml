@@ -6,3 +6,5 @@ agenda_vdirsyncer_status_path: "{{ agenda_vdirsyncer_path }}/status"
 agenda_khal_config_path: ~/.config/khal
 
 agenda_khard_config_path: ~/.config/khard
+
+agenda_install_thunderbird: False
