@@ -19,5 +19,5 @@ openssh_client: "{{ vault_openssh_client }}"
 openssh_hosts: "{{ vault_openssh_hosts }}"
 openssh_server: "{{ vault_openssh_server }}"
 
-vdirsyncer_calendars: "{{ vault_vdirsyncer_calendars }}"
-vdirsyncer_contact_books: "{{ vault_vdirsyncer_contact_books }}"
+agenda_vdirsyncer_calendars: "{{ vault_agenda_vdirsyncer_calendars }}"
+agenda_vdirsyncer_contact_books: "{{ vault_agenda_vdirsyncer_contact_books }}"
