@@ -29,10 +29,7 @@
   ignore_errors: yes
 
 - name: read all informant announcements
-  command: "informant read {{ item }}"
-  # `abs` is used to prevent backwards sequence which only happen when there
-  # are 0 announcements to mark (thus task is skipped)
-  with_sequence: start=0 end={{ abs(informant_output.rc|int - 1) }}
+  command: "informant read --all"
   become: yes
   when:
     - informant_output.rc|int > 0
