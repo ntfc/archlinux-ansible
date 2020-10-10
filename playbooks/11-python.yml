@@ -1,0 +1,10 @@
+- hosts: all
+  tags: ['python']
+  tasks:
+    - name: install base python packages
+      pacman:
+        name: 
+            # the virtualenvwrapper is enabled through dotfiles
+          - python-virtualenvwrapper # https://wiki.archlinux.org/index.php/Python/Virtual_environment#virtualenvwrapper
+        state: present
+      become: yes
