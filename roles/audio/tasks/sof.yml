@@ -1,0 +1,16 @@
+---
+- name: install sof-firmware
+  pacman:
+    name: sof-firmware
+    state: present
+  become: yes
+  when: audio_sof_enabled
+
+- name: blacklist sof related modules
+  template:
+    src: sof_blacklist.conf.j2
+    dest: /etc/modprobe.d/blacklist_sof.conf
+  become: yes
+  when: audio_sof_enabled and audio_sof_blacklist_modules|length > 0
+
+    # TODO: add load-module to /etc/pulse/default.pa

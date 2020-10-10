@@ -1,0 +1,6 @@
+{{ ansible_managed|comment }}
+
+{% for module in audio_sof_blacklist_modules %}
+{{ module.description|comment }}
+blacklist {{ module.name }}
+{% endfor %}

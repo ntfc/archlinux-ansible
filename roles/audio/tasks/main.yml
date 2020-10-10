@@ -35,3 +35,7 @@
     dest: /etc/libao.conf
     mode: 0644
   become: yes
+
+- include: sof.yml
+  tags: ['sof']
+
