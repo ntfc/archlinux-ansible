@@ -39,3 +39,6 @@
 - include: sof.yml
   tags: ['sof']
 
+# consider doiung this https://www.reddit.com/r/wine_gaming/comments/7qm8wp/for_anyone_with_sound_issues_on_grand_theft_auto/
+# for issues with games?
+# seems to work with dirt
