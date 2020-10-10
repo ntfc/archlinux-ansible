@@ -1,8 +1,8 @@
 ---
-vdirsyncer_config_path: ~/.config/vdirsyncer
-vdirsyncer_path: ~/.local/share/vdirsyncer
-vdirsyncer_status_path: "{{ vdirsyncer_path }}/status"
+agenda_vdirsyncer_config_path: ~/.config/vdirsyncer
+agenda_vdirsyncer_path: ~/.local/share/vdirsyncer
+agenda_vdirsyncer_status_path: "{{ agenda_vdirsyncer_path }}/status"
 
-khal_config_path: ~/.config/khal
+agenda_khal_config_path: ~/.config/khal
 
-khard_config_path: ~/.config/khard
+agenda_khard_config_path: ~/.config/khard

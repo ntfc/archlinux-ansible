@@ -13,8 +13,8 @@ longdatetimeformat = %d/%m/%Y %H:%M
 [calendars]
 # https://lostpackets.de/khal/configure.html#exemplary-discover-usage
 [[calendars]]
-{% for vdirsyncer_calendar in vdirsyncer_calendars %}
-path = {{ vdirsyncer_path }}/{{ vdirsyncer_calendar.name }}/*
+{% for vdirsyncer_calendar in agenda_vdirsyncer_calendars %}
+path = {{ agenda_vdirsyncer_path }}/{{ vdirsyncer_calendar.name }}/*
 type = discover
 color = auto
 {% endfor %}

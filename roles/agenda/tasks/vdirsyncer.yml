@@ -10,8 +10,8 @@
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ vdirsyncer_config_path }}"
-    - "{{ vdirsyncer_status_path }}"
+    - "{{ agenda_vdirsyncer_config_path }}"
+    - "{{ agenda_vdirsyncer_status_path }}"
     - ~/.config/systemd/user/vdirsyncer.service.d/
     - ~/.config/systemd/user/vdirsyncer.timer.d/
   become: yes
@@ -29,7 +29,7 @@
     echo {{ item.username }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} username
     echo {{ item.password }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} password
 
-  loop: "{{ vdirsyncer_contact_books }}"
+  loop: "{{ agenda_vdirsyncer_contact_books }}"
   loop_control: 
     label: "{{ item.name }}"
   environment:
@@ -43,7 +43,7 @@
     echo {{ item.username }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} username
     echo {{ item.password }} | keyring --keyring-backend keyring.backends.SecretService.Keyring set {{ item.name }} password
 
-  loop: "{{ vdirsyncer_calendars }}"
+  loop: "{{ agenda_vdirsyncer_calendars }}"
   loop_control: 
     label: "{{ item.name }}"
   environment:
@@ -54,7 +54,7 @@
 - name: template vdirsyncer config
   template:
     src: vdirsyncer-config.j2
-    dest: "{{ vdirsyncer_config_path }}/config"
+    dest: "{{ agenda_vdirsyncer_config_path }}/config"
   become: yes
   become_user: "{{ user_name }}"
 

@@ -7,10 +7,10 @@
 
 [general]
 # A folder where vdirsyncer can store some metadata about each pair.
-status_path = "{{ vdirsyncer_status_path }}"
+status_path = "{{ agenda_vdirsyncer_status_path }}"
 
 # https://vdirsyncer.pimutils.org/en/stable/config.html#storage-carddav
-{% for book in vdirsyncer_contact_books %}
+{% for book in agenda_vdirsyncer_contact_books %}
 # CALDAV
 [pair {{ book.name }}]
 a = "{{ book.name }}_local"
@@ -33,7 +33,7 @@ conflict_resolution = null
 # A storage references actual data on a remote server or on the local disk.
 # Similar to repositories in OfflineIMAP.
 type = "filesystem"
-path = "{{ vdirsyncer_path }}/{{ book.name }}"
+path = "{{ agenda_vdirsyncer_path }}/{{ book.name }}"
 fileext = ".vcf"
 
 [storage {{ book.name }}_remote]
@@ -48,7 +48,7 @@ auth = "{{ book.auth }}"
 {% endfor %}
 
 # https://vdirsyncer.pimutils.org/en/stable/config.html#storage-caldav
-{% for calendar in vdirsyncer_calendars %}
+{% for calendar in agenda_vdirsyncer_calendars %}
 # CALDAV
 [pair {{ calendar.name }}]
 a = "{{ calendar.name }}_local"
@@ -59,7 +59,7 @@ metadata = ["{{ calendar.metadata | join('", "') }}"]
 
 [storage {{ calendar.name }}_local]
 type = "filesystem"
-path = "{{ vdirsyncer_path }}/{{ calendar.name }}"
+path = "{{ agenda_vdirsyncer_path }}/{{ calendar.name }}"
 fileext = ".ics"
 
 [storage {{ calendar.name }}_remote]

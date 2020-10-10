@@ -7,7 +7,7 @@
 
 - name: create khal config directory
   file:
-    path: "{{ khal_config_path }}"
+    path: "{{ agenda_khal_config_path }}"
     state: directory
   become: yes
   become_user: "{{ user_name }}"
@@ -15,6 +15,6 @@
 - name: template khal config
   template:
     src: khal-config.j2
-    dest: "{{ khal_config_path }}/config"
+    dest: "{{ agenda_khal_config_path }}/config"
   become: yes
   become_user: "{{ user_name }}"

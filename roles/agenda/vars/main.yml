@@ -1,5 +1,5 @@
 ---
 agenda_required:
-  - vdirsyncer_calendars is defined
-  - vdirsyncer_contact_books is defined
+  - agenda_vdirsyncer_calendars is defined
+  - agenda_vdirsyncer_contact_books is defined
 
