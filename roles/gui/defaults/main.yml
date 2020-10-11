@@ -26,19 +26,21 @@ gui_common_packages:
   - hicolor-icon-theme # recommended to install the hicolor-icon-theme package as many programs will deposit their icons in /usr/share/icons/hicolor
   - mousepad # basic text editor
   - qt5-base
-  - qt5-styleplugins # QGtkStyle has been removed from qt5-base 5.7.0 and added to qt5-styleplugins
   - qt5ct # configration tool
   - thunar
   - thunar-archive-plugin
   - thunar-media-tags-plugin
   - thunar-volman
   - tumbler
+gui_common_packages_aur:
+  - qt5-styleplugins # QGtkStyle has been removed from qt5-base 5.7.0 and added to qt5-styleplugins
 gui_openbox_packages:
   - obconf
   - openbox
     # Find which xfce4 packages needed by installing necessary packages from `pacman -Sg xfce4`
   - xfce4-panel
   - xfce4-pulseaudio-plugin
+  - xfce4-notifyd
   - xfce4-session
   - xfce4-settings
   - xfce4-screenshooter

@@ -5,12 +5,20 @@
       - "{{ item }}"
   with_items: "{{ gui_required }}"
 
-- name: install common gui tools and themes
+- name: install common gui tools and themes (repos)
   pacman:
     name: "{{ gui_common_packages }}"
     state: present
   become: yes
   tags: ['gui-common']
+
+- name: install common gui tools and themes (aur)
+  aur
+    name:
+      - "{{ gui_common_packages_aur }}"
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"
 
 - name: set QT5 environemnt variable in /etc/profile
   ini_file:
