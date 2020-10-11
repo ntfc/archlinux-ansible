@@ -13,3 +13,18 @@
     enabled: yes
     state: started
   become: yes
+
+- name: configure syncthing
+  block:
+  - name: configure syncthing-gtk
+    command: "jq '.minimize_on_start = true' ~/.config/syncthing-gtk/config.json"
+    become: yes
+    become_user: "{{ user_name }}"
+    register: config_json
+
+  - name: save syncthing-gtk configuration
+    copy:
+      content: "{{ config_json.stdout }}"
+      dest: "~/.config/syncthing-gtk/config.json"
+    become: yes
+    become_user: "{{ user_name }}"
