@@ -5,6 +5,7 @@
       - networkmanager
       - network-manager-applet
       - nm-connection-editor
+      - networkmanager-openvpn
     state: present
   become: yes
 
