@@ -16,6 +16,7 @@ user_group: users
 user_groups:
   - wheel
   - network
+  - video
 user_create_home: yes
 user_is_sudoer: yes
 
