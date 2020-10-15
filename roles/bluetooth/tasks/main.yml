@@ -6,9 +6,17 @@
       - bluez-libs
       - bluez-utils
       - blueman
-      - pulseaudio-bluetooth # move to the bluetooth module
     state: present
   become: yes
+
+- name: install pulseaudio modules
+  aur:
+    name:
+      - pulseaudio-modules-bt
+      - libldac
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"
 
 - name: start and enable bluetooth service
   service:
