@@ -68,6 +68,7 @@
   command: "stow -d {{ user_dotfiles_path }} -t ~ startup"
   become: yes
   become_user: "{{ user_name }}"
+  tags: ['startup']
 
 - name: install redshift
   aur:

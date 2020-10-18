@@ -23,7 +23,7 @@
         - gst-plugins-ugly
         - libao
         - lib32-alsa-plugins
-        - xfce4-pulseaudio-plugin
+        - xfce4-pulseaudio-plugin # provides notifications on volume level change
       state: present
     become: yes
 

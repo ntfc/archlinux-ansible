@@ -32,6 +32,7 @@ gui_common_packages:
   - thunar-media-tags-plugin
   - thunar-volman
   - tumbler
+  - xbindkeys # manage keyboard shortcuts
 gui_common_packages_aur:
   - qt5-styleplugins # QGtkStyle has been removed from qt5-base 5.7.0 and added to qt5-styleplugins
 gui_openbox_packages:
