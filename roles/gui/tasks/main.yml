@@ -31,7 +31,7 @@
   become: yes
   tags: ['gui-common']
 
-- name: set QT5 environemnt variable in /etc/profile
+- name: set QT5 environemnt variable in /etc/environment
   ini_file:
     path: /etc/environment
     section: null
