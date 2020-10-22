@@ -20,6 +20,17 @@
   become_user: "{{ aur_user }}"
   tags: ['gui-common']
 
+- name: make GTK scrollbars always visible
+  ini_file:
+    path: /etc/environment
+    section: null
+    option: "GTK_OVERLAY_SCROLLING"
+    value: "0"
+    no_extra_spaces: true
+    state: present
+  become: yes
+  tags: ['gui-common']
+
 - name: set QT5 environemnt variable in /etc/profile
   ini_file:
     path: /etc/environment
@@ -29,6 +40,7 @@
     no_extra_spaces: true
     state: present
   become: yes
+  tags: ['gui-common']
 
 - include: xorg.yml
   tags: ['xorg']
