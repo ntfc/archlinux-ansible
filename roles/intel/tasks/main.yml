@@ -11,3 +11,5 @@
     name: xf86-video-intel
     state: absent
   become: yes
+
+# TODO: disable VSYNC https://wiki.archlinux.org/index.php/Intel_graphics#Disable_Vertical_Synchronization_(VSYNC)
