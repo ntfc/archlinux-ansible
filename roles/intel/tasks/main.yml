@@ -1,0 +1,13 @@
+- name: install intel drivers
+  pacman:
+    name:
+      - mesa
+      - lib32-mesa
+    state: present
+  become: yes
+
+- name: ensure xf86-video-intel is not installed
+  pacman:
+    name: xf86-video-intel
+    state: absent
+  become: yes

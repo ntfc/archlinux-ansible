@@ -1,0 +1,35 @@
+- hosts: all
+  tags: ['graphics']
+  pre_tasks:
+    - name: found out the display product and vendor
+      block:
+        - name: get display product
+          shell:
+            cmd: lshw -class display -xml | xq -r .list.node.product
+          register: lshw_display_product
+        - name: get display vendor
+          shell:
+            cmd: lshw -class display -xml | xq -r .list.node.vendor
+          register: lshw_display_vendor
+        - name: set display model and vendor
+          set_fact:
+            display_product: "{{ lshw_display_product.stdout_lines[0] }}"
+            display_vendor: "{{ lshw_display_vendor.stdout_lines[0] }}"
+    - name: show display model and vendor
+      debug:
+        var: "{{ item }}"
+      loop: [display_product, display_vendor]
+    - name: check required
+      assert:
+        that:
+          - aur_helper is defined
+          - aur_user is defined
+
+  roles:
+    - role: intel
+      tags: ['intel']
+      when: "'Intel' in display_vendor"
+    - role: nvidia
+      tags: ['nvidia']
+      when: "'NVIDIA' in display_vendor and 'GeForce GTX 1660' in display_product"
+
