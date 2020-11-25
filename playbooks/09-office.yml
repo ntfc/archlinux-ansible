@@ -1,6 +1,23 @@
 - hosts: all
   tags: ['office']
   tasks:
+    - name: install cups
+      pacman:
+        name:
+          - cups
+          - system-config-printer
+        state: present
+      become: yes
+
+    - name: install printing drivers (aur)
+      aur:
+        name: "{{ item }}"
+        use: "{{ aur_helper }}"
+      loop: "{{ cups_drivers_aur }}"
+      become: yes
+      become_user: "{{ aur_user }}"
+      when: cups_drivers_aur|default([])|length > 0
+
     - name: install libreoffice
       pacman:
         name: libreoffice-still
@@ -44,3 +61,5 @@
           - geany-plugins
         state: present
       become: yes
+
+# set up jrnl with a config file (each host can have different collections)

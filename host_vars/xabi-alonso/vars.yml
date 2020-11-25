@@ -25,3 +25,5 @@ agenda_khal_enabled: "{{ vault_agenda_khal_enabled }}"
 agenda_vdirsyncer_calendars: "{{ vault_agenda_vdirsyncer_calendars }}"
 agenda_khard_enabled: "{{ vault_agenda_khard_enabled }}"
 agenda_vdirsyncer_contact_books: "{{ vault_agenda_vdirsyncer_contact_books }}"
+
+cups_drivers_aur: "{{ vault_cups_drivers_aur }}"
