@@ -21,10 +21,12 @@ gui_common_packages:
   - gtk3
   - file-roller
   - lxappearance-gtk3
+  - gnome-icon-theme-symbolic # contains symbolic icons for the default GNOME icon theme
   - gnome-themes-extra
   - gparted
   - hicolor-icon-theme # recommended to install the hicolor-icon-theme package as many programs will deposit their icons in /usr/share/icons/hicolor
   - mousepad # basic text editor
+  - numlockx
   - qt5-base
   - qt5ct # configration tool
   - thunar
@@ -35,6 +37,7 @@ gui_common_packages:
   - xbindkeys # manage keyboard shortcuts
 gui_common_packages_aur:
   - qt5-styleplugins # QGtkStyle has been removed from qt5-base 5.7.0 and added to qt5-styleplugins
+  - gnome-colors-icon-theme
 gui_openbox_packages:
   - obconf
   - openbox
