@@ -19,6 +19,7 @@ network_base_packages:
   - qbittorrent
   - speedtest-cli
   - wget
+  - whois
   - wpa_supplicant
 
 network_aur_packages:

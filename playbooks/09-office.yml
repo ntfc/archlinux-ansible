@@ -62,4 +62,8 @@
         state: present
       become: yes
 
-# set up jrnl with a config file (each host can have different collections)
+    - name: install jrnl
+      pacman:
+        name: jrnl
+        state: present
+      become: yes
