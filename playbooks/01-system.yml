@@ -25,6 +25,7 @@
           - dosfstools
           - btrfs-progs
           - gvfs
+          - hdparm
           - linux-headers
           - ntfs-3g
           - mtools
