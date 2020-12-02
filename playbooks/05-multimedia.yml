@@ -54,3 +54,11 @@
       become: yes
       become_user: "{{ aur_user }}"
       tags: ['v4l2']
+
+    - name: install obs-streamfx
+      aur:
+        name: obs-streamfx
+        use: "{{ aur_helper }}"
+      become: yes
+      become_user: "{{ aur_user }}"
+
