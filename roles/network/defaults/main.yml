@@ -13,6 +13,7 @@ network_base_packages:
   - dhcpcd
   - gnu-netcat
   - iproute2 # https://wiki.archlinux.org/index.php/Network_configuration#net-tools
+  - iw # for wireless tools
   - nmap
   - openresolv # https://wiki.archlinux.org/index.php/Openresolv
   - openvpn
