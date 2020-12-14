@@ -1,21 +1,4 @@
 - hosts: all
-  tasks:
-    - name: install borg backup
-      pacman:
-        name:
-          - borg
-        state: present
-      become: yes
-
-    - name: ensure we are dealing with borg 1.1.x
-      block:
-      - name: register borg version
-        command: borg --version
-        register: borg_version
-      - name: check borg version is 1.1.x
-        # https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions
-        assert:
-          that:
-            - borg_version.stdout|replace('borg ','') is version('1.1', '>=') and borg_version.stdout|replace('borg ','') is version('1.2', '<')
-          fail_msg: "expected version is 1.1.x; got {{ borg_version.stdout|replace('borg ', '') }}"
-          success_msg: "version is is 1.1.x: {{ borg_version.stdout|replace('borg ', '') }}"
+  roles:
+    - name: ntfc.backup
+      tags: ['backup']
