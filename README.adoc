@@ -49,6 +49,17 @@ git submodule update --recursive --init
 git submodule update --recursive --remote
 ----
 
+IMPORTANT: *TODO:* use the ansible-galaxy role dependency instead of the gitsubmodule
+
+We also require a couple of ansible modules available in either ansible galaxy or git repositories.
+
+These can be installed with `ansible-galaxy`:
+
+[source,shell]
+----
+ansible-galaxy role install -r roles/requirements.yml
+----
+
 === Create host specific variables
 
 When adding a new machine it is necessary to define some common variables in YAML files under `host_vars/<hostname>/` (replace `<hostname>` with the local machine hostname).
