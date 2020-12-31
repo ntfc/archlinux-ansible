@@ -3,6 +3,8 @@
 aur_helper: yay
 aur_user: aur
 
+pacman_mirror_country: Germany,Portugal
+
 # pacmand packages that don't usually require configuration and are part of
 # usual day-to-day good things to put here are CLI utilities
 common_util_packages:

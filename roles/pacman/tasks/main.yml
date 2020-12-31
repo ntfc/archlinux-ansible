@@ -26,18 +26,27 @@
 - name: install reflector
   pacman: name=reflector state=present
   become: yes
-  when: pacman_mirror_country is defined
   tags: ['reflector']
 
-- stat:
-    path: /etc/pacman.d/mirrorlist
-  register: pacman_mirrorlist
+- name: configure reflector
+  lineinfile:
+    path: /etc/xdg/reflector/reflector.conf
+    regexp: "^{{ item.option }}.*"
+    line: "{{ item.option }} {{ item.value }}"
+    state: present
+  loop:
+    - { option: "--protocol", value: "https" }
+    - { option: "--sort", value: "age" }
+    - { option: "--latest", value: "5" }
+    - { option: "--country", value: "{{ pacman_mirror_country }}" }
+  become: yes
   tags: ['reflector']
 
-- name: use reflector to obtain fastest mirrors
-  command: reflector --country "{{ pacman_mirror_country }}" -l 200 -p https --sort rate --save /etc/pacman.d/mirrorlist
-  # last day
-  when: pacman_mirror_country is defined and pacman_mirrorlist.stat.mtime < ansible_date_time.epoch|int - (60 * 60 * 24)
+- name: enable and reflector timer
+  service:
+    name: reflector.timer
+    state: started
+    enabled: yes
   become: yes
   tags: ['reflector']
 

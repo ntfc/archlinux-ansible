@@ -1,9 +1,6 @@
 ---
 # Default values used for pacman configuration
 
-# OPTIONAL: Prefered country to which use Archlinux mirrors. Will install `reflector` if defined
-pacman_mirror_country: Germany
-
 # list of pacman packages nice to have installed and don't require installation
 pacman_base_packages:
   - base-devel # compile stuff
