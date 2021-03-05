@@ -1,0 +1,23 @@
+{{ ansible_managed|comment }}
+
+# from https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card
+# set intel card to device 0
+options snd_hda_intel index=0
+
+# You can also provide an index of -2 to instruct ALSA to never use a card as
+# the primary one. Distributions such as Linux Mint and Ubuntu use the
+# following settings to avoid USB and other "abnormal" drivers from getting
+# index 0: 
+options bt87x index=-2
+options cx88_alsa index=-2
+options saa7134-alsa index=-2
+options snd-atiixp-modem index=-2
+options snd-intel8x0m index=-2
+options snd-via82xx-modem index=-2
+options snd-usb-caiaq index=-2
+options snd-usb-ua101 index=-2
+options snd-usb-us122l index=-2
+options snd-usb-usx2y index=-2
+options snd-pcsp index=-2
+options snd-usb-audio index=-2
+

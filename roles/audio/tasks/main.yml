@@ -28,6 +28,14 @@
     mode: 0644
   become: yes
 
+- name: set the default sound cards order
+  template:
+    src: default-sound-card.conf.j2
+    dest: /etc/modprobe.d/alsa-base.conf
+    mode: 0644
+  become: yes
+  when: audio_alsa_conf|default(False)
+
   # I am not sure this is needed
 - name: configure libao
   copy:
