@@ -17,7 +17,28 @@
     allow_no_value: yes
     state: present
   become: yes
-  tags: ['temp']
+
+- name: enable parallel compilation
+  ini_file:
+    path: /etc/makepkg.conf
+    section: null
+    option: "MAKEFLAGS"
+    value: "-j$(nproc)"
+    no_extra_spaces: yes
+    state: present
+  become: yes
+  when: pacman_parallel_compilation|default(False)
+
+- name: enable parallel compression
+  ini_file:
+    path: /etc/makepkg.conf
+    section: null
+    option: "COMPRESSXZ"
+    value: "(xz -c -z - --threads=0)"
+    no_extra_spaces: yes
+    state: present
+  become: yes
+  when: pacman_parallel_compression|default(False)
 
 - name: run pacman update and upgrade
   pacman: update_cache=yes upgrade=yes

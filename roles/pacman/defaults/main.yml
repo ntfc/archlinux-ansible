@@ -5,6 +5,12 @@
 pacman_base_packages:
   - base-devel # compile stuff
 
+# use multiple cores with makepkg
+# https://wiki.archlinux.org/index.php/Makepkg#Parallel_compilation
+pacman_parallel_compilation: True
+# https://wiki.archlinux.org/index.php/Makepkg#Utilizing_multiple_cores_on_compression
+pacman_parallel_compression: True
+
 # the AUR helper
 aur_helper: yay
 # user to be used for ansible AUR installations

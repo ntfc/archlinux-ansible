@@ -15,6 +15,7 @@
   become: yes
   become_user: "{{ aur_user }}"
   register: aur_informant
+  tags: ['informant']
 
 - name: add user to 'informant' group
   user:
@@ -22,11 +23,13 @@
     groups: informant
     append: yes
   become: yes
+  tags: ['informant']
 
 - name: check if there are unread announcements
   command: informant check
   register: informant_output
   ignore_errors: yes
+  tags: ['informant']
 
 - name: read all informant announcements
   command: "informant read --all"
@@ -34,3 +37,4 @@
   when:
     - informant_output.rc|int > 0
     - aur_informant.changed
+  tags: ['informant']
