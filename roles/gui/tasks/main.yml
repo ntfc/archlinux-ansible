@@ -52,6 +52,10 @@
   when: gui_wm_default == 'openbox'
   tags: ['wm', 'openbox']
 
+- include: i3.yml
+  when: gui_wm_default == 'i3'
+  tags: ['wm', 'i3']
+
 - name: install rofi
   pacman:
     name: rofi
@@ -95,3 +99,29 @@
   command: "stow -d {{ user_dotfiles_path }} -t ~ redshift"
   become: yes
   become_user: "{{ user_name }}"
+
+- name: check if nm-applet xdg autostart exists
+  stat:
+    path: /etc/xdg/autostart/nm-applet.desktop
+  register: nm_applet_desktop
+  tags: ['nm-applet', 'startup']
+
+- name: copy nm-applet xdg autostart to user config
+  shell: "mkdir -p /home/{{ user_name }}/.config/autostart && cp /etc/xdg/autostart/nm-applet.desktop /home/{{ user_name }}/.config/autostart/"
+  become: yes
+  become_user: "{{ user_name }}"
+  when: nm_applet_desktop.stat.exists
+  tags: ['nm-applet', 'startup']
+
+- name: hide the nm-applet autostart for the user
+  ini_file:
+    path: "/home/{{ user_name }}/.config/autostart/nm-applet.desktop"
+    section: "Desktop Entry"
+    option: "Hidden"
+    value: "true"
+    state: present
+  become: yes
+  become_user: "{{ user_name }}"
+  when: nm_applet_desktop.stat.exists
+  tags: ['nm-applet', 'startup']
+

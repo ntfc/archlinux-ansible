@@ -4,7 +4,7 @@ gui_required:
   - user_dotfiles_url is defined
   - user_dotfiles_path is defined
   - xorg_packages is defined and xorg_packages|length > 0
-  - gui_wm_default is defined and gui_wm_default in ['openbox']
+  - gui_wm_default is defined and gui_wm_default in ['openbox', 'i3']
 
 xorg_packages:
   - arandr # manage screens
@@ -50,6 +50,13 @@ gui_openbox_packages:
   - xfce4-settings
   - xfce4-screenshooter
   - xfce4-terminal
+gui_i3_packages:
+  - i3-wm
+  - i3status-rust
+gui_i3_packages_aur: []
+gui_openbox_aur:
+  - obkey
+  # - xbindkeys # deprecated; used obkeys instead
 gui_font_packages:
   - adobe-source-code-pro-fonts
   - noto-fonts
@@ -60,6 +67,3 @@ gui_font_packages:
   - ttf-inconsolata
   - ttf-liberation
   - ttf-linux-libertine
-gui_openbox_aur:
-  - obkey
-  # - xbindkeys # deprecated; used obkeys instead

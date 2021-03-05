@@ -1,0 +1,7 @@
+---
+- name: install i3
+  pacman:
+    name: "{{ gui_i3_packages }}"
+    state: present
+  become: yes
+
