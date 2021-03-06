@@ -1,7 +1,11 @@
 ---
 user_name: "{{ vault_user_name }}"
+user_dotfiles_url: "https://gitlab.com/ntfc/dotfiles.git"
 
 git_email: "{{ vault_git_email }}"
+
+gui_wm_default: "{{ vault_gui_wm_default }}"
+gui_i3_config: "{{ vault_gui_i3_config }}"
 
 openssh_client: "{{ vault_openssh_client }}"
 openssh_hosts: "{{ vault_openssh_hosts }}"
