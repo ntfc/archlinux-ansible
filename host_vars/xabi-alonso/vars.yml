@@ -13,6 +13,11 @@ bluetooth_install: "{{ vault_bluetooth_install }}"
 # whether the bluetooth service should be started and enabled
 bluetooth_enabled: "{{ vault_bluetooth_enabled }}"
 
+gui_wm_default: "{{ vault_gui_wm_default }}"
+gui_i3_config: "{{ vault_gui_i3_config }}"
+
+audio_alsa_conf: "{{ vault_audio_alsa_conf }}"
+
 git_email: "{{ vault_git_email }}"
 git_gpg_sign_key: "{{ vault_git_gpg_sign_key }}"
 
