@@ -28,6 +28,7 @@
   become: yes
   become_user: "{{ user_name }}"
   when: '"zsh" in cli_shell_packages'
+  tags: ['zsh']
 
 # should install and configure/stow terminal emulators
 - include: terminal.yml
