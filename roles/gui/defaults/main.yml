@@ -72,3 +72,5 @@ gui_font_packages:
   - ttf-inconsolata
   - ttf-liberation
   - ttf-linux-libertine
+gui_font_packages_aur:
+  - otf-powerline-symbols-git

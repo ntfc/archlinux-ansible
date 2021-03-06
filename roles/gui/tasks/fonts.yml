@@ -3,3 +3,10 @@
     name: "{{ gui_font_packages }}"
     state: present
   become: yes
+
+- name: install fonts (AUR)
+  aur:
+    use: "{{ aur_helper }}"
+    name: "{{ gui_font_packages_aur }}"
+  become: yes
+  become_user: "{{ aur_user }}"
