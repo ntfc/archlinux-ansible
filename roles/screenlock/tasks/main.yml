@@ -4,5 +4,14 @@
     name:
       - slock
       - xss-lock
+      - i3lock
     state: present
   become: yes
+
+- name: install xidlehook
+  aur:
+    name:
+      - xidlehook
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"
