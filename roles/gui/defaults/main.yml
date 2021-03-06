@@ -5,6 +5,7 @@ gui_required:
   - user_dotfiles_path is defined
   - xorg_packages is defined and xorg_packages|length > 0
   - gui_wm_default is defined and gui_wm_default in ['openbox', 'i3']
+  - gui_wm_default != 'i3' or (gui_wm_default == 'i3' and gui_i3_config is defined)
 
 xorg_packages:
   - arandr # manage screens
@@ -52,6 +53,7 @@ gui_openbox_packages:
   - xfce4-terminal
 gui_i3_packages:
   - i3-wm
+  - i3lock
   - i3status-rust
 gui_i3_packages_aur: []
 gui_openbox_aur:
@@ -59,11 +61,13 @@ gui_openbox_aur:
   # - xbindkeys # deprecated; used obkeys instead
 gui_font_packages:
   - adobe-source-code-pro-fonts
+  - otf-font-awesome
   - noto-fonts
   - noto-fonts-emoji
   - terminus-font
   - ttf-dejavu
   - ttf-droid
+  - ttf-font-awesome
   - ttf-inconsolata
   - ttf-liberation
   - ttf-linux-libertine
