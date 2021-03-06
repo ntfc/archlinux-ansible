@@ -37,6 +37,7 @@ gui_common_packages:
   - tumbler
   - xbindkeys # manage keyboard shortcuts
 gui_common_packages_aur:
+  - mons # manage displays
   - qt5-styleplugins # QGtkStyle has been removed from qt5-base 5.7.0 and added to qt5-styleplugins
   - gnome-colors-icon-theme
 gui_openbox_packages:
