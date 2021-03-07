@@ -25,6 +25,7 @@ gui_common_packages:
   - gnome-icon-theme-symbolic # contains symbolic icons for the default GNOME icon theme
   - gnome-themes-extra
   - gparted
+  - gsimplecal # simple GTK calendar
   - hicolor-icon-theme # recommended to install the hicolor-icon-theme package as many programs will deposit their icons in /usr/share/icons/hicolor
   - mousepad # basic text editor
   - numlockx
