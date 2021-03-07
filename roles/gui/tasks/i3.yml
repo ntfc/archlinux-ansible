@@ -5,8 +5,8 @@
     state: present
   become: yes
 
-- name: stow i3 for {{ gui_i3_config }}
-  command: "stow --verbose 1 --dir {{ user_dotfiles_path }}/i3-{{ gui_i3_config }} --target ~ i3"
+- name: stow i3
+  command: "stow --verbose 1 --dir {{ user_dotfiles_path }} --target ~ i3"
   become: yes
   become_user: "{{ user_name }}"
   register: i3_stow

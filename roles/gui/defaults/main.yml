@@ -5,7 +5,6 @@ gui_required:
   - user_dotfiles_path is defined
   - xorg_packages is defined and xorg_packages|length > 0
   - gui_wm_default is defined and gui_wm_default in ['openbox', 'i3']
-  - gui_wm_default != 'i3' or (gui_wm_default == 'i3' and gui_i3_config is defined)
 
 xorg_packages:
   - arandr # manage screens

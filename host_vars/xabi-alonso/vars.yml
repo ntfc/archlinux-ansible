@@ -14,7 +14,6 @@ bluetooth_install: "{{ vault_bluetooth_install }}"
 bluetooth_enabled: "{{ vault_bluetooth_enabled }}"
 
 gui_wm_default: "{{ vault_gui_wm_default }}"
-gui_i3_config: "{{ vault_gui_i3_config }}"
 
 audio_alsa_conf: "{{ vault_audio_alsa_conf }}"
 
