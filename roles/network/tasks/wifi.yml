@@ -1,0 +1,26 @@
+---
+# Fix wifi connectivity issues that might happen with certain routers
+#
+# The issue is that sometimes there are connection drop for 1-2 minutes and the
+# following can be seen in the kernel logs:
+# ```
+# iwlwifi 0000:00:14.3: reached 10 old SN frames from aa:ff:19:60:5c:d7 on queue 4, stopping BA session on TID 0
+# ```
+# Upon investigation (from below references) it seems that iwlwifi's
+# 11n_disable option should be set to a different value.
+#
+# References:
+#   * https://bugs.funtoo.org/browse/FL-7395
+#   * https://bbs.archlinux.org/viewtopic.php?id=182265
+#   * https://askubuntu.com/questions/1099671/what-is-options-iwlwifi-11n-disable-1-in-wifi-setting
+#   * https://bugzilla.redhat.com/show_bug.cgi?id=805285
+
+# The issue aboce can be fixed at connection time by unloading and loading the
+# iwlwifi kernel module with an overwritten value for 11n_disable.
+#
+# https://blog.kamens.us/2019/08/03/mitigating-wifi-upload-speed-issues-on-lenovo-ideapad-s340-running-linux/
+# has a nice script that can be hooked to NetworkManager dependending on which WiFi network we connect to.
+#
+# This ansible task will use that as a basis and adapt to certain networks.
+# There is also a equivalent for netctl.
+
