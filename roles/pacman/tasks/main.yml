@@ -59,7 +59,7 @@
     state: present
   loop:
     - { option: "--protocol", value: "https" }
-    - { option: "--sort", value: "age" }
+    - { option: "--sort", value: "rate" }
     - { option: "--latest", value: "5" }
     - { option: "--country", value: "{{ pacman_mirror_country }}" }
   become: yes
