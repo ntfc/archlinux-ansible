@@ -1,0 +1,40 @@
+---
+- name: install connman
+  pacman:
+    name:
+      - connman
+      - cmst # qt GUI
+    state: present
+  become: yes
+
+- name: configure connman
+  ini_file:
+    path: /etc/connman/main.conf
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    state: present
+  loop: "{{ network_connman_config }}"
+  become: yes
+  when: network_connman_config|default([])|length > 0
+
+# don't start the service to not break currently open connection
+- name: enable connman service
+  service:
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+  when: network_default_manager == 'connman'
+  loop:
+    - { name: connman, enabled: yes }
+    - { name: wpa_supplicant, enabled: no }
+  become: yes
+
+- name: disable connman service
+  service:
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+  when: network_default_manager != 'connman'
+  loop:
+    - { name: connman, enabled: no }
+    - { name: wpa_supplicant, enabled: yes }
+  become: yes
