@@ -20,9 +20,15 @@
   become_user: "{{ aur_user }}"
   when: network_aur_packages is defined
 
+- include: connman.yml
+  when: network_connman_install
+  tags: ['connman']
+
 - include: netctl.yml
   when: network_netctl_install
+  tags: ['netctl']
 
 - include: networkmanager.yml
   when: network_networkmanager_install
+  tags: ['networkmanager']
 

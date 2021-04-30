@@ -2,11 +2,13 @@
 network_required:
   - network_base_packages|length > 0
   # valid choices for network_default_manager
-  - network_default_manager is defined and network_default_manager in ['netctl', 'networkmanager']
+  - network_default_manager is defined and network_default_manager in ['netctl', 'networkmanager', 'connman']
   # if default manager is 'netctl', then it must be set to be installed
   - (network_default_manager != 'netctl') or (network_default_manager == 'netctl' and network_netctl_install)
-  # if default manager is 'connman', then it must be set to be installed
+  # if default manager is 'networkmanager', then it must be set to be installed
   - (network_default_manager != 'networkmanager') or (network_default_manager == 'networkmanager' and network_networkmanager_install)
+  # if default manager is 'connman', then it must be set to be installed
+  - (network_default_manager != 'connman') or (network_default_manager == 'connman' and network_connman_install)
 
 network_base_packages:
   - curl
@@ -21,12 +23,13 @@ network_base_packages:
   - speedtest-cli
   - wget
   - whois
-  - wpa_supplicant
+  - wpa_supplicant # wifi
 
 network_aur_packages:
   - openvpn-update-resolv-conf-git # for some openvpn connections
 
 # valid options are:
+# - connman
 # - netctl
 # - networkmanager
 network_default_manager: netctl 
@@ -34,3 +37,23 @@ network_default_manager: netctl
 network_netctl_install: true
 
 network_networkmanager_install: true
+
+network_connman_install: true
+
+network_connman_config:
+  # https://wiki.archlinux.org/index.php/ConnMan#Avoid_changing_the_hostname
+  - option: AllowHostnameUpdates
+    section: General
+    value: "false" # must be string
+  # https://wiki.archlinux.org/index.php/ConnMan#Prefer_ethernet_to_wireless
+  - option: PreferredTechnologies
+    section: General
+    value: "ethernet,wifi"
+  # https://wiki.archlinux.org/index.php/ConnMan#Exclusive_connection
+  - option: SingleConnectedTechnology
+    section: General
+    value: "false" # must be string
+  # https://wiki.archlinux.org/index.php/ConnMan#Blacklist_interfaces
+  - option: NetworkInterfaceBlacklist
+    section: General
+    value: "vmnet,vboxnet,virbr,ifb,docker,veth"

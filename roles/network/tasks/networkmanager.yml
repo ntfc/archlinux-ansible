@@ -16,3 +16,10 @@
     enabled: yes
   when: network_default_manager == 'networkmanager'
   become: yes
+
+- name: disable NetworkManager service
+  service:
+    name: NetworkManager
+    enabled: no
+  when: network_default_manager != 'networkmanager'
+  become: yes
