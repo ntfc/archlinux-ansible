@@ -8,10 +8,12 @@
   shell: filefrag -v {{ power_swap_file_path }} | awk '{ if($1=="0:"){print $4} }' | sed 's/\.//g'
   become: yes
   register: swap_file_offset
+  tags: ['swap']
 
 - name: find device to resume to
   command: findmnt -no SOURCE -T {{ power_swap_file_path }}
   register: resume_device
+  tags: ['swap']
 
   # todo: update kernel params using efibootmgr or some other method
   # # Command used to create the EFI entry for EFISTUB:
