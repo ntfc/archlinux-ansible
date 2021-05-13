@@ -1,3 +1,7 @@
+# installed via ansible-galaxy install
+roles/kewlfft.aur
+roles/ntfc.backup
+
 # Vagrant
 .vagrant/
 # the vault key file
