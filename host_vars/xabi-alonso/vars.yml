@@ -31,3 +31,6 @@ agenda_khard_enabled: "{{ vault_agenda_khard_enabled }}"
 agenda_vdirsyncer_contact_books: "{{ vault_agenda_vdirsyncer_contact_books }}"
 
 cups_drivers_aur: "{{ vault_cups_drivers_aur }}"
+
+backup_client_enabled: "{{ vault_backup_client_enabled }}"
+backup_client_repositories: "{{ vault_backup_client_repositories }}"
