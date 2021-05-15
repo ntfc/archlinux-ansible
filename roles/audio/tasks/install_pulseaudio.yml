@@ -1,0 +1,39 @@
+---
+- name: ensure pipewire is removed
+  pacman:
+    name:
+      - pipewire-jack
+      - pipewire-pulse
+      - pipewire # must be last
+    state: absent
+  become: yes
+
+- name: install pulseaudio
+  pacman:
+    name:
+      - alsa-utils
+      - paprefs
+      - pamixer # more friendly cli tool
+      - pavucontrol
+      - pulseaudio
+      - pulseaudio-alsa
+      #- pulseeffects # pulseeffects-legacy from AUR must be used
+    state: present
+  become: yes
+
+- name: install 32bit libs
+  pacman:
+    name:
+      - lib32-alsa-plugins
+      - lib32-libpulse
+    state: present
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'
+
+- name: install pulseaudio modules
+  aur:
+    name:
+      - pulseaudio-modules-bt
+    use: "{{ aur_helper }}"
+  become: yes
+  become_user: "{{ aur_user }}"

@@ -1,3 +1,4 @@
 ---
+audio_use_pipewire: False
 audio_sof_enabled: False
 audio_sof_blacklist_modules: []

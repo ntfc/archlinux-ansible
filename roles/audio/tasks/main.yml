@@ -1,25 +1,11 @@
 ---
-- name: install pulseaudio
-  pacman:
-    name:
-      - alsa-utils
-      - paprefs
-      - pamixer # more friendly cli tool
-      - pavucontrol
-      - pulseaudio
-      - pulseaudio-alsa
-      - pulseeffects
-    state: present
-  become: yes
+- include: install_pipewire.yml
+  when: audio_use_pipewire|default(False)
+  tags: ['pipewire']
 
-- name: install 32bit libs
-  pacman:
-    name:
-      - lib32-alsa-plugins
-      - lib32-libpulse
-    state: present
-  become: yes
-  when: ansible_facts['architecture'] == 'x86_64'
+- include: install_pulseaudio.yml
+  when: not audio_use_pipewire|default(False)
+  tags: ['pulseaudio']
 
 - name: blacklist oss
   copy:

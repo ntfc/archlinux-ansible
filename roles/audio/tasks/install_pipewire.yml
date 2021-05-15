@@ -1,0 +1,56 @@
+---
+- name: ensure pulseaudio modules are removed
+  pacman:
+    name:
+      - pulseaudio-modules-bt
+    state: absent
+  become: yes
+
+- name: ensure pulseaudio 32bit libs are removed
+  pacman:
+    name:
+      - lib32-libpulse
+    state: absent
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'
+
+- name: ensure pulseadio is removed
+  pacman:
+    name:
+      - paprefs
+      - pulseaudio-alsa
+      - pulseaudio-modules-bt
+      - pulseaudio # must be last
+    state: absent
+  become: yes
+
+- name: install pipewire
+  pacman:
+    name:
+      - pipewire
+      - pipewire-jack
+      - pipewire-pulse # this will deal with bluetooth
+      - pulseeffects
+    state: present
+  become: yes
+
+- name: install 32bit libs
+  pacman:
+    name:
+      - lib32-alsa-plugins # # needed for e.g steam
+    state: present
+  become: yes
+  when: ansible_facts['architecture'] == 'x86_64'
+
+- name: enable and start pipewire services
+  systemd:
+    name: "{{ item }}"
+    scope: user
+    state: started
+    enabled: yes
+  loop:
+    - pipewire
+    - pipewire-pulse
+    - pipewire-media-session
+  become:
+  become_user: "{{ user_name }}"
