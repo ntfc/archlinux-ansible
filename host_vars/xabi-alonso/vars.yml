@@ -16,6 +16,7 @@ bluetooth_enabled: "{{ vault_bluetooth_enabled }}"
 gui_wm_default: "{{ vault_gui_wm_default }}"
 
 audio_alsa_conf: "{{ vault_audio_alsa_conf }}"
+audio_use_pipewire: "{{ vault_audio_use_pipewire }}"
 
 git_email: "{{ vault_git_email }}"
 git_gpg_sign_key: "{{ vault_git_gpg_sign_key }}"
